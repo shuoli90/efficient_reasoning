@@ -37,7 +37,7 @@ if __name__ == "__main__":
         max_tokens=1024,
         temperature=0.7,
         top_p=0.95,
-        n=2,
+        n=16,
     )
     
     model_name = args.model.split("/")[-1]
@@ -47,8 +47,6 @@ if __name__ == "__main__":
     benchmark = "MATH-500"
     games = []
     for i, problem in tqdm(enumerate(datapoints), total=len(datapoints)):
-        if i >= 2:
-            break
         target = problem["answer"]
         demonstration_steps = [problem['problem']] + problem["solution"].split(".")
         demonstration_tokens = []

@@ -17,17 +17,23 @@ class Vine(Node):
         self.roll_out()
         
     def roll_out(self):
+        if self.curr_step_index == 0:
+            self.prefix = self.demonstration_steps[0]
+        else:
+            self.prefix = self.demonstration_steps[0] + " " + ".".join(self.demonstration_steps[1:self.curr_step_index+1]) + "."
         
         # generate responses
         self.responses = self.llm.generate(
-            "".join(self.demonstration_steps[:self.curr_step_index+1]),
+            self.prefix,
             sampling_params=self.sampling_params,
+            use_tqdm=False,
         )
         
         self.responses = [response.text for response in self.responses[0].outputs]
         
         # evaluate the responses
         rewards = evaluate(self.benchmark, self.responses, [self.target]*len(self.responses))
+        self.rewards = rewards
         
         # compute average reward (Q-value)
         self.q_value = np.mean(rewards)

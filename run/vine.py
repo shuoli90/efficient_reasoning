@@ -50,14 +50,18 @@ if __name__ == "__main__":
         target = problem["answer"]
         demonstration_steps = [problem['problem']] + problem["solution"].strip().split(".")[:-1]
         demonstration_tokens = []
-        for step in demonstration_steps:
-            demonstration_tokens.extend(tokenizer.encode(step))
+        for idx, step in enumerate(demonstration_steps):
+            if idx == 0:
+                demonstration_tokens.append(tokenizer.encode(step + ' '))
+            else:
+                demonstration_tokens.append(tokenizer.encode(step + "."))
         curr_step_index = 0
         # initialize the record
         game = {}
         game['problem'] = problem
         game['index'] = i
         game['demonstration_steps'] = demonstration_steps
+        game['demonstration_tokens'] = demonstration_tokens
         game['advantage'] = []
         game['q_value'] = []
         game['value'] = []

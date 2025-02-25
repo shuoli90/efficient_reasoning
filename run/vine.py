@@ -1,3 +1,4 @@
+import os
 from transformers import AutoTokenizer
 import json
 import argparse
@@ -5,6 +6,14 @@ from efficient_reasoning.games import Vine
 from vllm import LLM, SamplingParams
 from tqdm import tqdm
 
+def save_games(games, model_name, dataset):
+    if not os.path.exists(f'../collected/{model_name}_{dataset}'):
+        os.makedirs(f'../collected/{model_name}_{dataset}')
+        
+    with open(f'../collected/{model_name}_{dataset}/{model_name}_{dataset}.jsonl', 'a') as f:
+        for game in games:
+            json.dump(game, f)
+            f.write('\n')
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -38,12 +47,15 @@ if __name__ == "__main__":
     benchmark = "MATH-500"
     games = []
     for i, problem in tqdm(enumerate(datapoints), total=len(datapoints)):
+        if i >= 2:
+            break
         target = problem["answer"]
         demonstration_steps = [problem['problem']] + problem["solution"].split(".")
         demonstration_tokens = []
         for step in demonstration_steps:
             demonstration_tokens.extend(tokenizer.encode(step))
         curr_step_index = 0
+        # initialize the record
         game = {}
         game['problem'] = problem
         game['index'] = i
@@ -68,13 +80,16 @@ if __name__ == "__main__":
             game['value'].append(vinegame.value)
             curr_step_index += 1
             
+            # if the game is over, break
             if curr_step_index == len(demonstration_steps):
                 break
             else:
+                # otherwise, rollout the game
                 vinegame = vinegame.find_children()[0]
-        breakpoint()
-            
+        games.append(game)
 
+        if i % 10 == 0:
+            save_games(games, model_name, args.dataset)
+            games = []
     
-    
-    
+    save_games(games, model_name, args.dataset)

@@ -3,6 +3,10 @@ from .math_eval import (
     remove_boxed,
     is_equiv,
     AutoScoringJudge,
+    evaluate,
+    extract_final_answer,
+    compute_accuracy,
+    Benchmark,
 )
 
 __all__ = [
@@ -10,4 +14,8 @@ __all__ = [
     "remove_boxed",
     "is_equiv",
     "AutoScoringJudge",
+    "evaluate",
+    "extract_final_answer",
+    "compute_accuracy",
+    "Benchmark",
 ]

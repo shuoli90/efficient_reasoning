@@ -11,8 +11,9 @@ import re
 import sympy as sp  # type: ignore
 from sympy import simplify, Eq, sympify, Pow  # type: ignore
 from sympy.parsing.latex import parse_latex  # type: ignore
+from typing import TypeAlias, Literal, List, Tuple
 
-
+Benchmark: TypeAlias = Literal["AIME_2024", "MATH-500", "OlympiadBench-674-MATH_TO_EN"]
 # =============================================================================
 # adapted `last_boxed_only_string` and `remove_boxed` functions from MATH
 # =============================================================================
@@ -578,6 +579,91 @@ class AutoScoringJudge:
                 return False
         else:
             return True  # Not a power expression, can compute
+        
+def extract_final_answer(response_text_list: List[str], verbose: bool = False) -> Tuple[List[str], List[str]]:
+    # # get the last 4 lines of the response text
+    last_four_lines_list = []
+    for response_text in response_text_list:
+        response_text = response_text.strip()
+        last_four_lines = "".join(response_text.split("\n")[-4:])
+        last_four_lines_list.append(last_four_lines)
+
+    # returning `failed_last_line_list` for debugging purposes
+    final_answer_list = []
+    failed_list = []
+
+    for last_four_lines in last_four_lines_list:
+        # extract final answer with latex box: \boxed{}, \fbox{}, \framebox{}, \x08oxed{}
+        boxed_answer = last_boxed_only_string(last_four_lines)
+        # if no boxed answer is found, use an error message as the placeholder for the final answer
+        if not boxed_answer:
+            if verbose:
+                print(f"Error: no boxed answer found in the last four lines: {last_four_lines}")
+            final_answer_list.append("Error: no boxed answer found")
+            failed_list.append(last_four_lines)
+            continue
+        # if the boxed answer is found, remove the latex box
+        else:
+            final_answer = remove_boxed(boxed_answer)
+            final_answer_list.append(final_answer)
+
+    return final_answer_list, failed_list
+
+def compute_accuracy(
+    benchmark: Benchmark, ground_truth_list: List[str], final_answer_list: List[str], verbose: bool = False
+) -> List[bool]:
+    # check if the number of final answers and ground truths are equal
+    assert len(final_answer_list) == len(ground_truth_list), "The number of final answers and ground truths should be equal."
+
+    # initialize the scorer from OlympiadBench, it's almost compatible with the AIME_2024 and MATH benchmarks
+    # excpet for cases like \$18.90 and 18.90, which can be handled by `is_equiv` but not `AutoScoringJudge`
+    # in general, the `AutoScoringJudge` is more robust and can handle more cases, see test cases in `evaluation.py`
+    scorer = AutoScoringJudge()
+    accuracy_result_list = []
+
+    # use the corresponding accuracy metric for the benchmark
+    for index, line in enumerate(final_answer_list):
+        ground_truth = ground_truth_list[index]
+        final_answer = final_answer_list[index]
+
+        # if failed to extract the final answer, set the accuracy to False
+        if final_answer == "Error: no boxed answer found":
+            accuracy_result = False
+        # for AIME 2024, `AutoScoringJudge` is completely compatible
+        elif benchmark == "AIME_2024":
+            accuracy_result = scorer.judge(ground_truth, final_answer)
+        # for MATH, use both `is_equiv` and `AutoScoringJudge` for more robust equivalence checking
+        elif benchmark == "MATH-500":
+            accuracy_result = is_equiv(ground_truth, final_answer) or scorer.judge(ground_truth, final_answer)
+        # for OlympiadBench, use the native `AutoScoringJudge`
+        elif benchmark == "OlympiadBench-674-MATH_TO_EN":
+            ground_truth_answer, precision = ground_truth
+            if not precision:
+                accuracy_result = scorer.judge(ground_truth_answer, final_answer)
+            else:
+                accuracy_result = scorer.judge(ground_truth_answer, final_answer, precision=float(precision))
+        # other benchmarks are not supported
+        else:
+            raise ValueError(f"Benchmark: {benchmark} is not supported.")
+
+        # if `verbose` is set True, print the final answer and ground truth
+        if verbose:
+            print(f"Ground Truth: {ground_truth}, Final Answer: {final_answer}, Accuracy: {accuracy_result}")
+
+        accuracy_result_list.append(accuracy_result)
+
+    return accuracy_result_list
+
+
+def evaluate(benchmark, responses, ground_truth_list, verbose=False):
+
+    # construct the final answer list
+    final_answer_list, failed_list = extract_final_answer(responses, verbose)
+
+    # compute the accuracy result list
+    accuracy_result_list = compute_accuracy(benchmark, ground_truth_list, final_answer_list, verbose)
+    
+    return accuracy_result_list
 
 
 # EXAMPLE USAGE: python evaluation.py

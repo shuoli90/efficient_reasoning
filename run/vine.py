@@ -10,7 +10,7 @@ def save_games(games, model_name, dataset):
     if not os.path.exists(f'../collected/{model_name}_{dataset}'):
         os.makedirs(f'../collected/{model_name}_{dataset}')
         
-    with open(f'../collected/{model_name}_{dataset}/{model_name}_{dataset}.jsonl', 'a') as f:
+    with open(f'../collected/{model_name}_{dataset}/{model_name}_{dataset}.jsonl', 'w') as f:
         for game in games:
             json.dump(game, f)
             f.write('\n')
@@ -88,6 +88,5 @@ if __name__ == "__main__":
 
         if i % 10 == 0:
             save_games(games, model_name, args.dataset)
-            games = []
     
     save_games(games, model_name, args.dataset)

@@ -34,10 +34,10 @@ if __name__ == "__main__":
             tensor_parallel_size=4)
     
     sampling_params = SamplingParams(
-        max_tokens=1024,
+        max_tokens=512,
         temperature=0.7,
         top_p=0.95,
-        n=16,
+        n=8,
     )
     
     model_name = args.model.split("/")[-1]
@@ -48,7 +48,7 @@ if __name__ == "__main__":
     games = []
     for i, problem in tqdm(enumerate(datapoints), total=len(datapoints)):
         target = problem["answer"]
-        demonstration_steps = [problem['problem']] + problem["solution"].split(".")
+        demonstration_steps = [problem['problem']] + problem["solution"].strip().split(".")[:-1]
         demonstration_tokens = []
         for step in demonstration_steps:
             demonstration_tokens.extend(tokenizer.encode(step))

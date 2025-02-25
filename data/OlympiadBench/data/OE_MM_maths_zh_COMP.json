@@ -1,0 +1,900 @@
+[
+    {
+        "id": 53,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "在平面直角坐标系 $x O y$ 中, 曲线 $C_{1}: y^{2}=4 x$, 曲线 $C_{2}:(x-4)^{2}+y^{2}=8$. 经过 $C_{1}$上一点 $P$ 作一条倾斜角为 $45^{\\circ}$ 的直线 $l$, 与 $C_{2}$ 交于两个不同的点 $Q, R$, 求 $|P Q| \\cdot|P R|$的取值范围.\n\n<img_4163>",
+        "solution": [
+            "设 $P\\left(4 t^{2}, 4 t\\right)$, 则直线\n\n$$\nl: x-y-4 t^{2}+4 t=0\n$$\n\n该直线与圆相交, 因此\n\n$$\n\\frac{\\left|4-4 t^{2}+4 t\\right|}{\\sqrt{2}}<2 \\sqrt{2}\n$$\n\n即\n\n$$\n-1<t^{2}-t-1<1\n$$\n\n\n\n解得 $t$ 的取值范围是 $(-1,0) \\cup(1,2)$.\n\n联立曲线 $C_{1}, C_{2}$ 的方程可得\n\n$$\nx^{2}-4 x+8=0\n$$\n\n于是 $C_{1}$ 与 $C_{2}$ 没有公共点. 因此有\n\n$$\n|P Q| \\cdot|P R|=\\overrightarrow{P Q} \\cdot \\overrightarrow{P R}\n$$\n\n根据圆幂定理, 有\n\n$$\n\\begin{aligned}\n\\overrightarrow{P Q} \\cdot \\overrightarrow{P R} & =P M^{2}-8 \\\\\n& =\\left(4 t^{2}-4\\right)^{2}+(4 t)^{2}-8 \\\\\n& =16 t^{4}-16 t^{2}+8 \\\\\n& =16\\left(t^{2}-\\frac{1}{2}\\right)^{2}+4,\n\\end{aligned}\n$$"
+        ],
+        "final_answer": [
+            "$[4,8) \\cup(8,200)$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Interval",
+        "error": null
+    },
+    {
+        "id": 60,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图所示, 在平面直角坐标系 $x O y$ 中, $F$ 是 $x$ 轴正半轴上的一个动点, 以 $F$ 为焦点、 $O$ 为顶点作抛物线 $C$, 设 $P$ 是第一象限内 $C$ 上的一点, $Q$ 是 $x$ 轴负半轴上一点, 使得 $P Q$ 为 $C$ 的切线, 且 $|P Q|=2$, 圆 $C_{1}, C_{2}$ 均与直线 $O P$ 相切于点 $P$, 且均与 $x$ 轴相切, 求点 $F$ 的坐标, 使圆 $C_{1}$ 与 $C_{2}$ 的面积之和取到最小值.\n\n<img_4130>",
+        "solution": [
+            "如下图, 设抛物线方程为 $C: y^{2}=2 p x$, 焦点 $F\\left(\\frac{p}{2}, 0\\right)$, 连接 $C_{1} C_{2}, P F$.\n\n\n\n<img_4131>\n\n设 $P\\left(2 p a^{2}, 2 p a\\right)$, 则根据抛物线的光学性质, $|F Q|=|P F|$, 于是 $Q\\left(-2 p a^{2}, 0\\right)$, 进而由 $|P Q|=2$, 可得\n\n$$\n4 p^{2} a^{4}+p^{2} a^{2}=1,\n$$\n\n即\n\n$$\np^{2} a^{2}=\\frac{1}{4 a^{2}+1}\n$$\n\n圆心 $C_{1}, C_{2}$ 都在过点 $P$ 且与 $O P$ 垂直的直线 $l$ 上, 设直线 $l$ 的参数方程为\n\n$$\n\\left\\{\\begin{array}{l}\nx=2 p a^{2}+t \\\\\ny=2 p a-a t\n\\end{array}\\right.\n$$\n\n根据题意, $C_{1}, C_{2}$ 对应的参数满足\n\n$$\n\\sqrt{1+a^{2}} \\cdot|t|=2 p a-a t\n$$\n\n即\n\n$$\nt^{2}+4 p a^{2} t-4 p^{2} a^{2}=0\n$$\n\n因此圆 $C_{1}$ 的面积 $S_{1}$ 与圆 $C_{2}$ 的面积 $S_{2}$ 之和\n\n$$\n\\begin{aligned}\nS_{1}+S_{2} & =\\pi\\left[\\left(1+a^{2}\\right) t_{1}^{2}+\\left(1+a^{2}\\right) t_{2}^{2}\\right] \\\\\n& =\\pi\\left(1+a^{2}\\right)\\left[\\left(-4 p a^{2}\\right)^{2}+2 \\cdot 4 p^{2} a^{2}\\right] \\\\\n& =\\pi\\left(1+a^{2}\\right)\\left(16 a^{2}+8\\right) \\cdot p^{2} a^{2} \\\\\n& =\\frac{\\pi\\left(16 a^{4}+24 a^{2}+8\\right)}{4 a^{2}+1} \\\\\n& =\\pi\\left(4 a^{2}+1+\\frac{3}{4 a^{2}+1}+4\\right) \\\\\n& \\geqslant \\pi(4+2 \\sqrt{3})\n\\end{aligned}\n$$\n\n\n\n等号当 $4 a^{2}+1=\\sqrt{3}$, 即 $a^{2}=\\frac{\\sqrt{3}-1}{4}$ 时取得. 此时\n\n$$\np^{2}=\\frac{1}{a^{2}\\left(4 a^{2}+1\\right)}=\\frac{4}{(\\sqrt{3}-1) \\cdot \\sqrt{3}}\n$$\n\n于是 $F$ 点的坐标为 $\\left(\\frac{1}{\\sqrt{3-\\sqrt{3}}}, 0\\right)$."
+        ],
+        "final_answer": [
+            "$\\left(\\frac{1}{\\sqrt{3-\\sqrt{3}}}, 0\\right)$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Tuple",
+        "error": null
+    },
+    {
+        "id": 73,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "平面直角坐标系中 $x O y$ 中, $P$ 是不在 $x$ 轴上的一个动点, 过 $P$ 作抛物线 $y^{2}=4 x$ 的两条切线, 切点设为 $A, B$, 且直线 $P O \\perp A B$ 于 $Q, R$ 为直线 $A B$ 与 $x$ 轴的交点.\n\n<img_4085>\n求 $\\frac{P Q}{Q R}$ 的最小值.",
+        "solution": [
+            "设直线 $A B$ 的倾斜角为 $\\theta$, 根据对称性, 不妨设 $\\theta$ 为锐角. 过 $P$ 作 $x$ 轴的垂线, 设垂足为 $H$, 则 $\\triangle O P H$ 与 $\\triangle O R Q$ 相似, 于是\n\n$$\n\\frac{P Q}{Q R}=\\frac{P O+O Q}{Q R}=\\frac{\\frac{2}{\\sin \\theta}+2 \\sin \\theta}{2 \\cos \\theta}=\\frac{3-\\cos 2 \\theta}{\\sin 2 \\theta}\n$$\n\n令右侧代数式为 $t$, 则\n\n$$\nt \\sin 2 \\theta+\\cos 2 \\theta=3\n$$\n\n于是\n\n$$\n\\sqrt{1+t^{2}} \\geqslant 3\n$$\n\n解得 $t \\geqslant 2 \\sqrt{2}$, 等号当 $\\theta=\\frac{1}{2} \\arctan 2 \\sqrt{2}$ 时取得. 因此所求的最小值为 $2 \\sqrt{2}$.\n所以最终答案是 $2 \\sqrt{2}$。"
+        ],
+        "final_answer": [
+            "$2 \\sqrt{2}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 102,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "作斜率为 $\\frac{1}{3}$ 的直线 $l$ 与椭圆 $C: \\frac{x^{2}}{36}+\\frac{y^{2}}{4}=1$ 交于 $A, B$ 两点 (如图所示), 且 $P(3 \\sqrt{2}, \\sqrt{2}$ )在直线 $l$ 的左上方.\n\n\n<img_4194>\n若 $\\triangle A P B=60^{\\circ}$, 求 $\\triangle P A B$ 的面积.",
+        "solution": [
+            "当 $\\angle A P B=60^{\\circ}$ 时, 结合 (1) 的结论可知 $k_{P A}=\\sqrt{3}, k_{P B}=-\\sqrt{3}$.\n\n直线 $P A$ 的方程为\n\n$$\ny-\\sqrt{2}=\\sqrt{3}(x-3 \\sqrt{2})\n$$\n\n代入 $\\frac{x^{2}}{36}+\\frac{y^{2}}{4}=1$ 中, 消去 $y$ 得\n\n$$\n14 x^{2}+9 \\sqrt{6}(1-3 \\sqrt{3}) x+18(13-3 \\sqrt{3})=0\n$$\n\n它的两根分别是 $x_{1}$ 和 $3 \\sqrt{2}$, 所以\n\n$$\nx_{1} \\cdot 3 \\sqrt{2}=\\frac{18(13-3 \\sqrt{3})}{14}\n$$\n\n即\n\n$$\nx_{1}=\\frac{3 \\sqrt{2}(13-3 \\sqrt{3})}{14}\n$$\n\n所以\n\n$$\n|P A|=\\sqrt{1+(\\sqrt{3})^{2}} \\cdot\\left|x_{1}-3 \\sqrt{2}\\right|=\\frac{3 \\sqrt{2}(3 \\sqrt{3}+1)}{7}\n$$\n\n同理可求得\n\n$$\n|P B|=\\frac{3 \\sqrt{2}(3 \\sqrt{3}-1)}{7}\n$$\n\n因此\n\n$$\n\\begin{aligned}\nS_{\\triangle P A B} & =\\frac{1}{2} \\cdot|P A| \\cdot|P B| \\cdot \\sin 60^{\\circ} \\\\\n& =\\frac{1}{2} \\cdot \\frac{3 \\sqrt{2}(3 \\sqrt{3}+1)}{7} \\cdot \\frac{3 \\sqrt{2}(3 \\sqrt{3}-1)}{7} \\cdot \\frac{\\sqrt{3}}{2} \\\\\n& =\\frac{117 \\sqrt{3}}{49} .\n\\end{aligned}\n$$"
+        ],
+        "final_answer": [
+            "$\\frac{117 \\sqrt{3}}{49}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 138,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, $P$ 是揁物线 $y^{2}=2 x$ 上的动点, 点 $B 、 C$ 在 $y$ 轴上, 圆 $(x-1)^{2}+y^{2}=1$ 内切于 $\\triangle P B C$,求 $\\triangle P B C$ 面积的最小值.\n\n<img_4206>",
+        "solution": [
+            "设 $P\\left(x_{0}, y_{0}\\right), B(0, b), C(0, c)$, 不妨设 $b>c$. 直线 $P B$ 的方程: $y-b=\\frac{y_{0}-b}{x_{0}} x$,化简得 $\\left(y_{0}-b\\right) x-x_{0} y+x_{0} b=0$. 又圆心 $(1,0)$ 到 $P B$ 的距离为 $1, \\frac{\\left|y_{0}-b+x_{0} b\\right|}{\\sqrt{\\left(y_{0}-b\\right)^{2}+x_{0}^{2}}}=1$, 故 $\\left(y_{0}-b\\right)^{2}+x_{0}^{2}=\\left(y_{0}-b\\right)^{2}+2 x_{0} b\\left(y_{0}-b\\right)+x_{0}^{2} b^{2}$ ，易 知 $x_{0}>2$ ，上式化简得 $\\left(x_{0}-2\\right) b^{2}+2 y_{0} b-x_{0}=0$, 同理有 $\\left(x_{0}-2\\right) c^{2}+2 y_{0} c-x_{0}=0$. 所以 $b+c=\\frac{-2 y_{0}}{x_{0}-2}, b c=\\frac{-x_{0}}{x_{0}-2}$,\n\n则 $(b-c)^{2}=\\frac{4 x_{0}^{2}+4 y_{0}^{2}-8 x_{0}}{\\left(x_{0}-2\\right)^{2}}$. 因 $P\\left(x_{0}, y_{0}\\right)$ 是拋物线上的点, 有 $y_{0}^{2}=2 x_{0}$, 则 $(b-c)^{2}=\\frac{4 x_{0}^{2}}{\\left(x_{0}-2\\right)^{2}}$, $b-c=\\frac{2 x_{0}}{x_{0}-2}$. 所以 $S_{\\triangle P B C}=\\frac{1}{2}(b-c) \\cdot x_{0}=\\frac{x_{0}}{x_{0}-2} \\cdot x_{0}=\\left(x_{0}-2\\right)+\\frac{4}{x_{0}-2}+4 \\geq 2 \\sqrt{4}+4=8$. 当 $\\left(x_{0}-2\\right)^{2}=4$ 时, 上式取等号, 此时 $x_{0}=4, y_{0}= \\pm 2 \\sqrt{2}$. 因此 $S_{\\triangle P B C}$ 的最小值为 8 ."
+        ],
+        "final_answer": [
+            "$8$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 140,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4151>\n\n如图, 给定凸四边形 $A B C D, \\angle B+\\angle D<180^{\\circ}, P$ 是平面上的动点, 令 $f(P)=P A \\cdot B C+P D \\cdot C A+P C \\cdot A B$.\n设 $E$ 是 $\\triangle A B C$ 外接圆 $O$ 的 $\\overparen{A B}$ 上一点, 满足: $\\frac{A E}{A B}=\\frac{\\sqrt{3}}{2}, \\frac{B C}{E C}=\\sqrt{3}-1$, $\\angle E C B=\\frac{1}{2} \\angle E C A$, 又 $D A, D C$ 是 $\\odot O$ 的切线, $A C=\\sqrt{2}$, 求 $f(P)$ 的最小值.",
+        "solution": [
+            "记 $\\angle E C B=\\alpha$, 则 $\\angle E C A=2 \\alpha$, 由正弦定理有 $\\frac{A E}{A B}=\\frac{\\sin 2 \\alpha}{\\sin 3 \\alpha}=\\frac{\\sqrt{3}}{2}$, 从而\n\n$\\sqrt{3} \\sin 3 \\alpha=2 \\sin 2 \\alpha$, 即 $\\sqrt{3}\\left(3 \\sin \\alpha-4 \\sin ^{3} \\alpha\\right)=4 \\sin \\alpha \\cos \\alpha$, 所以\n\n$3 \\sqrt{3}-4 \\sqrt{3}\\left(1-\\cos ^{2} \\alpha\\right)-4 \\cos \\alpha=0$, 整理得 $4 \\sqrt{3} \\cos ^{2} \\alpha-4 \\cos \\alpha-\\sqrt{3}=0$,\n\n解得 $\\cos \\alpha=\\frac{\\sqrt{3}}{2}$ 或 $\\cos \\alpha=-\\frac{1}{2 \\sqrt{3}}$ （舍去）, 故 $\\alpha=30^{\\circ}, \\angle A C E=60^{\\circ}$. 由已知 $\\frac{B C}{E C}=\\sqrt{3}-1=\\frac{\\sin \\left(\\angle E A C-30^{\\circ}\\right)}{\\sin \\angle E A C}$, 有 $\\sin \\left(\\angle E A C-30^{\\circ}\\right)=(\\sqrt{3}-1) \\sin \\angle E A C$, 即 $\\frac{\\sqrt{3}}{2} \\sin \\angle E A C-\\frac{1}{2} \\cos \\angle E A C=(\\sqrt{3}-1) \\sin \\angle E A C$, 整理得 $\\frac{2-\\sqrt{3}}{2} \\sin \\angle E A C=\\frac{1}{2} \\cos \\angle E A C$,故 $\\tan \\angle E A C=\\frac{1}{2-\\sqrt{3}}=2+\\sqrt{3}$, 可得 $\\angle E A C=75^{\\circ}$, 从 而 $\\angle E=45^{\\circ}$, $\\angle D A C=\\angle D C A=\\angle E=45^{\\circ}, \\triangle A D C$ 为等腰直角三角形. 因 $A C=\\sqrt{2}$, 则 $C D=1$. 又 $\\triangle A B C$也是等腰直角三角形, 故 $B C=\\sqrt{2}, \\quad B D^{2}=1+2-2 \\cdot 1 \\cdot \\sqrt{2} \\cos 135^{\\circ}=5, B D=\\sqrt{5}$. 故 $f(P)_{\\min }=B D \\cdot A C=\\sqrt{5} \\cdot \\sqrt{2}=\\sqrt{10}$."
+        ],
+        "final_answer": [
+            "$\\sqrt{10}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 154,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4178>\n\n已知正三棱雉 $S-A B C$ 的高 $S O=3$, 底面边长为 6 , 过点 $A$ 向其所对侧面 $S B C$ 作垂线, 垂足为 $O^{\\prime}$, 在 $A O^{\\prime}$ 上取一点 $P$, 使 $\\frac{A P}{P O^{\\prime}}=8$, 求经过点 $P$ 且平行于底面的截面的面积.",
+        "solution": [
+            "正三棱锥 $S-A B C$ 的高为 $S O$, 故 $A O \\perp B C$, 设 $A O$ 交 $B C$ 于 $E$, 连 SE. 则可证 $B C \\perp$ 面 $A E S$. 故面 $A E S \\perp$ 面 $S B C$.\n\n由 $A O^{\\prime} \\perp$ 面 $S B C$ 于 $O^{\\prime}$, 则 $A O^{\\prime}$ 在面 $A E S$ 内, $O^{\\prime}$ 在 $S E$ 上. $A O^{\\prime}$ 与 $S O$ 相交于点 $F$.\n\n$\\because A B C$ 为正三角形, $A B=6$, 故 $A E=3 \\sqrt{3}, O E=\\sqrt{3}$.\n\n$\\because S O=3, \\therefore \\tan \\angle O E S=\\sqrt{3}, \\angle E=60^{\\circ}$.\n\n$\\therefore O^{\\prime} E=A E \\cos 60^{\\circ}=\\frac{3}{2}\\sqrt{3}$.\n\n<img_4098>\n\n作 $O^{\\prime} G \\perp$ 平面 $A B C$, 则垂足 $G$ 在 $A E$ 上. $O^{\\prime} G=O^{\\prime}E \\sin 60^{\\circ} =\\frac{9}{4}$\n\n$\\because \\frac{A P}{P O^{\\prime}}=8, \\therefore \\frac{P H}{O^{\\prime} G}=\\frac{8}{9}, \\Rightarrow P H=2$.\n\n设过 $p$ 与底面平行的截面面积为 s, 截面与顶点 $S$ 的距离 $=3-2=1$.\n\n<img_4060>\n\n$\\therefore S_{\\triangle ABC}=\\frac{\\sqrt{3}}{4}\\cdot 6^{2}=9 \\sqrt{3}$.\n\n$\\therefore \\frac{s}{S_{\\triangle ABC}}=\\left(\\frac{1}{3}\\right)^{2}$, 故 $s=\\sqrt{3}$."
+        ],
+        "final_answer": [
+            "$\\sqrt{3}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 164,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "设双曲线 $x y=1$ 的两支为 $C_{1}, C_{2}$ (如图), 正三角形 $P Q R$ 的三顶点位于此双曲线上.设 $P(-1,-1)$ 在 $C_{2}$ 上， $Q 、 R$ 在 $C_{1}$ 上, 求顶点 $Q 、 R$ 的坐标.\n\n\n<img_4096>",
+        "solution": [
+            "$p(-1,-1)$, 设 $Q\\left(x_{2}, \\frac{1}{x_{2}}\\right)$, 点 $p$ 在直线 $y=x$ 上. 以 $p$ 为圆心, $\\mid P Q\\mid$ 为半径作圆,此圆与双曲线第一象限内的另一交点 $R$ 满足 $|P Q|=|P R|$, 由圆与双曲线都是 $y=x$ 对称, 知 $Q$与 $R$ 关于 $y=x$ 对称. 且在第一象限内此二曲线没有其他交点 (二次曲线的交点个数). 于是 $R\\left(\\frac{1}{x_{2}}, x_{2}\\right)$.\n\n$\\therefore P Q$ 与 $y=\\mathrm{x}$ 的夹角 $=30^{\\circ}, P Q$ 所在直线的㑔斜角 $=75^{\\circ} \\cdot \\tan 75^{\\circ}=\\frac{1+\\frac{\\sqrt{3}}{3}}{1-\\frac{\\sqrt{3}}{3}}=2+\\sqrt{3}$.\n\n$P Q$ 所在直线方程为 $y+1=(2+\\sqrt{3})(x+1)$, 代入 $xy=1$, 解得 $Q(2-\\sqrt{3}, 2+\\sqrt{3})$, 于是 $R(2+\\sqrt{3}$, $2-\\sqrt{3})$."
+        ],
+        "final_answer": [
+            "$(2-\\sqrt{3}, 2+\\sqrt{3}), (2+\\sqrt{3}, 2-\\sqrt{3})$"
+        ],
+        "is_multiple_answer": true,
+        "unit": null,
+        "answer_type": "Tuple",
+        "error": null
+    },
+    {
+        "id": 175,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "在锐角三角形 $A B C$ 中, $A B$ 上的高 $C E$ 与 $A C$ 上的高 $B D$ 相交于点 $H$,以 $D E$ 为直径的圆分别交 $A B 、 A C$ 于 $F 、 G$ 两点, $F G$ 与 $A H$ 相交于点 $K$, 已知 $B C=25, B D=20$, $B E=7$, 求 $A K$ 的长.\n\n<img_4149>",
+        "solution": [
+            "$\\because B C=25, B D=20, B E=7$,\n\n$\\therefore C E=24, C D=15$.\n\n$\\because A C \\cdot B D = C E \\cdot A B \\Rightarrow A C=\\frac{6}{5} A B$\n\n$\\because B D \\perp A C, C E \\perp A B, \\Rightarrow B、E、D、C$ 共圆,\n\n$\\Rightarrow A C(A C-15)=A B(A B-7), \\Rightarrow \\frac{6}{5} A B\\left(\\frac{6}{5} A B-15\\right)=A B(A B$\n\n$-18)$,\n\n$\\therefore A B=25, A C=30 . \\Rightarrow A E=18, A D=15$.\n\n$\\therefore D E=\\frac{1}{2} A C=15$.\n\n延长 $A H$ 交 $B C$ 于 $P$, 则 $A P \\perp B C$.\n\n$\\therefore A P \\cdot B C=A C \\cdot B D \\Rightarrow A P=24$.\n\n<img_4179>\n\n连 $D F$, 则 $D F \\perp A B$,\n\n$\\because A E=D E, D F \\perp A B . \\Rightarrow AF = \\frac{1}{2} AE =9$.\n\n$\\because D 、 E 、 F 、 G$ 共圆, $\\Rightarrow \\angle A F G=\\angle A D E=\\angle A B C, \\Rightarrow \\triangle A F G \\sim \\triangle A B C$,\n\n$\\therefore \\frac{A K}{A P} = \\frac{A F}{A B} \\Rightarrow A K = \\frac{9 \\times 24}{25}=\\frac{216}{25}$."
+        ],
+        "final_answer": [
+            "$\\frac{216}{25}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 198,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 有一列曲线 $\\mathrm{P}_{0}, \\mathrm{P}_{1}, \\mathrm{P}_{2}, \\cdots \\cdots$, 已知 $\\mathrm{P}_{0}$ 所围成的图形是面积为 1 的等边三角形, $P_{k+1}$ 是对 $P_{k}$ 进行如下操作得到的: 将 $P_{k}$ 的每条边三等分, 以每边中间部分的线段为边,向外作等边三角形，再将中间部分的线段去掉 $(\\mathrm{k}=0,1,2,3, \\cdots)$ ，记 $\\mathrm{S}_{\\mathrm{n}}$ 为曲线 $\\mathrm{P}_{\\mathrm{k}}$ 所围成图形面积.\n\n<img_4136>\n\n$\\mathrm{P}_{0}$\n\n<img_4226>\n\n<img_4092>\n求数列 $\\left\\{\\mathrm{S}_{\\mathrm{n}}\\right\\}$ 的通项公式;",
+        "solution": [
+            "对 $\\mathrm{P}_{0}$ 进行操作, 容易看出 $\\mathrm{P}_{0}$ 的每条边变成 $\\mathrm{P}_{1}$ 的 4 条边, 故 $\\mathrm{P}_{1}$ 的边数为 $3 \\times 4$;同样, 对 $P_{1}$ 进行操作, $P_{1}$ 的每条边变成 $P_{2}$ 的 4 条边, 故 $P_{2}$ 的边数为 $3 \\times 4^{2}$, 从而不难得到 $P_{n}$ 的边数为 $3 \\times 4^{n}$\n\n已知 $P_{0}$ 的面积为 $S_{0}=1$, 比较 $P_{1}$ 与 $P_{0}$, 容易看出 $P_{1}$ 在 $P_{0}$ 的每条边上増加了一个小等边三角形, 其面积为 $\\frac{1}{3^{2}}$, 而 $\\mathrm{P}_{0}$ 有 3 条边, 故 $\\mathrm{S}_{\\mathrm{1}}=\\mathrm{S}_{0}+3 \\times \\frac{1}{3^{2}}=\\mathbf{1}+\\frac{1}{3}$\n\n再比较 $P_{2}$ 与 $P_{1}$, 容易看出 $P_{2}$ 在 $P_{1}$ 的每条边上増加了一个小等边三角形, 其面积为 $\\frac{1}{3^{2}} \\times$ $\\frac{1}{3^{2}}$, 而 $\\mathrm{P}_{1}$ 有 $3 \\times 4$ 条边, 故 $\\mathrm{S}_{\\mathrm{2}}=\\mathrm{S}_{1}+3 \\times 4 \\times \\frac{1}{3^{4}}=1+\\frac{1}{3}+\\frac{4}{3^{3}}$\n\n类似地有: $\\mathrm{S}_{3}=\\mathrm{S}_{2}+3 \\times 4^{2} \\times \\frac{1}{3^{6}}=\\mathbf{1}+\\frac{1}{3}+\\frac{4}{3^{3}}+\\frac{4^{2}}{3^{5}}$\n\n$\\therefore \\mathrm{S}_{\\mathrm{n}}=1+\\frac{1}{3}+\\frac{4}{3^{3}}+\\frac{4^{2}}{3^{5}}+\\cdots+\\frac{4^{n-1}}{3^{2 n-1}}=1+\\frac{3}{4} \\sum_{k=1}^{n}\\left(\\frac{4}{9}\\right)^{k}=\\frac{8}{5}-\\frac{3}{5} \\cdot\\left(\\frac{4}{9}\\right)^{n}$         ( $※$ )\n\n下面用数学归纳法证明 ( $※$ ) 式\n\n当 $\\mathrm{n}=1$ 时, 由上面已知 $(※)$ 式成立,\n\n假设当 $\\mathrm{n}=\\mathrm{k}$ 时, 有 $\\mathrm{S}_{\\mathrm{k}}=\\frac{8}{5}-\\frac{3}{5} \\cdot\\left(\\frac{4}{9}\\right)^{k}$\n\n当 $n=k+1$ 时, 易知第 $k+1$ 次操作后, 比较 $P_{k+1}$ 与 $P_{k}, P_{k+1}$ 在 $P_{k}$ 的每条边上增加了一个小等边三角形, 其面积为 $\\frac{1}{3^{2(k+1)}}$, 而 $\\mathrm{P}_{\\mathrm{k}}$ 有 $3 \\times 4^{\\mathrm{k}}$ 条边。故\n\n$$\nS_{k+1}=S_{k}+3 \\times 4^{k} \\times \\frac{1}{3^{2(k+1)}}=\\frac{8}{5}-\\frac{3}{5} \\cdot\\left(\\frac{4}{9}\\right)^{k+1}\n$$\n\n综上所述, 对任何 $\\mathrm{n} \\in \\mathrm{N},(※)$ 式成立."
+        ],
+        "final_answer": [
+            "$\\frac{8}{5}-\\frac{3}{5} \\cdot\\left(\\frac{4}{9}\\right)^{n}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Expression",
+        "error": null
+    },
+    {
+        "id": 199,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 有一列曲线 $\\mathrm{P}_{0}, \\mathrm{P}_{1}, \\mathrm{P}_{2}, \\cdots \\cdots$, 已知 $\\mathrm{P}_{0}$ 所围成的图形是面积为 1 的等边三角形, $P_{k+1}$ 是对 $P_{k}$ 进行如下操作得到的: 将 $P_{k}$ 的每条边三等分, 以每边中间部分的线段为边,向外作等边三角形，再将中间部分的线段去掉 $(\\mathrm{k}=0,1,2,3, \\cdots)$ ，记 $\\mathrm{S}_{\\mathrm{n}}$ 为曲线 $\\mathrm{P}_{\\mathrm{k}}$ 所围成图形面积.\n\n<img_4136>\n\n$\\mathrm{P}_{0}$\n\n<img_4226>\n\n<img_4092>\n求 $\\lim _{n \\rightarrow \\infty} S_{n}$ 。",
+        "solution": [
+            "$\\lim _{n \\rightarrow \\infty} S_{n}=\\lim _{n \\rightarrow \\infty}\\left[\\frac{8}{5}-\\frac{3}{5} \\cdot\\left(\\frac{4}{9}\\right)^{n}\\right]=\\frac{8}{5}$."
+        ],
+        "final_answer": [
+            "$\\frac{8}{5}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 200,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 在 $\\triangle A B C$ 中, $\\angle A=60^{\\circ}, A B>A C$, 点 0 是外心, 两条高 $B E 、 C F$ 交于 $H$ 点, 点 $M$ 、 $\\mathrm{N}$ 分别在线段 $\\mathrm{BH} 、 \\mathrm{HF}$ 上, 且满足 $\\mathrm{BM}=\\mathrm{CN}$, 求 $\\frac{M H+N H}{O H}$ 的值.\n\n<img_4239>",
+        "solution": [
+            "在 $\\mathrm{BE}$ 上取 $\\mathrm{BK}=\\mathrm{CH}$ ，连接 $\\mathrm{OB} 、 \\mathrm{OC} 、 \\mathrm{OK}$,由三角形外心的性质知 $\\angle \\mathrm{BOC}=2 \\angle \\mathrm{A}=120^{\\circ}$\n\n由三角形垂心的性质知\n\n$\\angle \\mathrm{BHC}=180^{\\circ}-\\angle \\mathrm{A}=120^{\\circ}$\n\n$\\therefore \\angle \\mathrm{BOC}=\\angle \\mathrm{BHC}$\n\n$\\therefore B 、 C 、 H O$ 四点共圆\n\n$\\therefore \\angle \\mathrm{OBH}=\\angle \\mathrm{OCH} \\quad \\mathrm{OB}=\\mathrm{OC} \\quad \\mathrm{BK}=\\mathrm{CH}$\n\n$\\therefore \\triangle \\mathrm{BOK} \\cong \\triangle \\mathrm{COH}$\n\n$\\because \\mathrm{BOK}=\\angle \\mathrm{BOC}=120^{\\circ}, \\quad \\angle O \\mathrm{KH}=\\angle \\mathrm{OHK}=30^{\\circ}$\n\n观察 $\\triangle \\mathrm{OKH}$\n\n$\\frac{\\mathrm{KH}}{\\sin 120^{\\circ}}=\\frac{\\mathrm{OH}}{\\sin 30^{\\circ}} \\Rightarrow \\mathrm{KH}=\\sqrt{3} \\mathrm{OH}$\n\n又 $\\because \\mathrm{BM}=\\mathrm{CN}, \\mathrm{BK}=\\mathrm{CH}$,\n\n$\\therefore \\mathrm{KM}=\\mathrm{NH}$\n\n$\\therefore \\mathrm{MH}+\\mathrm{NH}=\\mathrm{MH}+\\mathrm{KM}=\\mathrm{KH}=\\sqrt{3} \\mathrm{OH}$\n\n$\\therefore \\frac{M H+N H}{O H}=\\sqrt{3}$."
+        ],
+        "final_answer": [
+            "$\\sqrt{3}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 205,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "在直角坐标系 $xoy$ 中, 点 $A\\left(x_{1}, y_{1}\\right)$ 和点 $B\\left(x_{2}, y_{2}\\right)$ 的坐标均为一位的正整数. $O A$ 与 $x$ 轴正方向的夹角大于 $45^{\\circ}, O B$ 与 $x$ 轴正方向的夹角小于 $45^{\\circ}, B$ 在 $x$ 轴上的射影为 $B^{\\prime}, A$在 $y$ 轴上的射影为 $A^{\\prime}, \\triangle O B B^{\\prime}$ 的面积比 $\\triangle O A A^{\\prime}$ 的面积大 33.5, 由 $x_{1}, y_{1}, x_{2}, y_{2}$ 组成的四位数\n\n$\\overline{x_{1} x_{2} y_{2} y_{1}}=x_{1} \\cdot 10^{3}+x_{2} \\cdot 10^{2}+y_{2} \\cdot 10+y_{1}$. 试求出所有这样的四位数.\n\n<img_4089>",
+        "solution": [
+            "$x_{2} y_{2}-x_{1} y_{1}=67 . x_{1}<y_{1}, x_{2}>y_{2}$. 且 $x_{1}, y_{1}, x_{2}, y_{2}$ 都是不超过 10 的正整数.\n\n$\\therefore x_{2} y_{2}>67, \\Rightarrow x_{2} y_{2}=72$ 或 81. 但 $x_{2}>y_{2}$, 故 $x_{2} y_{2}=91$ 舍去. $\\therefore x_{2} y_{2}=72 . x_{2}=9$, $y_{2}=8$.\n\n$\\therefore x_{1} y_{1}=72-67=5 . \\Rightarrow x_{1}=1, \\quad y_{1}=5, \\quad \\therefore \\overline{x_{1} x_{2} y_{2} y_{1}}=1985$."
+        ],
+        "final_answer": [
+            "1985"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 216,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4076>\n\n如图, 封闭多面体 $A B C D F E$, 平行四边形 $A B C D$ 中, $A C$ 与 $B D$ 相交于点 $O, E$ 在平面 $A B C D$ 的射影为 $O, E F / /$ 平面 $A B C D$, 且 $E F=\\frac{1}{2} B C$, 其中 $A B=B C=A C=A E=a$.\n若平面 $A B C D \\perp$ 平面 $C F D$，求多面体 $A C D F E$ 的体积;",
+        "solution": [
+            "过 $\\mathrm{O}$ 做 $\\mathrm{ON} \\perp \\mathrm{CD}$ 于 $\\mathrm{N}$, $\\because$ 平面 $A B C D \\perp$ 平面 $C F D$,\n\n平面 $A B C D \\cap$ 平面 $C F D=C D, O N \\subset$ 平面 $A B C D \\therefore O N \\perp$ 平面 $C F D$\n\n$\\because O E / / F M, O E \\not \\subset$ 平面 $C F D, F M \\subset$ 平面 $C F D, \\therefore O E / /$ 平面 $C F D$,\n\n$\\therefore \\mathrm{E}$ 到平面 $CFD$ 的距离等于 $\\mathrm{O}$ 到平面 $CFD$ 的距离\n\n$\\triangle C O N$ 中, $O N=\\frac{1}{2} a \\sin 60^{\\circ}=\\frac{\\sqrt{3}}{4} a, \\triangle O A E$ 中, $O E=\\frac{\\sqrt{3}}{2} a$\n\n$V_{C-A E F D}=V_{E-A C D}+V_{E-C D F}=\\frac{1}{8} a^{3}+\\frac{1}{16} a^{3}=\\frac{3}{16} a^{3}$."
+        ],
+        "final_answer": [
+            "$\\frac{3}{16} a^{3}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Expression",
+        "error": null
+    },
+    {
+        "id": 217,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4076>\n\n如图, 封闭多面体 $A B C D F E$, 平行四边形 $A B C D$ 中, $A C$ 与 $B D$ 相交于点 $O, E$ 在平面 $A B C D$ 的射影为 $O, E F / /$ 平面 $A B C D$, 且 $E F=\\frac{1}{2} B C$, 其中 $A B=B C=A C=A E=a$.\n求二面角 $A-C E-B$ 余弦值.",
+        "solution": [
+            "<img_4164>\n\n建系如图所示: $A\\left(0,-\\frac{1}{2} a, 0\\right) 、 B\\left(\\frac{\\sqrt{3}}{2} a, 0,0\\right)$ 、\n\n$C\\left(0, \\frac{1}{2} a, 0\\right) 、 E\\left(0,0, \\frac{\\sqrt{3}}{2} a\\right)$\n\n$\\overrightarrow{C E}=\\left(0,-\\frac{1}{2} a, \\frac{\\sqrt{3}}{2} a\\right), \\overrightarrow{B C}=\\left(-\\frac{\\sqrt{3}}{2} a, \\frac{1}{2} a, 0\\right)$\n\n平面 $\\mathrm{ACE}$ 的法向量为 $\\overrightarrow{O B}=\\left(\\frac{\\sqrt{3}}{2} a, 0,0\\right)$,\n\n设平面 $\\mathrm{BCE}$ 法向量为 $\\vec{n}=(x, y, z)$ 则\n\n$\\vec{n} \\cdot \\overrightarrow{C E}=0, \\vec{n} \\cdot \\overrightarrow{B C}=0$, 令 $y=2, \\vec{n}=\\left(\\frac{2 \\sqrt{3}}{3}, 2, \\frac{2 \\sqrt{3}}{3}\\right)$\n\n$\\therefore \\cos \\langle\\vec{n}, \\overrightarrow{O B}\\rangle=\\frac{1}{\\frac{\\sqrt{3}}{2} \\cdot \\sqrt{\\frac{4}{3}+\\frac{4}{3}+4}}=\\frac{\\sqrt{5}}{5}$.\n\n$\\therefore$ 二面角 $A-C E-B$ 的余弦值为 $\\frac{\\sqrt{5}}{5}$."
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{5}}{5}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 232,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4083>\n\n如图, 在四棱锥 $P-A B C D$ 中, $P A \\perp$ 平面 $A B C D$, 四边形 $A B C D$为矩形, $E$ 是 $P D$ 的中点, $M$ 是 $E C$ 的中点, 点 $Q$ 在线段 $P C$ 上且 $P Q=3 Q C$.\n当 $\\angle P B A$ 为多大时, 在线段 $P C$ 上存在点 $F$ 使得 $E F \\perp$ 平面 $P A D$ 且 $E F$与平面 $P B C$ 所成角为 $45^{\\circ}$ 同时成立?",
+        "solution": [
+            "取 $P C$ 中点 $F, \\because E$ 是 $P D$ 的中点, $\\therefore E F / / C D$, 又由题意知 $Q$ 是 $F C$ 的中点, $M$ 是 $E C$ 的中点, $\\therefore E F / / Q M$,\n\n$\\therefore Q M / / C D / / A B$. 又 $Q M \\not \\subset$ 平面 $P A B, A B \\subset$ 平面 $P A B$,\n\n$\\therefore Q M / /$ 平面 $P A B$ .\n\n当 $F$ 为 $P C$ 中点时, $E F / / A B \\because P A \\perp$ 平面 $A B C D, \\therefore P A \\perp A B$. 又 $\\because$ 四边形 $A B C D$ 为矩形, $\\therefore A B \\perp A D, \\therefore A B \\perp$ 平面 $P A D, \\therefore E F \\perp$ 平面 $P A D$ .\n\n$\\because P A \\perp B C, A B \\perp B C, \\therefore B C \\perp$ 平面 $P A B, \\therefore$ 平面 $P B C \\perp$ 平面 $P A B, \\therefore \\angle P B A$ 为 $A B$ 与平面 $P B C$ 所成角, $\\therefore \\angle P B A=45^{\\circ}$.",
+            "取 $P C$ 中点 $F, \\because E$ 是 $P D$ 的中点, $\\therefore E F / / C D$, 又由题意知 $Q$ 是 $F C$ 的中点, $M$ 是 $E C$ 的中点, $\\therefore E F / / Q M$,\n\n$\\therefore Q M / / C D / / A B$. 又 $Q M \\not \\subset$ 平面 $P A B, A B \\subset$ 平面 $P A B$,\n\n$\\therefore Q M / /$ 平面 $P A B$ .\n\n当 $F$ 为 $P C$ 中点时, $E F / / C D$.\n\n$\\because P A \\perp$ 平面 $A B C D$ 且 $C D \\subset$ 平面 $A B C D$\n\n$\\therefore P A \\perp C D$\n\n$\\because A B C D$ 为矩形 $\\therefore C D \\perp A D$\n\n且 $P A \\cap A D=A$\n\n$\\therefore C D \\perp$ 平面 $P A D \\quad \\therefore E F \\perp$ 平面 $P A D $.\n\n另一方面: 过点 $A$ 作 $A G \\perp P B$ 于 $G$.\n\n由上理\n$\\left.\\begin{array}{c}P A \\perp B C \\\\ A B \\perp B C \\\\ P A \\cap A D=A\\end{array}\\right\\} \\therefore B C \\perp$ 平面 $P A B$\n\n$\\because A G \\subset$ 平面 $P A B \\quad \\therefore A G \\perp B C$\n\n$\\because P B \\cap B C=B$\n\n$\\therefore A G \\perp$ 平面 $P B C$\n\n$\\therefore A B$ 在平面 $P B C$ 内的射影为 $P B$\n\n$\\therefore \\angle A B P$ 就是直线 $A B$ 与平面 $P B C$ 所成的角\n\n$\\because \\angle P B A=45^{\\circ}$ 且 $E F / / C D, C D / / A B$\n\n$\\therefore E F / / A B$ 且 $E F$ 与平面 $P B C$ 成角 $45^{\\circ}$."
+        ],
+        "final_answer": [
+            "$45$"
+        ],
+        "is_multiple_answer": false,
+        "unit": "^{\\circ}",
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 249,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4123>\n\n如图, $E A \\perp$ 平面 $A B C, A E / / C D, A B=A C=C D=2 A E=4$, $B C=2 \\sqrt{3}, M$ 为 $B D$ 的中点.\n求三棱锥 $E-A B M$ 的体积.",
+        "solution": [
+            "由题意知, $V_{E-A B M}=V_{M-A B E}, \\because M N / /$ 平面 $A B E$,\n\n$$\n\\therefore V_{M-A B E}=V_{N-A B E}=V_{E-A B N}=\\frac{1}{3} \\cdot S_{\\triangle A B N} \\cdot A E\n$$\n\n$$\nA N=\\sqrt{13}, S_{\\triangle A B N}=\\frac{1}{2} \\cdot B N \\cdot A N=\\frac{\\sqrt{39}}{2}, \\therefore V_{E-A B M}=\\frac{1}{3} \\times \\frac{\\sqrt{39}}{2} \\times 2=\\frac{\\sqrt{39}}{3} .\n$$"
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{39}}{3}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 262,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4191>\n\n如图, 在四棱锥 $A-B C D E$ 中, 平面 $A B C \\perp$ 平面 $B C D E ; \\angle C D E=\\angle B E D=90^{\\circ}, A B=C D=2$, $D E=B E=1, \\quad A C=\\sqrt{2}$.\n求点 $D$ 到面 $A E B$ 的距离.",
+        "solution": [
+            "$\\because V_{D-A E B}=V_{A-D E B}$, 且 $A C \\perp$ 面 $B C D E$ .\n\n设 $D$ 到面 $A E B$ 的距离为 $d$, 则 $\\mathrm{S}_{\\triangle A E B} \\cdot d=S_{\\triangle D E B} \\cdot \\sqrt{2}$.\n\n在 $\\triangle A E B$ 中, $A E=\\sqrt{E C^{2}+A C^{2}}=\\sqrt{7}, A B=2, B E=1$,\n\n$\\cos \\angle A B E=\\frac{2^{2}+1^{2}-\\sqrt{7}^{2}}{2 \\times 2 \\times 1}=-\\frac{1}{2}, \\therefore \\angle A B E=120^{\\circ}$,\n\n则 $\\mathrm{S}_{\\triangle A \\mathrm{EB}}=\\frac{1}{2} \\times 1 \\times 2 \\times \\frac{\\sqrt{3}}{2}=\\frac{\\sqrt{3}}{2}$.\n\n$\\mathrm{S}_{\\triangle D E B}=\\frac{1}{2} \\times 1 \\times 1=\\frac{1}{2}, \\quad \\therefore \\frac{\\sqrt{3}}{2} \\cdot d=\\frac{1}{2} \\times \\sqrt{2}, \\quad \\therefore d=\\frac{\\sqrt{6}}{3}$\n\n所以点 $D$ 到面 $A E B$ 的距离为 $\\frac{\\sqrt{6}}{3}$."
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{6}}{3}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 263,
+        "subfield": "Probability and Statistics",
+        "context": null,
+        "question": "2018 年初, 某市政府考绩办准备对 20 家政府机构部门进行年度考核评估, 并根据考核结果得分（最低分 60 分, 最高分 100 分) 将这些机构分别评定为 A, B, C, D 四个类型, 考核评估标准如下表:\n\n| 评估得分 | $[60,70)$ | $[70,80)$ | $[80,90)$ | $[90,100]$ |\n| :------: | :---------: | :---------: | :---------: | :----------: |\n| 评分类型 |      D      |      C      |      B      |      A      |\n\n考核评估后, 对 20 家政府机构的评估分数进行统计分析, 得到频率分布直方图如图:\n\n<img_4084>\n评分类型为 $\\mathrm{D}$ 的政府机构部门有多少家?",
+        "solution": [
+            "评分类型为 $\\mathrm{D}$ 的政府机构部门的频率为 $0.015 \\times 10=0.15$,\n\n所以评分类型为 $\\mathrm{D}$ 的政府机构部门共有 $0.15 \\times 20=3$ 家."
+        ],
+        "final_answer": [
+            "$3$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 264,
+        "subfield": "Probability and Statistics",
+        "context": null,
+        "question": "2018 年初, 某市政府考绩办准备对 20 家政府机构部门进行年度考核评估, 并根据考核结果得分（最低分 60 分, 最高分 100 分) 将这些机构分别评定为 A, B, C, D 四个类型, 考核评估标准如下表:\n\n| 评估得分 | $[60,70)$ | $[70,80)$ | $[80,90)$ | $[90,100]$ |\n| :------: | :---------: | :---------: | :---------: | :----------: |\n| 评分类型 |      D      |      C      |      B      |      A      |\n\n考核评估后, 对 20 家政府机构的评估分数进行统计分析, 得到频率分布直方图如图:\n\n<img_4084>\n现从评分类型为 $\\mathrm{A}$ 和 $\\mathrm{D}$ 的所有政府机构部门中随机抽取两家进行分析, 求这两家来自同一评分类型的概率.",
+        "solution": [
+            "评分类型为 $\\mathrm{A}$ 的政府机构部门有 $0.020 \\times 10 \\times 20=4$ 家,\n\n设评分类型为 $A$ 的 4 家政府部门为 $\\mathrm{a}_{1}, \\mathrm{a}_{2}, \\mathrm{a}_{3}, \\mathrm{a}_{4}$,\n\n评分类型为 $D$ 的 3 家政府部门为 $\\mathrm{b}_{1}, \\mathrm{~b}_{2}, \\mathrm{~b}_{3}$,\n\n从评分类型为 $\\mathrm{A}, \\mathrm{D}$ 的政府部门中随机抽取两家的所有可能情况有 $\\left(\\mathrm{a}_{1}, \\mathrm{a}_{2}\\right),\\left(\\mathrm{a}_{1}, \\mathrm{a}_{3}\\right),\\left(\\mathrm{a}_{1}, \\mathrm{a}_{4}\\right),\\left(\\mathrm{a}_{1}, \\mathrm{~b}_{1}\\right),\\left(\\mathrm{a}_{1}, \\mathrm{~b}_{2}\\right),\\left(\\mathrm{a}_{1}, \\mathrm{~b}_{3}\\right),\\left(\\mathrm{a}_{2}, \\mathrm{a}_{3}\\right),\\left(\\mathrm{a}_{2}, \\mathrm{a}_{4}\\right),\\left(\\mathrm{a}_{2}, \\mathrm{~b}_{1}\\right),\\left(\\mathrm{a}_{2}, \\mathrm{~b}_{2}\\right),\\left(\\mathrm{a}_{2}, \\mathrm{~b}_{3}\\right),\\left(\\mathrm{a}_{3}, \\mathrm{a}_{4}\\right),\\left(\\mathrm{a}_{3}, \\mathrm{~b}_{1}\\right),\\left(\\mathrm{a}_{3}\\right.$,$\\left.\\mathrm{b}_{2}\\right),\\left(\\mathrm{a}_{3}, \\mathrm{~b}_{3}\\right),\\left(\\mathrm{a}_{4}, \\mathrm{~b}_{1}\\right),\\left(\\mathrm{a}_{4}, \\mathrm{~b}_{2}\\right),\\left(\\mathrm{a}_{4}, \\mathrm{~b}_{3}\\right)$,$\\left(\\mathrm{b}_{1}, \\mathrm{~b}_{2}\\right),\\left(\\mathrm{b}_{1}, \\mathrm{~b}_{3}\\right),\\left(\\mathrm{b}_{2}, \\mathrm{~b}_{3}\\right)$, 共 21 种,其中满足条件的共有 9 种, 所以这两家来自同一评分类型的概率为 $\\frac{9}{21}=\\frac{3}{7}$."
+        ],
+        "final_answer": [
+            "$\\frac{3}{7}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 265,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "<img_4203>\n\n已知直线过定点 $P(1,1)$, 且与找物线 $x^{2}=4 y$ 交 $A, B$ 两点, $l_{1}, l_{2}$ 分别过 $A, B$ 两点且与抛物线相切, 设 $l_{1}, l_{2}$交点为 $C$.\n求交点 $C$ 的轨迹方程.",
+        "solution": [
+            "设 $A\\left(x_{1}, y_{1}\\right), B\\left(x_{2}, y_{2}\\right)$, 易知直线 $\\mathrm{AB}$ 的斜率存在设为 $k, A B$ 方程为$y=k(x-1)+1$,\n\n联立 $\\left\\{\\begin{array}{c}y=k(x-1)+1 \\\\ x^{2}=4 y\\end{array}\\right.$, 消去 $y$, 得 $x^{2}-4 k x-4+4 k=0$,\n\n$\\therefore x_{1}+x_{2}=4 k, x_{1} x_{2}=4 k-4$.\n\n$\\because y^{\\prime}=\\frac{x}{2}, \\therefore k_{A C}=\\frac{x_{1}}{2}, A C$ 直线方程为 $y-y_{1}=\\frac{x_{1}}{2}\\left(x-x_{1}\\right)$, 将 $y_{1}=\\frac{x_{1}^{2}}{4}$ 代入, 化简得 $y=\\frac{x_{1}}{2} x-\\frac{x_{1}^{2}}{4}$\n\n所以直线 $A C$ 方程为: $y=\\frac{x_{1}}{2} x-\\frac{x_{1}^{2}}{4}$\n\n同理, 直线 $B C$ 方程为: $y=\\frac{x_{2}}{2} x-\\frac{x_{2}^{2}}{4}$,\n\n联系 $A C, B C$ 方程可得交点坐标 $x_{C}=\\frac{x_{1}+x_{2}}{2}=2 k, y_{C}=\\frac{x_{1} x_{2}}{4}=k-1$,\n\n所以点 $C$ 的轨迹方程为: $x-2 y-2=0 $."
+        ],
+        "final_answer": [
+            "$x-2 y-2=0$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Equation",
+        "error": null
+    },
+    {
+        "id": 273,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图, 多面体 $A-P C B E$ 中, 四边形 $P C B E$ 是直角梯形, 且 $P C \\perp B C, P E \\| B C$, 平面 $P C B E \\perp$平面 $A B C, A C \\perp B E, M$ 是 $A E$ 的中点, $N$ 是 $P A$ 上的点.\n\n<img_4104>\n若 $P E=\\frac{1}{3} B C$ 且 $A C=B C=P C$, 求二面角 $E-A B-C$ 的余弦值.",
+        "solution": [
+            "设 $P E=1, A C=B C=P C=3$, 在平面 $P C B E$ 中作 $E H \\perp B C$ 于 $H$, 连接 $E H, A H$, 如图.\n\n<img_4108>\n\n根据题意, $P C \\perp A B C$, 于是 $P C \\perp C A$, 由 $A C \\perp B E$, 于是 $A C \\perp P C B E$, 因此 $\\triangle A C B$ 是直角三角形, 且 $C$ 为直角顶点. 因此\n\n$$\nS_{\\triangle A B H}=\\frac{2}{3} S_{\\triangle A B C}=\\frac{2}{3} \\cdot \\frac{9}{2}=3,\n$$\n\n又\n\n$$\n\\left.\\begin{array}{l}\nB E=\\sqrt{B H^{2}+E H^{2}}=\\sqrt{13}, \\\\\nA E=\\sqrt{A H^{2}+E H^{2}}=\\sqrt{19}, \\\\\nA B=\\sqrt{A C^{2}+B C^{2}}=\\sqrt{18},\n\\end{array}\\right\\} \\Rightarrow S_{\\triangle A B E}=3 \\cdot \\sqrt{\\frac{11}{2}},\n$$\n\n于是所求二面角的余弦值为\n\n$$\n\\frac{3}{3 \\cdot \\sqrt{\\frac{11}{2}}}=\\frac{\\sqrt{22}}{11}.\n$$"
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{22}}{11}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 284,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4241>\n\n如图, 在三棱柱 $A B C-A_{1} B_{1} C_{1}$ 中, 侧棱 $A A_{1} \\perp$ 底面 $A B C$, $A B=A C=2 A A_{1}, \\angle B A C=120^{\\circ}, D 、 D_{1}$ 分别是线段 $B C 、 B_{1} C_{1}$ 的中点, 过线段 $A D$ 的中点 $F$ 作 $B C$ 的平行线, 分别交 $A B 、 A C$ 于点 $M 、 N$.\n求锐二面角 $A-A_{1} M-N$ 的余弦值.",
+        "solution": [
+            "设 $A A_{1}=1$ ，\n\n如图: 过 $A_{1}$ 作 $A E_{1} / / B C$, 建立以 $A_{1}$ 为坐标原点, $A_{1} E, A_{1} D_{1}, A_{1} A$ 分别为 $x, y, z$ 轴的空间直角坐标系.\n\n<img_4075>\n\n则$A_{1}(0,0,0),A(0,0,1),B(\\sqrt{3},1,1),C(-\\sqrt{3},1,1)$.\n\n因为 $F$ 是 $A D$ 的中点, $M N / / B C$, 所以 $M, N$ 分别为 $A B, A C$ 的\n\n中点, 则 $M\\left(\\frac{\\sqrt{3}}{2}, \\frac{1}{2}, 1\\right), N\\left(-\\frac{\\sqrt{3}}{2}, \\frac{1}{2}, 1\\right)$,\n\n则 $\\overrightarrow{A_{1}M}=\\left(\\frac{\\sqrt{3}}{2}, \\frac{1}{2}, 1\\right), \\overrightarrow{A_{1} A}=(0,0,1), \\overrightarrow{N M}=(\\sqrt{3}, 0,0),$\n\n设平面 $A A_{1} M$ 的法向量为 $\\vec{m}=(x, y, z)$,\n\n则 $\\left\\{\\begin{array}{l}\\vec{m} \\cdot \\overrightarrow{A_{1} M}=0, \\\\ \\vec{m} \\cdot \\overrightarrow{A_{1} A}=0,\\end{array}\\right.$ 得 $\\left\\{\\begin{array}{l}\\frac{\\sqrt{3}}{2} x+\\frac{1}{2} y+z=0, \\\\ z=0,\\end{array}\\right.$\n\n令 $x=1$, 则 $y=-\\sqrt{3}$, 则 $\\vec{m}=(1,-\\sqrt{3}, 0)$\n\n同理设平面 $A_{1} M N$ 的法向量为 $\\vec n=(a, b, c)$,\n\n则 $\\left\\{\\begin{array}{l}\\vec{n} \\cdot \\overrightarrow{A_{1} M}=0, \\\\ \\vec{n} \\cdot \\overrightarrow{N M}=0,\\end{array}\\right.$ 得 $\\left\\{\\begin{array}{l}\\frac{\\sqrt{3}}{2} a+\\frac{1}{2} b+c=0, \\\\ \\sqrt{3} a=0,\\end{array}\\right.$\n\n令 $b=2$, 则 $\\mathrm{c}=-1$, 则 $\\vec n=(0,2,-1)$,\n\n则\n\n$$\ncos(\\vec m, \\vec n)=\\frac{\\vec m \\cdot \\vec n}{|\\vec m| \\cdot |\\vec n|}=-\\frac{\\sqrt{15}}{5},\n$$\n\n因为二面角 $A-A_{1} M-N$ 是锐二面角,\n\n所以二面角 $A-A_{1} M-N$ 的余弦值是 $\\frac{\\sqrt{15}}{5}$.",
+            "连接 $A_{1} F$, 过点 $A$ 作 $A E \\perp A_{1} F$ 于点 $E$, 过 $E$ 作 $E H \\perp A_{1} M$\n\n<img_4128>\n\n因为 $A B=A C, D$ 是 $B C$ 的中点, 所以 $B C \\perp A D$,\n\n因为 $M N / / B C$, 所以 $M N \\perp A D$,\n\n因为 $A A_{1} \\perp$ 平面 $A B C, M N \\subset$ 平面 $A B C$,\n\n所以 $A A_{1} \\perp M N$,\n\n因为 $A D, A A_{1} \\subset$ 平面 $A D D_{1} A_{1}$, 且 $A D$ I $A A_{1}=A$,\n\n所以 $M N \\perp$ 平面 $A D D_{1} A_{1}$.\n\n$N M \\perp A E$ ，又 $A E \\perp A_{1} F ， A_{1} F \\cap N M=F$ ，\n\n$\\therefore A E \\perp$ 面 $A_{1} N M, \\therefore A E \\perp A_{1} M$\n\n$A_{1} M \\perp E H, A_{1} M \\perp A E, E H \\cap A E=E$,\n\n$\\therefore A_{1} M \\perp$ 面 $A H E, \\therefore A H \\perp A_{1} M$\n\n故 $\\angle A H E$ 是二面角 $A-A_{1} M-N$ 的平面角\n\n设 $A A_{1}=1$, 则 $A M=A N=1 ， A_{1} M=A_{1} N=\\sqrt{2}$ ，\n\n故 $A H=\\frac{\\sqrt{2}}{2}, A_{1} F=\\frac{\\sqrt{5}}{2}, A E=\\frac{\\sqrt{5}}{5}$, 故 $\\sin \\angle A H E=\\frac{A E}{A H}=\\frac{\\frac{\\sqrt{5}}{5}}{\\frac{\\sqrt{2}}{2}}=\\frac{\\sqrt{10}}{5}$,\n\n则 $\\cos \\angle A H E=\\sqrt{1-\\sin ^{2} \\angle A H E}=\\frac{\\sqrt{15}}{5}$\n\n因为二面角 $A-A_{1} M-N$ 是锐二面角,\n\n所以二面角 $A-A_{1} M-N$ 的余弦值是 $\\frac{\\sqrt{15}}{5}$."
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{15}}{5}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 300,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4217>\n\n如图, 正方形 $A D E F$ 与 $\\square A B C D$ 所在的平面互相垂直, 且 $A B=2 A D=2 a$, $\\angle B A D=60^{\\circ}, G$ 为 $B D$ 的中点.\n求平面 $C G E$ 与平面 $A D E F$ 所成锐二面角的余弦值.",
+        "solution": [
+            "平面 $A D E F \\perp$ 平面 $A B C D, E D \\perp A D, \\therefore E D \\perp$ 平面 $A B C D, E D \\perp D B$,\n\n即 $D A 、 D B 、 D E$ 两两垂直，\n\n以 $D A 、 D B 、 D E$ 分别为 $x, y, z$ 轴, 建立如图所示空间直角坐标系,\n\n<img_4218>\n\n则 $A(a, 0,0), G\\left(0, \\frac{\\sqrt{3}}{2} a, 0\\right), C(-a, \\sqrt{3} a, 0), E(0,0, a)$,\n\n$\\overrightarrow{E G}=\\left(0, \\frac{\\sqrt{3}}{2} a,-a\\right), \\quad \\overrightarrow{G C}=\\left(-a, \\frac{\\sqrt{3}}{2} a, 0\\right)$,\n\n取平面 $A D E F$ 的法向量为 $\\boldsymbol{m}=(0,1,0)$, 设平面 $C G E$ 的法向量为 $\\boldsymbol{n}=(x, y, z)$,\n\n则 $\\left\\{\\begin{array}{l}\\boldsymbol{n} \\cdot \\overrightarrow{E G}=0 \\\\ n \\cdot \\overrightarrow{G C}=0\\end{array}\\right.$, 即 $\\left\\{\\begin{array}{l}\\frac{\\sqrt{3}}{2} a y-a z=0 \\\\ -a x+\\frac{\\sqrt{3}}{2} a y=0\\end{array}\\right.$, 令 $y=1$, 则 $x=\\frac{\\sqrt{3}}{2}, z=\\frac{\\sqrt{3}}{2}$,\n\n故 $\\boldsymbol{n}=\\left(\\frac{\\sqrt{3}}{2}, 1, \\frac{\\sqrt{3}}{2}\\right)$,\n\n设平面 $C G E$ 与平面 $A D E F$ 所成锐二面角为 $\\theta$, 则 $\\cos \\theta=\\frac{|\\boldsymbol{m} \\cdot \\boldsymbol{n}|}{|\\boldsymbol{m}||\\boldsymbol{n}|}=\\frac{\\sqrt{10}}{5}$."
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{10}}{5}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 301,
+        "subfield": "Probability and Statistics",
+        "context": null,
+        "question": "为加强对企业产品质量的管理, 市质监局到区机械厂抽查机器零件的质量, 共抽取了 600 件螺帽, 将它们的直径和螺纹距之比 $Z$ 作为一项质量指标，由测量结果得如下频率分布直方图:\n\n<img_4204>\n\n附: $\\sqrt{224} \\approx 14.97$.\n\n若 $Z \\sim N\\left(\\mu, \\sigma^{2}\\right)$, 则 $P(\\mu-\\sigma<Z<\\mu+\\sigma)=0.6826, P(\\mu-2 \\sigma<Z<\\mu+2 \\sigma)=0.9544$.\n求这 600 件螺帽质量指标值的样本平均数 $\\bar{x}$, 样本方差 $s^{2}$ (在同一组数据中, 用该区间的中点值作代表);",
+        "solution": [
+            "抽取的螺帽质量指标值的样本平均数 $\\bar{x}$ 和样本方差 $s^{2}$ 分别为:\n\n$\\bar{x}=170 \\times 0.05+180 \\times 0.12+190 \\times 0.18+200 \\times 0.30+210 \\times 0.19$\n\n$+220 \\times 0.10+230 \\times 0.06=200$\n\n$s^{2}=(-30)^{2} \\times 0.05+(-20)^{2} \\times 0.12+(-10)^{2} \\times 0.18+0 \\times 0.30$\n\n$+10^{2} \\times 0.19+20^{2} \\times 0.10+30^{2} \\times 0.06=224$."
+        ],
+        "final_answer": [
+            "$200 , 224$"
+        ],
+        "is_multiple_answer": true,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 302,
+        "subfield": "Probability and Statistics",
+        "context": null,
+        "question": "为加强对企业产品质量的管理, 市质监局到区机械厂抽查机器零件的质量, 共抽取了 600 件螺帽, 将它们的直径和螺纹距之比 $Z$ 作为一项质量指标，由测量结果得如下频率分布直方图:\n\n<img_4204>\n\n附: $\\sqrt{224} \\approx 14.97$.\n\n若 $Z \\sim N\\left(\\mu, \\sigma^{2}\\right)$, 则 $P(\\mu-\\sigma<Z<\\mu+\\sigma)=0.6826, P(\\mu-2 \\sigma<Z<\\mu+2 \\sigma)=0.9544$.\n由频率分布直方图可以近似的认为, 这种螺帽的质量指标值 $Z$ 服从正态分布 $N\\left(\\mu, \\sigma^{2}\\right)$, 其中 $\\mu$ 近似为样本平均数 $\\bar{x}$, $\\sigma^{2}$ 近似为样本方差 $s^{2}$.利用该正态分布, 求 $P(185.03<Z<229.94)$ .",
+        "solution": [
+            "抽取的螺帽质量指标值的样本平均数 $\\bar{x}$ 和样本方差 $s^{2}$ 分别为:\n\n$\\bar{x}=170 \\times 0.05+180 \\times 0.12+190 \\times 0.18+200 \\times 0.30+210 \\times 0.19$\n\n$+220 \\times 0.10+230 \\times 0.06=200$\n\n$s^{2}=(-30)^{2} \\times 0.05+(-20)^{2} \\times 0.12+(-10)^{2} \\times 0.18+0 \\times 0.30$\n\n$+10^{2} \\times 0.19+20^{2} \\times 0.10+30^{2} \\times 0.06=224$.\n\n所以$Z \\sim N(200,224)$, 从而\n\n$P(200-14.97<Z<200+14.97)=2 P(185.03<Z \\leq 200)=0.6826$,\n\n$P(185.03<Z \\leq 200)=0.3413$,\n\n$P(200-29.94<Z<200+29.94)=2 P(200 \\leq Z<229.94)=0.9544$,\n\n$P(200 \\leq Z<229.94)=0.4772$,\n\n$P(185.03<Z<229.94)=P(185.03<Z \\leq 200)+P(200 \\leq Z<229.94)=0.8185$."
+        ],
+        "final_answer": [
+            "$0.8185$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": "1e-4"
+    },
+    {
+        "id": 303,
+        "subfield": "Probability and Statistics",
+        "context": null,
+        "question": "为加强对企业产品质量的管理, 市质监局到区机械厂抽查机器零件的质量, 共抽取了 600 件螺帽, 将它们的直径和螺纹距之比 $Z$ 作为一项质量指标，由测量结果得如下频率分布直方图:\n\n<img_4204>\n\n附: $\\sqrt{224} \\approx 14.97$.\n\n若 $Z \\sim N\\left(\\mu, \\sigma^{2}\\right)$, 则 $P(\\mu-\\sigma<Z<\\mu+\\sigma)=0.6826, P(\\mu-2 \\sigma<Z<\\mu+2 \\sigma)=0.9544$.\n由频率分布直方图可以近似的认为, 这种螺帽的质量指标值 $Z$ 服从正态分布 $N\\left(\\mu, \\sigma^{2}\\right)$, 其中 $\\mu$ 近似为样本平均数 $\\bar{x}$, $\\sigma^{2}$ 近似为样本方差 $s^{2}$. 现从该企业购买了 100 件这种螺㡌, 记 $X$ 表示这 100 件螺帽中质量指标值位于区间 $(185.03,229.94)$ 的件数, 求 $E(X)$.",
+        "solution": [
+            "抽取的螺帽质量指标值的样本平均数 $\\bar{x}$ 和样本方差 $s^{2}$ 分别为:\n\n$\\bar{x}=170 \\times 0.05+180 \\times 0.12+190 \\times 0.18+200 \\times 0.30+210 \\times 0.19$\n\n$+220 \\times 0.10+230 \\times 0.06=200$\n\n$s^{2}=(-30)^{2} \\times 0.05+(-20)^{2} \\times 0.12+(-10)^{2} \\times 0.18+0 \\times 0.30$\n\n$+10^{2} \\times 0.19+20^{2} \\times 0.10+30^{2} \\times 0.06=224$.\n\n所以$Z \\sim N(200,224)$, 从而\n\n$P(200-14.97<Z<200+14.97)=2 P(185.03<Z \\leq 200)=0.6826$,\n\n$P(185.03<Z \\leq 200)=0.3413$,\n\n$P(200-29.94<Z<200+29.94)=2 P(200 \\leq Z<229.94)=0.9544$,\n\n$P(200 \\leq Z<229.94)=0.4772$,\n\n$P(185.03<Z<229.94)=P(185.03<Z \\leq 200)+P(200 \\leq Z<229.94)=0.8185$,\n\n所以一件螺㡌的质量指标值位于区间 $(185.03,229.94)$ 的概率为 0.8185 ,\n\n依题意知 $X-B(100,0.8185)$, 所以 $E(X)=100 \\times 0.8185=81.85$."
+        ],
+        "final_answer": [
+            "$81.85$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": "1e-2"
+    },
+    {
+        "id": 315,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4231>\n\n如图, 正三棱柱 $\\mathrm{ABC}-\\mathrm{A}^{\\prime} \\mathrm{B}^{\\prime} \\mathrm{C}^{\\prime}$ 的所有棱长都为2 , 点 $M, N$ 分别是 $B A^{\\prime}$ 与 $B^{\\prime} C^{\\prime}$ 的中点.\n求三棱雉 $\\mathrm{A}^{\\prime}-\\mathrm{MNC}$ 的体积.",
+        "solution": [
+            "$\\because A^{\\prime} B^{\\prime}=A^{\\prime} C^{\\prime}, N$ 为 $B^{\\prime} C^{\\prime}$ 的中点, $\\therefore A^{\\prime} N \\perp B^{\\prime} C^{\\prime}$,\n\n$\\because B B^{\\prime} \\perp$ 平面 $A^{\\prime} B^{\\prime} C^{\\prime}, \\therefore B B^{\\prime} \\perp A^{\\prime} N \\therefore A^{\\prime} N \\perp$ 平面 $B C C^{\\prime} B^{\\prime}$,\n\n$\\therefore V_{A^{\\prime}-M N C}=V_{B-M N C}=V_{M-B C N}=\\frac{1}{3} \\cdot S_{\\square B C N} \\cdot \\frac{1}{2} A^{\\prime} N=\\frac{1}{3} \\cdot 2 \\cdot \\frac{\\sqrt{3}}{2}=\\frac{\\sqrt{3}}{3}$."
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{3}}{3}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 330,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "<img_4078>\n\n如图,过抛物线 $y^{2}=2 p x(p>0)$ 上一点 $P(1,1)$, 作两条直线分别交抛物线于 $A\\left(x_{1}, y_{1}\\right), B\\left(x_{2}, y_{2}\\right)$, 若 $P A$ 与 $P B$ 的斜率满足 $k_{P A}+k_{P B}=0$.\n求直线 $A B$ 的斜率.",
+        "solution": [
+            "由抛物线 $y^{2}=2 p x(p>0)$ 过点 $P(1,1)$, 得 $2 p=1$, 即 $y^{2}=x$,\n\n将条件 $k_{P A}+k_{P B}=0$ 写为 $\\frac{y_{1}-1}{x_{1}-1}+\\frac{y_{2}-1}{x_{2}-1}=0$,\n\n注意到 $y_{1}^{2}=x_{1}, y_{2}^{2}=x_{2}$, 代入上式得到 $\\frac{1}{y_{1}+1}+\\frac{1}{y_{2}+1}=0$,\n\n通分整理得 $y_{1}+y_{2}=-2$.\n\n设直线 $A B$ 的斜率为 $k_{A B}$, 由 $y_{1}^{2}=x_{1}, y_{2}^{2}=x_{2}$,\n\n得 $k_{A B}=\\frac{y_{2}-y_{1}}{x_{2}-x_{1}}=\\frac{1}{y_{1}+y_{2}}\\left(x_{1} \\neq x_{2}\\right),$\n\n由于 $y_{1}+y_{2}=-2$,\n\n将其代入上式得 $k_{A B}=\\frac{1}{y_{1}+y_{2}}=-\\frac{1}{2}$."
+        ],
+        "final_answer": [
+            "$-\\frac{1}{2}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 331,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "<img_4078>\n\n如图,过抛物线 $y^{2}=2 p x(p>0)$ 上一点 $P(1,1)$, 作两条直线分别交抛物线于 $A\\left(x_{1}, y_{1}\\right), B\\left(x_{2}, y_{2}\\right)$, 若 $P A$ 与 $P B$ 的斜率满足 $k_{P A}+k_{P B}=0$.\n直线 $A B$的斜率$-\\frac{1}{2}$.若直线 $A B$ 在 $y$ 轴上的截距 $b \\in[0,1]$, 求 $\\triangle A B P$ 面积的最大值.",
+        "solution": [
+            "设直线 $A B$ 的方程为 $y=-\\frac{1}{2} x+b$,\n\n由 $\\left\\{\\begin{array}{l}y^{2}=x \\\\ y=-\\frac{1}{2} x+b\\end{array}\\right.$, 消去 $y$ 整理, 得 $\\frac{1}{4} x^{2}-(b+1) x+b^{2}=0,$\n\n$\\because \\mathrm{b} \\in[0,1]$\n\n$\\therefore \\Delta=(b+1)^{2}-b^{2}>0$,\n\n且 $x_{1}+x_{2}=4(b+1), x_{1} x_{2}=4 b^{2} ，$\n\n$|A B|=\\sqrt{\\frac{5}{4}} \\cdot \\sqrt{\\left(x_{1}+x_{2}\\right)^{2}-4 x_{1} x_{2}}=2 \\sqrt{5} \\sqrt{2 b+1}$\n\n又点 $P$ 到直线 $A B$ 的距离为 $d=\\frac{|3-2 b|}{\\sqrt{5}}$,\n\n所以 $S_{\\triangle A B P}=\\frac{1}{2} \\cdot|A B| \\cdot d=\\frac{1}{2} \\cdot 2 \\sqrt{5} \\sqrt{2 b+1} \\cdot \\frac{|3-2 b|}{\\sqrt{5}}=\\sqrt{1+2 b}|3-2 b|$\n\n令 $f(x)=(1+2 x)(2 x-3)^{2}$, 其中 $x \\in[0,1] ，$\n\n则由 $f^{\\prime}(x)=2(2 x-3)(6 x-1)=0$, 得 $x=\\frac{1}{6}$ 或 $x=\\frac{3}{2}$,\n\n当 $x \\in\\left(0, \\frac{1}{6}\\right)$ 时, $f^{\\prime}(x)>0$, 所以 $f(x)$ 单调递增,\n\n当 $x \\in\\left(\\frac{1}{6}, 1\\right)$ 时, $f^{\\prime}(x)<0$,所以 $f(x)$ 单调递减,\n\n故 $f(x)$ 的最大值为 $f\\left(\\frac{1}{6}\\right)=\\frac{256}{27}$.\n\n故 $\\triangle A B P$ 面积 $S_{\\triangle A B P}$ 的最大值为 $\\sqrt{f\\left(\\frac{1}{6}\\right)}=\\frac{16 \\sqrt{3}}{9}$."
+        ],
+        "final_answer": [
+            "$\\frac{16 \\sqrt{3}}{9}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 342,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "在三棱锥 $A-P C B$ 中, 其中 $\\angle B P C=90^{\\circ}, \\angle A P C=\\angle A P B=60^{\\circ}$, 且 $P A=P B=P C=2$.\n\n<img_4116>\n\n$D$ 为线段 $A C$ 上一点, 且 $A D=\\frac{2}{3} A C$, 求三棱锥 $D-A P B$ 的体积.",
+        "solution": [
+            "$\\because P A=P B=P C=2$, 又 $\\angle A P C=\\angle A P B=60^{\\circ}$,\n\n$\\therefore \\triangle A P B$ 和 $\\triangle A P C$ 都是等边三角形, $A B=A C=2$.\n\n取 $B C$ 中点 $H$, 连接 $A H, \\therefore A H \\perp B C$.\n\n<img_4073>\n\n$\\therefore A H^{2}=A C^{2}-C H^{2}=2$\n\n$\\because \\angle B P C=90^{\\circ}, \\quad \\therefore B C=2 \\sqrt{2}, \\quad P H=\\sqrt{2}$\n\n在 $\\triangle P H A$ 中, $A H^{2}=2, P H^{2}=2, P A^{2}=4$,\n\n$\\therefore P A^{2}=P H^{2}+A H^{2}, \\quad \\therefore A H \\perp P H, \\quad P H \\cap B C=H$\n\n$\\therefore A H \\perp$ 平面 $P B C$.\n\n$\\because A H \\subset$ 平面 $A B C, \\therefore$ 平面 $A B C \\perp$ 平面 $B P C$ .\n\n$V_{D-A P B}=\\frac{2}{3} V_{C-A P B}=\\frac{2}{3} V_{A-P B C}=\\frac{2}{3} \\times \\frac{1}{3} \\times S_{\\triangle P B C} \\times A H=\\frac{4 \\sqrt{2}}{9}$."
+        ],
+        "final_answer": [
+            "$\\frac{4 \\sqrt{2}}{9}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 354,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图，已知长方形 $A B C D$ 中, $A B=4, A D=2, M$ 为 $D C$的中点, 将 $\\triangle A D M$ 沿 $A M$ 折起, 使得平面 $A D M \\perp$ 平面 $A B C M$.\n\n<img_4087>\n若 $\\overrightarrow{D E}=\\lambda \\overrightarrow{E B}(\\lambda>0)$, 当二面角 $E-A M-D$ 大小为 $\\frac{\\pi}{3}$ 时, 求 $\\lambda$ 的值.",
+        "solution": [
+            "以 $M$ 为原点, $M A$, $M B$ 所在直线为 $x$ 轴, $y$ 轴, 建立如图所示的空间直角坐标系则 $M(0,0,0), A(2 \\sqrt{2}, 0,0), B(0,2 \\sqrt{2}, 0), D(\\sqrt{2}, 0, \\sqrt{2})$\n\n$$\n\\begin{aligned}\n& \\text { 设 } E(x, y, z) \\because \\overrightarrow{D E}=\\lambda \\overrightarrow{E B} \\\\\n& \\therefore(x-\\sqrt{2}, y, z-\\sqrt{2})=\\lambda(-x, 2 \\sqrt{2}-y,-z) \\\\\n\n\\end{aligned}\n$$\n\n$$\n\\therefore \\left\\{\\begin{array}{l}\nx=\\frac{\\sqrt{2}}{1+\\lambda} \\\\\ny=\\frac{2 \\sqrt{2} \\lambda}{1+\\lambda} \\\\\nz=\\frac{\\sqrt{2}}{1+\\lambda}\n\\end{array}\\right.\n$$\n\n$\\therefore E\\left(\\frac{\\sqrt{2}}{1+\\lambda}, \\frac{2 \\sqrt{2} \\lambda}{1+\\lambda}, \\frac{\\sqrt{2}}{1+\\lambda}\\right)$\n\n设平面 $E A M$ 的法向量为 $\\vec{m}=(x, y, z)$, 则 $\\left\\{\\begin{array}{l}\\vec{m} \\bullet \\overrightarrow{M A}=0 \\\\ \\vec{m} \\bullet \\overrightarrow{M E}=0\\end{array}\\right.$ 即 $\\left\\{\\begin{array}{l}2 \\sqrt{2} x=0 \\\\ \\frac{\\sqrt{2}}{1+\\lambda} x+\\frac{2 \\sqrt{2} \\lambda}{1+\\lambda} y+\\frac{\\sqrt{2}}{1+\\lambda} z=0\\end{array}\\right.$\n\n$\\therefore\\left\\{\\begin{array}{l}x=0 \\\\ y=-1 \\therefore \\vec{m}=(0,-1,2 \\lambda) \\\\ z=2 \\lambda\\end{array}\\right.$\n\n又 $\\because$ 平面 $D A M$ 的一个法向量为 $\\vec{n}=(0,1,0)$\n\n$\\therefore|\\cos \\langle\\vec{m}, \\vec{n}\\rangle|=\\frac{|-1|}{\\sqrt{1+4 \\lambda^{2}}}=\\frac{1}{2}$\n\n$\\because \\lambda>0 \\therefore \\lambda=\\frac{\\sqrt{3}}{2}$."
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{3}}{2}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 369,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4077>\n\n如图, 平面四边形 $A B C D$ 中, $\\triangle A B D$ 为等边三角形, $B D=2$, $B C=C D=\\sqrt{2}$, 沿直线 $B D$ 将 $\\triangle A B D$ 折成 $A^{\\prime} B D$.\n当 $A^{\\prime} C=\\sqrt{3}$ 时, 求三棱锥 $A^{\\prime}-B C D$ 的体积.",
+        "solution": [
+            "取 $B D$ 中点 $M$, 连接 $A^{\\prime} M, M C$.\n\n<img_4117>\n\n$\\because \\triangle A B D$ 为等边三角形, $B D=2, \\therefore A^{\\prime} M \\perp D B$,\n\n$A^{\\prime} M=\\sqrt{3}$,\n\n$\\because B C=C D=\\sqrt{2}, \\therefore M C=1$,\n\n当 $A^{\\prime} C=2$ 时, $A^{\\prime} M^{2}+M C^{2}=A^{\\prime} C^{2}$,\n\n$\\therefore A^{\\prime} M \\perp M C$,\n\n$\\therefore  A^{\\prime} M \\cap C M=M$, $A^{\\prime} M, C M \\subset$ 平面 $A^{\\prime} M C, C M \\perp B D$,\n\n$\\therefore B D \\perp$ 平面 $A^{\\prime} M C$, 取 $M C$ 的中点 $N$, 连接 $A^{\\prime} N$,\n\n$\\because A^{\\prime} C=\\sqrt{3}, \\therefore A^{\\prime} N=\\frac{\\sqrt{11}}{2}, \\therefore S_{\\triangle A^{\\prime} M C}=\\frac{1}{2} \\cdot M C \\cdot A^{\\prime} N=\\frac{1}{2} \\times 1 \\times \\frac{\\sqrt{11}}{2}=\\frac{\\sqrt{11}}{4}$\n\n$\\therefore V_{A^{\\prime}-B C D}=\\frac{1}{3} \\cdot S_{A^{\\prime} M C} \\cdot B D=\\frac{1}{3} \\times \\frac{\\sqrt{11}}{4} \\times 2=\\frac{\\sqrt{11}}{6}$."
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{11}}{6}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 381,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4181>\n\n如图, 在四棱锥 $\\mathrm{P}-\\mathrm{ABCD}$ 中, $\\mathrm{PD} \\perp$ 平面 $\\mathrm{ABCD}$, 底面 $\\mathrm{ABCD}$ 是菱形, $\\angle \\mathrm{BAD}=60^{\\circ}$ $A B=2 a, P D=2\\left(1-a^{2}\\right)$, 其中 $0<a<1,O$ 为 $A C$ 与 $B D$ 的交点, $E$ 为棱 $P B$上一点.\n若 PD //平面 $\\mathrm{EAC}$, 求三棱锥 P-EAD 的体积的最大值.",
+        "solution": [
+            "连接 $O E$, 取 $A D$ 的中点 $H$, 连接 $B H$,\n\n<img_4107>\n\n$\\because P D / /$ 平面 $E A C$, 平面 $E A C \\cap$ 平面 $P B D=O E, \\mathrm{PD} \\subset$ 平面 $\\mathrm{PBD}$\n\n$\\therefore P D / / O E$.\n\n$\\because O$ 是 $B D$ 的中点, $\\therefore E$ 是 $P B$ 的中点\n\n$\\because$ 四边形 $A B C D$ 是菱形, $\\angle B A D=60^{\\circ}, \\therefore B H \\perp A D$\n\n又 $B H \\perp P D, A D \\cap P D=D, \\therefore B H \\perp$ 平面 $P A D$, 且 $B H=\\frac{\\sqrt{3}}{2} A B=\\sqrt{3} a$,\n\n故 $V_{P-E A D}=V_{E-P A D}=\\frac{1}{2} V_{B-P A D}=\\frac{1}{2} \\times \\frac{1}{3} \\times S_{\\triangle P A D} \\times B H=\\frac{\\sqrt{3}}{3} \\cdot a^{2}\\left(1-a^{2}\\right)$.\n\n由基本不等式得 $V_{P-E A D}=\\frac{\\sqrt{3}}{3} \\cdot a^{2}\\left(1-a^{2}\\right) \\leq \\frac{\\sqrt{3}}{3} \\cdot\\left(\\frac{a^{2}+1-a^{2}}{2}\\right)^{2}=\\frac{\\sqrt{3}}{12}$,\n\n当且仅当 $a=\\frac{\\sqrt{2}}{2}$ 时取等号, 即最大体积为 $\\frac{\\sqrt{3}}{12}$."
+        ],
+        "final_answer": [
+            "$\\frac{\\sqrt{3}}{12}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 396,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4074>\n\n如图, 在斜三棱柱 $A B C-A_{1} B_{1} C_{1}$ 中, $A C=B C=A A_{1}=a, \\angle A C B=90^{\\circ}$,又点 $B_{1}$ 在底面 $A B C$ 上的射影 $D$ 落在 $B C$ 上, 且 $B C=3 B D$.\n若三棱锥 $B_{1}-A A_{1} C_{1}$ 的体积为 $24 \\sqrt{2}$, 求实数 $a$ 的值.",
+        "solution": [
+            "$\\because B_{1} D \\perp$ 平面 $A B C, \\therefore B_{1} D \\perp B C$, 又 $B D=\\frac{a}{3}, B_{1} B=A A_{1}=a$,\n\n$\\therefore B_{1} D=\\sqrt{B B_{1}^{2}-B D^{2}}=\\frac{2 \\sqrt{2}}{3} a$,\n\n$\\therefore$ 四边形 $B_{1} B C C_{1}$ 的面积 $S_{\\text {四边形 } B_{1} B C C_{1}}=a \\times \\frac{2 \\sqrt{2}}{3} a=\\frac{2 \\sqrt{2}}{3} a^{2}$,\n\n$\\therefore S_{\\Delta B_{1} B C_{1}}=\\frac{1}{2} S_{\\text {四边形 } B_{1} B C C_{1}}=\\frac{\\sqrt{2}}{3} a^{2}$\n\n$\\because V_{B_{1}-A A_{1} C_{1}}=V_{B_{1}-A C C_{1}}=V_{A-B_{1} C C_{1}}=V_{A-B B_{1} C_{1}}$,\n\n$\\because$ 点 $B_{1}$ 在底面 $A B C$ 上的射影 $D$ 落在 $B C$ 上,\n\n$\\therefore B_{1} D \\perp$ 平面 $A B C, \\because A C \\subset$ 平面 $A B C, \\therefore B_{1} D \\perp A C$,\n\n又 $\\angle A C B=90^{\\circ}, \\therefore B C \\perp A C$,\n\n又 $B_{1} D \\cap B C=D, B_{1} D, B C \\subset$ 平面 $B B_{1} C_{1} C \\therefore A C \\perp$ 平面 $B B_{1} C_{1} C$.\n\n故三棱锥 $A-B_{1} B C_{1}$ 的高为 $A C=a$,\n\n$\\therefore V_{B_{1}-A A_{1} C_{1}}=V_{A-B B_{1} C_{1}}=\\frac{1}{3} \\times \\frac{\\sqrt{2}}{3} a^{2} \\times a=24 \\sqrt{2}$.\n\n$\\therefore a=6$."
+        ],
+        "final_answer": [
+            "$6$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 399,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 已知抛物线 $C$ 的顶点在原点, 焦点为 $F(0,1)$.\n\n<img_4240>\n求抛物线 $C$ 的方程.",
+        "solution": [
+            "设抛物线 $\\mathrm{C}$ 的方程是 $x^{2}=a y$, 则 $\\frac{a}{4}=1$, 即 $a=4$.故所求抛物线 $C$ 的方程为 $x^{2}=4y$."
+        ],
+        "final_answer": [
+            "$x^{2}=4y$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Equation",
+        "error": null
+    },
+    {
+        "id": 400,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 已知抛物线 $C$ 的顶点在原点, 焦点为 $F(0,1)$.\n\n<img_4240>\n已知抛物线 $C$ 与直线 $y=-\\frac{1}{2} x+b$ 相交于 $P 、 Q$ 两点（点 $P$ 在第一象限内), 且 $P F \\perp Q F$, 求抛物线 $C$ 在点 $P$ 处的切线方程.",
+        "solution": [
+            "设抛物线 $\\mathrm{C}$ 的方程是 $x^{2}=a y$, 则 $\\frac{a}{4}=1$, 即 $a=4$.故所求抛物线 $C$ 的方程为 $x^{2}=4y$.\n\n设 $P\\left(x_{1}, y_{1}\\right), Q\\left(x_{2}, y_{2}\\right)$,\n\n直线 $P Q$ 的方程是 $y=-\\frac{1}{2} x+b$.\n\n将上式代入抛物线 $\\mathrm{C}$ 的方程, 得\n\n$x^{2}+2 x-4 b=0$,\n\n故 $x_{1}+x_{2}=-2, x_{1} x_{2}=-4 b$\n\n所以 $y_{1} y_{2}=b^{2}, y_{1}+y_{2}=1+2 b$,\n\n而 $\\overrightarrow{F P}=\\left(x_{1}, y_{1}-1\\right), \\overrightarrow{F Q}=\\left(x_{2}, y_{2}-1\\right)$,\n\n$\\overrightarrow{F P} \\cdot \\overrightarrow{F Q}=x_{1} x_{2}+\\left(y_{1}-1\\right)\\left(y_{2}-1\\right)$\n\n$=x_{1} x_{2}+y_{1} y_{2}-\\left(y_{1}+y_{2}\\right)+1$\n\n$=-4 b+b^{2}-(1+2 b)+1$\n\n$=b^{2}-6 b=0$\n\n$\\therefore b=6$ 或 $b=0$ (舍去)\n\n$\\therefore x_{1}=4, y_{1}=4$\n\n即点 $P$ 的坐标是 $(4,4)$\n\n所以抛物线 $C$ 在点 $P$ 处的切线方程为 $y-4=2(x-4)$, 即 $2 x-y-4=0$."
+        ],
+        "final_answer": [
+            "$2 x-y-4=0$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Equation",
+        "error": null
+    },
+    {
+        "id": 431,
+        "subfield": "Probability and Statistics",
+        "context": null,
+        "question": "为响应国家“精准扶贫，产业扶贫的战略，哈市面向全市征召《扶贫政策》义务宣传志愿者, 从年龄在 $[20,45]$ 的 500 名志愿者中随机抽取 100 名, 其年龄频率分布直方图如图所示.\n\n<img_4172>\n求图中 $x$ 的值.",
+        "solution": [
+            "根据频率分布直方图可得 $(0.01+0.02+0.04+x+0.07) \\times 5=1$, 解得 $x=0.06.$"
+        ],
+        "final_answer": [
+            "$0.06$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": "1e-2"
+    },
+    {
+        "id": 432,
+        "subfield": "Probability and Statistics",
+        "context": null,
+        "question": "为响应国家“精准扶贫，产业扶贫的战略，哈市面向全市征召《扶贫政策》义务宣传志愿者, 从年龄在 $[20,45]$ 的 500 名志愿者中随机抽取 100 名, 其年龄频率分布直方图如图所示.\n\n<img_4172>\n在抽出的 100 名志愿者中按年龄采用分层抽样的方法抽取10名参加中心广场的宣传活动, 再从这 10 名志愿者中选取 3 名担任主要负责人。记这 3 名志愿者中 “年龄低于 35 岁”的人数为 $X$, 求 $X$ 的数学期望.",
+        "solution": [
+            "根据频率分布直方图可得 $(0.01+0.02+0.04+x+0.07) \\times 5=1$, 解得 $x=0.06$.\n\n用分层抽样的方法, 从 100 名志愿者中选取 10 名, 则其中年龄 “低于 35 岁” 的人有 6 名, “年龄不低于 35 岁” 的人有 4 名,\n\n故 $X$ 的可能取值为 $0,1,2,3$.\n\n$P(X=0)=\\frac{C_{4}^{3}}{C_{10}^{3}}=\\frac{1}{30}, P(X=1)=\\frac{C_{6}^{1} C_{4}^{2}}{C_{10}^{3}}=\\frac{3}{10}, P(X=2)=\\frac{C_{6}^{2} C_{4}^{1}}{C_{10}^{3}}=\\frac{1}{2}, P(X=3)=\\frac{C_{6}^{3}}{C_{10}^{3}}=\\frac{1}{6}$. 故 $X$ 的分布列为\n\n| $Y$ | 0                | 1                | 2               | 3               |\n| :---- | :--------------- | :--------------- | :-------------- | :-------------- |\n| $P$ | $\\frac{1}{30}$ | $\\frac{3}{10}$ | $\\frac{1}{2}$ | $\\frac{1}{6}$ |\n\n$E(Y)=0 \\times \\frac{1}{30}+1 \\times \\frac{3}{10}+2 \\times \\frac{1}{2}+3 \\times \\frac{1}{6}=1.8$"
+        ],
+        "final_answer": [
+            "$1.8$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 435,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在 $\\triangle \\mathrm{ABC}$ 中, $\\angle \\mathrm{C}=90^{\\circ}, \\angle \\mathrm{ABC}$ 的平分线交 $\\mathrm{AC}$ 于点 $\\mathrm{E}$, 过点 $\\mathrm{E}$ 作 $\\mathrm{BE}$的垂线交 $A B$ 于点 $F, \\odot O$ 是 $\\triangle B E F$ 的外接圆, $\\odot O$ 交 $B C$ 于点 $D$.\n\n<img_4066>\n过点 $\\mathrm{E}$ 作 $\\mathrm{EH} \\perp \\mathrm{AB}$, 垂足为 $\\mathrm{H}$,若 $\\mathrm{CD}=1, \\mathrm{EH}=3$, 求 $\\mathrm{BF}$ 及 $\\mathrm{AF}$ 长.",
+        "solution": [
+            "连结 DE.\n\n$\\because \\angle C B E=\\angle O B E, E C \\perp B C$ 于 $C, E H \\perp A B$ 于 $H$,\n\n$\\therefore \\mathrm{EC}=\\mathrm{EH}$.\n\n$\\because \\angle \\mathrm{CDE}+\\angle \\mathrm{BDE}=180^{\\circ}, \\angle \\mathrm{HFE}+\\angle \\mathrm{BDE}=180^{\\circ}$,\n\n$\\therefore \\angle \\mathrm{CDE}=\\angle \\mathrm{HFE}$.\n\n在 $\\triangle \\mathrm{CDE}$ 与 $\\triangle \\mathrm{HFE}$ 中,\n\n$$\n\\left\\{\\begin{array}{c}\n\\angle C D E=\\angle H F E \\\\\n\\angle C=\\angle E H F=90^{\\circ}, \\\\\nE C=E H\n\\end{array}\\right.\n$$\n\n$\\therefore \\triangle \\mathrm{CDE} \\cong \\triangle \\mathrm{HFE}$ (AAS),\n\n$\\therefore \\mathrm{CD}=\\mathrm{HF}$.\n\n $C D=H F$. 又 $C D=1$\n\n$\\therefore H F=1$\n\n在 Rt $\\triangle H F E$ 中, $E F=\\sqrt{3^{2}+1^{2}}=\\sqrt{10}$\n\n$\\because E F \\perp B E$\n\n$\\therefore \\angle B E F=90^{\\circ}$\n\n$\\therefore \\angle E H F=\\angle B E F=90^{\\circ}$\n\n$\\because \\angle E F H=\\angle B F E$\n\n$\\therefore \\triangle E H F \\sim \\triangle B E F$\n\n$\\therefore \\frac{E F}{B F}=\\frac{H F}{E F}$, 即 $\\frac{\\sqrt{10}}{B F}=\\frac{1}{\\sqrt{10}}$\n\n$\\therefore B F=10$\n\n$\\therefore O E=\\frac{1}{2} B F=5, O H=5-1=4$,\n\n$\\therefore$ 在 Rt $\\triangle O H E$ 中, $\\cos \\angle E O A=\\frac{4}{5}$,\n\n$\\therefore$ 在 Rt $\\triangle E O A$ 中, $\\cos \\angle E O A=\\frac{O E}{O A}=\\frac{4}{5}$,\n\n$\\therefore \\frac{5}{O A}=\\frac{4}{5}$\n\n$\\therefore O A=\\frac{25}{4}$\n\n$\\therefore A F=\\frac{25}{4}-5=\\frac{5}{4}$."
+        ],
+        "final_answer": [
+            "$10,\\frac{5}{4}$"
+        ],
+        "is_multiple_answer": true,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 436,
+        "subfield": "Conic Sections",
+        "context": null,
+        "question": "已知椭圆 $\\mathrm{C}: \\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1(\\mathrm{a}>\\mathrm{b}>0)$ 的离心率为 $\\frac{\\sqrt{3}}{2}$,并且过点 $P(2,-1)$\n\n<img_4147>\n求椭圆 $\\mathrm{C}$ 的方程.",
+        "solution": [
+            "由 $\\frac{c}{a}=\\frac{\\sqrt{3}}{2}$, 得 $\\frac{c^{2}}{a^{2}}=\\frac{a^{2}-b^{2}}{a^{2}}=\\frac{3}{4}$, 即 $a^{2}=4 b^{2}, \\therefore$ 椭圆 $c$ 的方程可化为 $x^{2}+4 y^{2}=4 b^{2}$. 又椭圆 $C$ 过点 $P(2,-1), \\therefore 4+4=4 b^{2}$, 得 $b^{2}=2$, 则 $a^{2}=8 . \\therefore$ 椭圆 $C$ 的方程为 $\\frac{x^{2}}{8}+\\frac{y^{2}}{2}=1$;"
+        ],
+        "final_answer": [
+            "$\\frac{x^{2}}{8}+\\frac{y^{2}}{2}=1$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Equation",
+        "error": null
+    },
+    {
+        "id": 437,
+        "subfield": "Conic Sections",
+        "context": null,
+        "question": "已知椭圆 $\\mathrm{C}: \\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1(\\mathrm{a}>\\mathrm{b}>0)$ 的离心率为 $\\frac{\\sqrt{3}}{2}$,并且过点 $P(2,-1)$\n\n<img_4147>\n设点 $\\mathrm{Q}$ 在椭圆 $\\mathrm{C}$ 上, 且 $\\mathrm{PQ}$ 与 $x$ 轴平行, 过 $\\mathrm{P}$ 点作两条直线分别交椭圆 $\\mathrm{C}$ 于两点 $\\mathrm{A}\\left(x_{1}, y_{1}\\right), \\mathrm{B}\\left(x_{2}, y_{2}\\right)$, 若直线 $\\mathrm{PQ}$平分 $\\angle \\mathrm{APB}$, 其中直线 $\\mathrm{AB}$ 的斜率是定值, 并求出这个定值.",
+        "solution": [
+            "由 $\\frac{c}{a}=\\frac{\\sqrt{3}}{2}$, 得 $\\frac{c^{2}}{a^{2}}=\\frac{a^{2}-b^{2}}{a^{2}}=\\frac{3}{4}$, 即 $a^{2}=4 b^{2}, \\therefore$ 椭圆 $c$ 的方程可化为 $x^{2}+4 y^{2}=4 b^{2}$. 又椭圆 $C$ 过点 $P(2,-1), \\therefore 4+4=4 b^{2}$, 得 $b^{2}=2$, 则 $a^{2}=8 . \\therefore$ 椭圆 $C$ 的方程为 $\\frac{x^{2}}{8}+\\frac{y^{2}}{2}=1$;\n\n由题意, 直线 PA 斜率存在, 设直线 $P A$ 的方程为 $y+1=k(x-2)$,\n\n联立 $\\left\\{\\begin{array}{l}x^{2}+4 y^{2}=8 \\\\ y=k(x-2)-1\\end{array}\\right.$, 得 $\\left(1+4 k^{2}\\right) x^{2}-8\\left(2 k^{2}+k\\right) x+16 k^{2}+16 k-4=0$.\n\n$\\therefore 2 x_{1}=\\frac{16 k^{2}+16 k-4}{1+4 k^{2}}$, 即 $x_{1}=\\frac{8 k^{2}+8 k-2}{1+4 k^{2}} . \\because$ 直线 $P Q$ 平分 $\\angle A P B$, 即直线 $P A$ 与直线 $P B$ 的斜率互为相 反 数, 设 直 线 $P B$ 的方程为 $y+1=-k(x-2)$, 同理求得 $x_{2}=\\frac{8 k^{2}-8 k-2}{1+4 k^{2}} . \\quad x_{1}-x_{2}=\\frac{16 k}{1+4 k^{2}}$\n\n又 $\\left\\{\\begin{array}{l}y_{1}+1=k\\left(x_{1}-2\\right) \\\\ y_{2}+1=-k\\left(x_{2}-2\\right)\\end{array}, \\quad \\therefore y_{1}-y_{2}=k\\left(x_{1}+x_{2}\\right)-4 k\\right.$.\n\n即 $y_{1}-y_{2}=k\\left(x_{1}+x_{2}\\right)-4 k=k \\frac{16 k^{2}-4}{1+4 k^{2}}-4 k=\\frac{8 k}{1+4 k^{2}}$,\n\n$\\therefore$ 直线 $A B$ 的斜率为 $k_{A B}=\\frac{y_{1}-y_{2}}{x_{1}-x_{2}}=\\frac{\\frac{-8 k}{1+4 k^{2}}}{\\frac{16 k}{1+4 k^{2}}}=-\\frac{1}{2}$."
+        ],
+        "final_answer": [
+            "$-\\frac{1}{2}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 463,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 圆 $C$ 与 $x$ 轴相切于点 $T(2,0)$, 与 $y$ 轴的正半轴相交于 $A 、 B$ 两点 $(A$ 在 $B$ 的上方)，且 $|A B|=3$.\n\n<img_4109>\n求圆 $C$ 的方程;",
+        "solution": [
+            "易知 $A C=\\frac{5}{2}$, 故圆方程为 $(x-2)^{2}+\\left(y-\\frac{5}{2}\\right)^{2}=\\frac{25}{4}$;"
+        ],
+        "final_answer": [
+            "$(x-2)^{2}+\\left(y-\\frac{5}{2}\\right)^{2}=\\frac{25}{4}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Equation",
+        "error": null
+    },
+    {
+        "id": 467,
+        "subfield": "Elementary Functions",
+        "context": null,
+        "question": "已知函数 $f(x)=\\frac{x}{\\ln x}, g(x)=k(x-1), k \\in \\mathbf{R}$.\n\n<img_4111>\n若存在 $x \\in\\left[e, e^{2}\\right]$, 使 $f(x) \\leq g(x)+\\frac{1}{2}$, 求 $k$ 的取值范围.",
+        "solution": [
+            "$k \\geq \\frac{2 x-\\ln x}{2(x-1) \\ln x} \\triangleq h(x)$, 由题意得: $k \\geq h(x)_{\\text {min }}, x \\in\\left[e, e^{2}\\right]$,\n\n$$\nh^{\\prime}(x)=\\frac{2(x-1) \\ln x \\cdot\\left(2-\\frac{1}{x}\\right)-(2 x-\\ln x)\\left(2 \\ln x+\\frac{2(x-1)}{x}\\right)}{4(x-1)^{2}(\\ln x)^{2}}\n$$\n\n下证 $\\forall x \\in\\left[e, e^{2}\\right]$,\n\n$$\n\\begin{aligned}\n& (x-1) \\ln x \\cdot\\left(2-\\frac{1}{x}\\right)<(2 x-\\ln x)\\left(\\ln x+\\frac{x-1}{x}\\right) \\\\\n& \\Leftrightarrow 2(x-1) \\ln x-\\frac{x-1}{x} \\ln x<2 x \\ln x+2 x(x-1)-(\\ln x)^{2}-\\frac{x-1}{x} \\ln x \\\\\n& \\quad \\Leftrightarrow-2 \\ln x<2(x-1)-(\\ln x)^{2}\n\\end{aligned}\n$$\n\n因为 $\\ln x \\in[1,2]$, 所以 $(\\ln x)^{2}-2 \\ln x \\in[-1,0], 2(x-1) \\in[0,2]$.\n\n综上: $h^{\\prime}(x)<0, \\therefore k \\geq h\\left(e^{2}\\right)=\\frac{1}{2}$."
+        ],
+        "final_answer": [
+            "$[\\frac{1}{2}, +\\infty)$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Interval",
+        "error": null
+    },
+    {
+        "id": 519,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在平面直角坐标系 $x O y$ 中, 已知圆 $O$ 的方程为 $x^{2}+y^{2}=4$, 过点 $P(0,1)$ 的直线 $l$ 与圆 $O$ 交于 $A, B$ 两点, 与 $x$ 轴交于点 $Q$, 设 $\\overrightarrow{Q A}=\\lambda \\overrightarrow{P A}, \\overrightarrow{Q B}=\\mu \\overrightarrow{P B}$, 其中 $\\lambda+\\mu$ 为定值，求该定值.\n\n<img_4157>",
+        "solution": [
+            "当 $A B$ 与 $x$ 轴垂直时, 此时点 $Q$ 与点 $O$ 重合, 从而\n\n$$\n\\lambda=2, \\mu=\\frac{2}{3}, \\lambda+\\mu=\\frac{8}{3}\n$$\n\n当点 $Q$ 与点 $O$ 不重合时, 直线 $A B$ 的斜率存在.\n\n设 $A B: y=k x+1, A\\left(x_{1}, y_{1}\\right), B\\left(x_{2}, y_{2}\\right)$, 则 $Q\\left(-\\frac{1}{k}, 0\\right)$.\n\n由题设得: $x_{1}+\\frac{1}{k}=\\lambda x_{1}, x_{2}+\\frac{1}{k}=\\mu x_{2}$, 即\n\n$$\n\\lambda+\\mu=1+\\frac{1}{k x_{1}}+1+\\frac{1}{k x_{2}}=2+\\frac{x_{1}+x_{2}}{k x_{1} x_{2}}\n$$\n\n将 $y=k x+1$ 代入 $x^{2}+y^{2}=4$, 得 $\\left(1+k^{2}\\right) x^{2}+2 k x-3=0$, 则\n\n$$\n\\Delta>0, x_{1}+x_{2}=\\frac{-2 k}{1+k^{2}}, x_{1} x_{2}=\\frac{-3}{1+k^{2}}\n$$\n\n所以\n\n$$\n\\lambda+\\mu=2+\\frac{-2 k}{-3 k}=\\frac{8}{3}\n$$\n\n综上, $\\lambda+\\mu$ 为定值 $\\frac{8}{3}$."
+        ],
+        "final_answer": [
+            "$\\frac{8}{3}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 526,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图, 矩形 $A B C D$ 沿平行于 $A D$ 的线段 $E F$ 向上翻折 (点 $E$ 在线段 $A B$ 上运动,点 $F$ 在线段 $C D$ 上运动), 得到三棱柱 $A B E-C D F$, 已知 $A B=5, A C=\\sqrt{34}$.\n\n<img_4176>\n若 $\\triangle A B G$ 是直角三角形, 这里 $G$ 是线段 $E F$ 上的点, 试求线段 $E G$ 的长度 $x$ 的取值范围;",
+        "solution": [
+            "由题设条件可知 $\\triangle A E G, \\triangle B E G$ 均为直角三角形, 因此 $A G^{2}=A E^{2}+x^{2}, B G^{2}=B E^{2}+x^{2}$.由余弦定理: $A B^{2}=A E^{2}+B E^{2}-2 A E \\cdot B E \\cos \\angle A E B$.\n\n于是\n\n$$\n\\begin{aligned}\n& 2 x^{2}+A E^{2}+B E^{2}=A B^{2}=A E^{2}+B E^{2}-2 A E \\cdot B E \\cos \\angle A E B \\\\\n& x^{2}=-A E \\cdot B E \\cos \\angle A E B<A E \\cdot B E=t(5-t)=-t^{2}+5 t \\leq 2.5^{2}\n\\end{aligned}\n$$\n\n所以 $x \\in[0,2.5)$, 又对\n\n$$\n\\forall k \\in[0,2.5), \\quad A E=E B=2.5, \\quad \\angle A E B=\\pi-\\arccos \\frac{k^{2}}{2.5^{2}}\n$$\n\n则 $x=\\sqrt{-A E \\cdot B E \\cos \\angle A E B}=k$, 故 $x$ 的取值范围为 $[0,2.5)$."
+        ],
+        "final_answer": [
+            "$[0,2.5)$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Interval",
+        "error": null
+    },
+    {
+        "id": 527,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图, 矩形 $A B C D$ 沿平行于 $A D$ 的线段 $E F$ 向上翻折 (点 $E$ 在线段 $A B$ 上运动,点 $F$ 在线段 $C D$ 上运动), 得到三棱柱 $A B E-C D F$, 已知 $A B=5, A C=\\sqrt{34}$.\n\n<img_4176>\n若 $\\triangle A B G$ 是直角三角形, 这里 $G$ 是线段 $E F$ 上的点,若 $E G$ 的长度为取值范围内的最大整数, 且线段 $A B$ 的长度取得最小值, 求二面角 $C-E F-D$ 的值;",
+        "solution": [
+            "首先求线段 $E G$ 的长度 $x$ 的取值范围.\n\n由题设条件可知 $\\triangle A E G, \\triangle B E G$ 均为直角三角形, 因此 $A G^{2}=A E^{2}+x^{2}, B G^{2}=B E^{2}+x^{2}$.由余弦定理: $A B^{2}=A E^{2}+B E^{2}-2 A E \\cdot B E \\cos \\angle A E B$.\n\n于是\n\n$$\n\\begin{aligned}\n& 2 x^{2}+A E^{2}+B E^{2}=A B^{2}=A E^{2}+B E^{2}-2 A E \\cdot B E \\cos \\angle A E B \\\\\n& x^{2}=-A E \\cdot B E \\cos \\angle A E B<A E \\cdot B E=t(5-t)=-t^{2}+5 t \\leq 2.5^{2}\n\\end{aligned}\n$$\n\n所以 $x \\in[0,2.5)$, 又对\n\n$$\n\\forall k \\in[0,2.5), \\quad A E=E B=2.5, \\quad \\angle A E B=\\pi-\\arccos \\frac{k^{2}}{2.5^{2}}\n$$\n\n则 $x=\\sqrt{-A E \\cdot B E \\cos \\angle A E B}=k$, 故 $x$ 的取值范围为 $[0,2.5)$.\n\n因为$A E \\perp E F, B E \\perp E F，$所以$\\angle A E B$就是二面角$C-EF-D$的平面角，又由题意知$E G$的长度 $x$ 为 $[0,2.5)$ 的最大整数, 因此 $x=2$, 于是:\n\n$$\nA B^{2}=t^{2}+(5-t)^{2}+4=2 t^{2}-10 t+29, \\quad t \\in(0,5)\n$$\n\n因此 $t=2.5$ 时, 线段 $A B$ 的长度取得最小值, 由此得: $2=-\\frac{25}{4} \\cos \\angle A E B, \\angle A E B=\\pi-\\arccos \\frac{8}{25}$."
+        ],
+        "final_answer": [
+            "$\\pi-\\arccos \\frac{8}{25}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 528,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图, 矩形 $A B C D$ 沿平行于 $A D$ 的线段 $E F$ 向上翻折 (点 $E$ 在线段 $A B$ 上运动,点 $F$ 在线段 $C D$ 上运动), 得到三棱柱 $A B E-C D F$, 已知 $A B=5, A C=\\sqrt{34}$.\n\n<img_4176>\n若 $\\triangle A B G$ 是直角三角形, 这里 $G$ 是线段 $E F$ 上的点,若 $E G$ 的长度为取值范围内的最大整数, 且线段 $A B$ 的长度取得最小值, 求三棱雉 $A-B F G$ 的体积.",
+        "solution": [
+            "首先求线段 $E G$ 的长度 $x$ 的取值范围.\n\n由题设条件可知 $\\triangle A E G, \\triangle B E G$ 均为直角三角形, 因此 $A G^{2}=A E^{2}+x^{2}, B G^{2}=B E^{2}+x^{2}$.由余弦定理: $A B^{2}=A E^{2}+B E^{2}-2 A E \\cdot B E \\cos \\angle A E B$.\n\n于是\n\n$$\n\\begin{aligned}\n& 2 x^{2}+A E^{2}+B E^{2}=A B^{2}=A E^{2}+B E^{2}-2 A E \\cdot B E \\cos \\angle A E B \\\\\n& x^{2}=-A E \\cdot B E \\cos \\angle A E B<A E \\cdot B E=t(5-t)=-t^{2}+5 t \\leq 2.5^{2}\n\\end{aligned}\n$$\n\n所以 $x \\in[0,2.5)$, 又对\n\n$$\n\\forall k \\in[0,2.5), \\quad A E=E B=2.5, \\quad \\angle A E B=\\pi-\\arccos \\frac{k^{2}}{2.5^{2}}\n$$\n\n则 $x=\\sqrt{-A E \\cdot B E \\cos \\angle A E B}=k$, 故 $x$ 的取值范围为 $[0,2.5)$.\n\n因为$A E \\perp E F, B E \\perp E F，$所以$\\angle A E B$就是二面角$C-EF-D$的平面角，又由题意知$E G$的长度 $x$ 为 $[0,2.5)$ 的最大整数, 因此 $x=2$, 于是:\n\n$$\nA B^{2}=t^{2}+(5-t)^{2}+4=2 t^{2}-10 t+29, \\quad t \\in(0,5)\n$$\n\n因此 $t=2.5$ 时, 线段 $A B$ 的长度取得最小值, 由此得: $2=-\\frac{25}{4} \\cos \\angle A E B, \\angle A E B=\\pi-\\arccos \\frac{8}{25}$.\n\n$$\n\\angle A E B=\\pi-\\arccos \\frac{8}{25}, A E=E B=\\frac{5}{2}, A G=B G=\\frac{\\sqrt{41}}{2}, E G=2\n$$\n\n且 $E F=\\sqrt{A C^{2}-A B^{2}}=\\sqrt{34-25}=3$.\n\n因为 $A E \\perp E F, B E \\perp E F, A E \\cap B E=E$, 所以 $E F \\perp$ 平面 $E A B$, 故\n\n$$\n\\begin{aligned}\nV_{A-B F G} & =V_{A-B E F}-V_{A-B E G}=\\frac{1}{3}\\left(S_{\\triangle A E B} E F-S_{\\triangle A G B} E G\\right) \\\\\n& =\\frac{1}{3}\\left(\\left(\\frac{1}{2} A E^{2} \\sin \\angle A E B\\right) E F-\\frac{1}{2} B G^{2} E G\\right)=\\frac{1}{6}\\left(\\frac{25}{4} \\sqrt{1-\\frac{64}{625}} \\cdot 3-\\frac{41}{4} \\cdot 2\\right) \\\\\n& =\\frac{3 \\sqrt{561}-82}{24}\n\\end{aligned}\n$$"
+        ],
+        "final_answer": [
+            "$\\frac{3 \\sqrt{561}-82}{24}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 535,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图, 四棱雉 $S-A B C D$ 中, $S D \\perp$ 底面 $A B C D, A B \\| D C, A D \\perp D C, A B=A D=1, D C=S D=2, E$为棱 $S B$ 上的一点, 平面 $E D C \\perp$ 平面 $S B C$.\n\n<img_4153>\n求二面角 $A-D E-C$ 的大小.",
+        "solution": [
+            "以 $D$ 为坐标原点, 射线 $D A, D C, D S$ 分别为 $x$ 轴, $y$ 轴, $z$ 轴建立直角坐标系 $D x y z$, 如下图.\n\n<img_4121>\n\n设 $A=(1,0,0)$ ，则 $B(1,1,0), C(0,2,0), S(0,0,2)$.\n\n$\\overrightarrow{S C}=(0,2,-2), \\overrightarrow{B C}=(-1,1,0)$.\n\n设平面 $S B C$ 的法向量为 $n=(a, b, c)$, 由 $n \\perp \\overrightarrow{S C}, n \\perp \\overrightarrow{B C}$ 得到 $n \\cdot \\overrightarrow{S C}=0, n \\cdot \\overrightarrow{B C}=0$, 故 $b-c=0,-a+b=0$.取 $a=b=c=1$, 则 $n=(1,1,1)$, 又设 $\\overrightarrow{S E}=\\lambda \\overrightarrow{E B}(\\lambda>0)$, 则\n\n$$\nE\\left(\\frac{\\lambda}{1+\\lambda}, \\frac{\\lambda}{1+\\lambda}, \\frac{2}{1+\\lambda}\\right), \\quad \\overrightarrow{D E}=\\left(\\frac{\\lambda}{1+\\lambda}, \\frac{\\lambda}{1+\\lambda}, \\frac{2}{1+\\lambda}\\right), \\quad \\overrightarrow{D C}=(0,2,0)\n$$\n\n设平面 $C D E$ 的法向量为 $m=(x, y, z)$, 由 $m \\perp \\overrightarrow{D E}, m \\perp \\overrightarrow{D C}$, 得到 $m \\cdot \\overrightarrow{D E}=0, m \\cdot \\overrightarrow{D C}=0$, 故\n\n$$\n\\frac{\\lambda x}{1+\\lambda}+\\frac{\\lambda y}{1+\\lambda}+\\frac{2 z}{1+\\lambda}=0, \\quad 2 y=0\n$$\n\n令 $x=2$, 则 $m=(2,0,-\\lambda)$, 由平面 $D E C \\perp$ 平面 $S B C$, 得到 $m \\perp n$, 所以\n\n$$\nm \\cdot n=0, \\quad 2-\\lambda=0, \\quad \\lambda=2\n$$\n\n$\\overrightarrow{D E}=\\left(\\frac{2}{3}, \\frac{2}{3}, \\frac{2}{3}\\right) \\text {, 取 } D E \\text { 的中点 } F \\text {, 则 } F=\\left(\\frac{1}{3}, \\frac{1}{3}, \\frac{1}{3}\\right), \\overrightarrow{F A}=\\left(\\frac{2}{3},-\\frac{1}{3},-\\frac{1}{3}\\right) \\text {, 故 }$\n\n$$\n\\overrightarrow{F A} \\cdot \\overrightarrow{D E}=0 \\Rightarrow \\overrightarrow{F A} \\perp \\overrightarrow{D E}\n$$\n\n又 $\\overrightarrow{E C}=\\left(-\\frac{2}{3}, \\frac{4}{3},-\\frac{2}{3}\\right)$, 故 $\\overrightarrow{E C} \\perp \\overrightarrow{D E}$, 因此向量 $\\overrightarrow{F A}$ 与 $\\overrightarrow{E C}$ 的夹角等于二面角 $A-D E-C$ 的平面角,于是\n\n$$\n\\cos (\\overrightarrow{F A}, \\overrightarrow{E C})=\\frac{\\overrightarrow{F A} \\cdot \\overrightarrow{E C}}{|\\overrightarrow{F A}||\\overrightarrow{E C}|}=-\\frac{1}{2}\n$$\n\n所以二面角 $A-D E-C$ 的大小为 $120^{\\circ}$."
+        ],
+        "final_answer": [
+            "$120$"
+        ],
+        "is_multiple_answer": false,
+        "unit": "$^{\\circ}$",
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 548,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "已知四边形 $A B C D$ 满足 $A D \\| B C, B A=A D=D C=\\frac{1}{2} B C=a, E$ 是 $B C$ 的中点, 将 $\\triangle B A E$ 沿着 $A E$ 翻折成 $\\triangle B_{1} A E$, 使面 $B_{1} A E \\perp$ 面 $A E C D, F$ 为 $B_{1} D$ 的中点.\n\n<img_4129>\n求四棱雉 $B_{1}-A E C D$ 的体积;",
+        "solution": [
+            "取 $A E$ 的中点 $M$, 连接 $B_{1} M$, 如下图.\n\n<img_4216>\n\n因为 $B A=A D=D C=\\frac{1}{2} B C=a, \\triangle A B E$ 为等边三角形,则 $B_{1} M=\\frac{\\sqrt{3}}{2} a$, 又因为面 $B_{1} A E \\perp$ 面 $A E C D$, 所以 $B_{1} M \\perp$ 面 $A E C D$, 所以\n\n$$\nV=\\frac{1}{3} \\times \\frac{\\sqrt{3}}{2} a \\times a \\times a \\times \\sin \\frac{\\pi}{3}=\\frac{a^{3}}{4}\n$$"
+        ],
+        "final_answer": [
+            "$\\frac{a^{3}}{4}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Expression",
+        "error": null
+    },
+    {
+        "id": 549,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "已知四边形 $A B C D$ 满足 $A D \\| B C, B A=A D=D C=\\frac{1}{2} B C=a, E$ 是 $B C$ 的中点, 将 $\\triangle B A E$ 沿着 $A E$ 翻折成 $\\triangle B_{1} A E$, 使面 $B_{1} A E \\perp$ 面 $A E C D, F$ 为 $B_{1} D$ 的中点.\n\n<img_4129>\n求平面 $A D B_{1}$ 与平面 $E C B_{1}$ 所成角的正弦值.",
+        "solution": [
+            "连接 $M D$, 分别以 $M E, M D, M B_{1}$ 为 $x, y, z$ 轴, 如下图.\n\n<img_4216>\n\n则有\n$$\n\\begin{gathered}\nE\\left(\\frac{a}{2}, 0,0\\right), C\\left(a, \\frac{\\sqrt{3}}{2} a, 0\\right), A\\left(-\\frac{a}{2}, 0,0\\right), D\\left(0, \\frac{\\sqrt{3}}{2} a, 0\\right), B_{1}\\left(0,0, \\frac{\\sqrt{3}}{2} a\\right) \\\\\n\\overrightarrow{E C}=\\left(\\frac{a}{2}, \\frac{\\sqrt{3} a}{2}, 0\\right), \\overrightarrow{E B_{1}}=\\left(-\\frac{a}{2}, 0, \\frac{\\sqrt{3} a}{2}\\right), \\overrightarrow{A D}=\\left(\\frac{a}{2}, \\frac{\\sqrt{3} a}{2}, 0\\right), \\overrightarrow{A B_{1}}=\\left(\\frac{a}{2}, 0, \\frac{\\sqrt{3} a}{2}\\right)\n\\end{gathered}\n$$\n\n设面 $E C B_{1}$ 的法向量 $\\vec{v}=\\left(x^{\\prime}, y^{\\prime}, z^{\\prime}\\right),\\left\\{\\begin{array}{l}\\frac{a}{2} x^{\\prime}+\\frac{\\sqrt{3}}{2} a y^{\\prime}=0 \\\\ -\\frac{a}{2} x^{\\prime}+\\frac{\\sqrt{3}}{2} a z^{\\prime}=0\\end{array}\\right.$, 令 $x^{\\prime}=1$, 则 $\\vec{v}=\\left(1,-\\frac{\\sqrt{3}}{3}, \\frac{\\sqrt{3}}{3}\\right)$;\n\n设面 $A D B_{1}$ 的法向量为 $\\vec{u}=(x, y, z),\\left\\{\\begin{array}{l}\\frac{a}{2} x+\\frac{\\sqrt{3}}{2} a y=0 \\\\ \\frac{a}{2} x+\\frac{\\sqrt{3}}{2} a z=0\\end{array}\\right.$, 令 $x=1$, 则 $\\vec{u}=\\left(1,-\\frac{\\sqrt{3}}{3},-\\frac{\\sqrt{3}}{3}\\right)$, 则\n\n$$\n\\cos <\\vec{u}, \\vec{v}>=\\frac{1+\\frac{1}{3}-\\frac{1}{3}}{\\sqrt{1+\\frac{1}{3}+\\frac{1}{3}} \\times \\sqrt{1+\\frac{1}{3}+\\frac{1}{3}}}=\\frac{3}{5}\n$$\n\n所以二面角的正弦值为 $\\frac{4}{5}$."
+        ],
+        "final_answer": [
+            "$\\frac{4}{5}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 642,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图所示, 点 $A$ 和 $A^{\\prime}$ 在 $x$ 轴上, 且关于 $y$ 轴对称, 过点 $A^{\\prime}$ 垂直于 $x$ 轴的直线于抛物线 $y^{2}=2 x$交于两点 $B$ 和 $C$, 点 $D$ 为线段 $A B$ 上的动点, 点 $E$ 在线段 $A C$ 上, 满足 $\\frac{|C E|}{|C A|}=\\frac{|A D|}{|A B|}$.\n\n<img_4059>\n直线 $D E$ 与此抛物线有且只有一个公共点，求该点坐标;",
+        "solution": [
+            "设 $A\\left(-2 a^{2}, 0\\right), A^{\\prime}\\left(2 a^{2}, 0\\right)$,所以可得 $B\\left(2 a^{2}, 2 a\\right), C\\left(2 a^{2},-2 a\\right)$,设 $D\\left(x_{1}, y_{1}\\right), \\overrightarrow{A D}=\\lambda \\overrightarrow{A B}$, 则 $\\overrightarrow{C E}=\\lambda \\overrightarrow{C A}$.于是 $\\left(x_{1}+2 a^{2}, y_{1}\\right)=\\lambda\\left(4 a^{2}, 2 a\\right)$, 故 $D$ 点的坐标为: $\\left((4 \\lambda-2) a^{2}, 2 \\lambda a\\right)$.\n\n设 $E\\left(x_{2}, y_{2}\\right)$, 同理可得, $E$ 坐标 $\\left((2-4 \\lambda) a^{2},(2 \\lambda-2) a\\right)$.\n\n因此直线 $D E$ 的斜率为: $k_{D E}=\\frac{2 a}{(8 \\lambda-4) a^{2}}=\\frac{1}{(4 \\lambda-2) a}$,\n\n所以直线 $D E$ 的方程为: $y-2 \\lambda a=\\frac{1}{(4 \\lambda-2) a}\\left(x-(4 \\lambda-2) a^{2}\\right)$, 化简得:\n\n$(4 \\lambda-2) a y-2 \\lambda a(4 \\lambda-2) a=x-(4 \\lambda-2) a^{2}$, 即 $x=2 a(2 \\lambda-1) y-2 a^{2}(2 \\lambda-1)^{2}$. (1)\n\n与抛物线方程联立, 得 $y^{2}=2\\left[2 a(2 \\lambda-1) y-2 a^{2}(2 \\lambda-1)^{2}\\right]$,\n\n即 $y^{2}-4 a(2 \\lambda-1) y+4 a^{2}(2 \\lambda-1)^{2}=0$, (2)\n\n此时方程有两个相等的根: $y=2 a(2 \\lambda-1)$, 代入 (1)式得: $x=2 a^{2}(2 \\lambda-1)^{2}$.\n\n所以直线 $D E$ 与抛物线有且只有一个公共点 $F\\left(2 a^{2}(2 \\lambda-1)^{2}, 2 a(2 \\lambda-1)\\right)$."
+        ],
+        "final_answer": [
+            "$\\left(2 a^{2}(2 \\lambda-1)^{2}, 2 a(2 \\lambda-1)\\right)$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Tuple",
+        "error": null
+    },
+    {
+        "id": 643,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图所示, 点 $A$ 和 $A^{\\prime}$ 在 $x$ 轴上, 且关于 $y$ 轴对称, 过点 $A^{\\prime}$ 垂直于 $x$ 轴的直线于抛物线 $y^{2}=2 x$交于两点 $B$ 和 $C$, 点 $D$ 为线段 $A B$ 上的动点, 点 $E$ 在线段 $A C$ 上, 满足 $\\frac{|C E|}{|C A|}=\\frac{|A D|}{|A B|}$.\n\n<img_4059>\n设直线 $D E$ 与此抛物线的公共点为 $F$, 记 $\\triangle B C F$ 与 $\\triangle A D E$ 的面积分别为 $S_{1}, S_{2}$, 求 $\\frac{S_{1}}{S_{2}}$ 的值.",
+        "solution": [
+            "设 $A\\left(-2 a^{2}, 0\\right), A^{\\prime}\\left(2 a^{2}, 0\\right)$,所以可得 $B\\left(2 a^{2}, 2 a\\right), C\\left(2 a^{2},-2 a\\right)$,设 $D\\left(x_{1}, y_{1}\\right), \\overrightarrow{A D}=\\lambda \\overrightarrow{A B}$, 则 $\\overrightarrow{C E}=\\lambda \\overrightarrow{C A}$.于是 $\\left(x_{1}+2 a^{2}, y_{1}\\right)=\\lambda\\left(4 a^{2}, 2 a\\right)$, 故 $D$ 点的坐标为: $\\left((4 \\lambda-2) a^{2}, 2 \\lambda a\\right)$.\n\n设 $E\\left(x_{2}, y_{2}\\right)$, 同理可得, $E$ 坐标 $\\left((2-4 \\lambda) a^{2},(2 \\lambda-2) a\\right)$.\n\n因此直线 $D E$ 的斜率为: $k_{D E}=\\frac{2 a}{(8 \\lambda-4) a^{2}}=\\frac{1}{(4 \\lambda-2) a}$,\n\n所以直线 $D E$ 的方程为: $y-2 \\lambda a=\\frac{1}{(4 \\lambda-2) a}\\left(x-(4 \\lambda-2) a^{2}\\right)$, 化简得:\n\n$(4 \\lambda-2) a y-2 \\lambda a(4 \\lambda-2) a=x-(4 \\lambda-2) a^{2}$, 即 $x=2 a(2 \\lambda-1) y-2 a^{2}(2 \\lambda-1)^{2}$. (1)\n\n$S_{1}=S_{\\triangle B C F}=\\frac{1}{2} B C \\cdot h=\\frac{1}{2} \\cdot 4 a \\cdot\\left(2 a^{2}-x_{F}\\right)=4 a^{3}\\left(4 \\lambda-4 \\lambda^{2}\\right)$.\n\n设直线 $D E$ 与 $x$ 轴交于点 $G$, 令 $y=0$, 代入方程(1), $x=2 a(2 \\lambda-1) y-2 a^{2}(2 \\lambda-1)^{2}$, 解得:\n\n$x=-2 a^{2}(2 \\lambda-1)^{2}$, 故 $|A G|=2 a^{2}-2 a^{2}(2 \\lambda-1)^{2}=2 a^{2}\\left(4 \\lambda-4 \\lambda^{2}\\right)$, 于是\n\n$S_{2}=S_{\\triangle A D E}=S_{\\triangle A D G}+S_{\\triangle A E G}=\\frac{1}{2} \\cdot|A G| \\cdot\\left|y_{D}-y_{E}\\right|=a^{2}\\left(4 \\lambda-4 \\lambda^{2}\\right) \\cdot|2 \\lambda a-(2 \\lambda-2) a|=2 a^{3}\\left(4 \\lambda-4 \\lambda^{2}\\right)$\n\n所以 $\\frac{S_{1}}{S_{2}}=2$."
+        ],
+        "final_answer": [
+            "$2$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 777,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "设 $k>0$ 且 $k \\neq 1$, 直线 $l: y=k x+1$ 与 $l_{1}: y=k_{1} x+1$ 关于直线 $y=x+1$ 对称,直线 $l$ 与 $l_{1}$ 分别交椭圆 $E: \\frac{x^{2}}{4}+y^{2}=1$ 于点 $A 、 M$ 和 $A 、 N$.\n\n<img_4242>\n求 $k \\cdot k_{1}$ 的值.",
+        "solution": [
+            "直线 $l$ 与 $l_{1}$ 的交点为 $A(0,1)$.\n\n设点 $P(x, y)$ 是直线 $l$ 上异于点 $A(0,1)$ 的任意一点, 点 $P_{0}\\left(x_{0}, y_{0}\\right)$ 是点 $P$ 关于直线 $y=x+1$ 的对称点.由 $\\frac{y+y_{0}}{2}=\\frac{x+x_{0}}{2}+1$ 得 $y-x=x_{0}-y_{0}+2$.\n\n由 $\\frac{y-y_{0}}{x-x_{0}}=-1$ 得 $y+x=y_{0}+x_{0}$.\n\n联合解得 $\\left\\{\\begin{array}{l}x=y_{0}-1 \\\\ y=x_{0}+1\\end{array}\\right.$.\n\n代入直线 $l: y=k x+1$ 可得 $x_{0}=k\\left(y_{0}-1\\right)$.\n\n又由点 $P_{0}\\left(x_{0}, y_{0}\\right)$ 在直线 $l_{1}: y=k_{1} x+1$ 上, 有 $y_{0}=k_{1} x_{0}+1$, 则 $y_{0}-1=k_{1} x_{0}$.\n\n所以有 $x_{0}=k k_{1} x_{0}$, 从而由 $x_{0} \\neq 0$ 可得 $k k_{1}=1$."
+        ],
+        "final_answer": [
+            "$1$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    },
+    {
+        "id": 778,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "设 $k>0$ 且 $k \\neq 1$, 直线 $l: y=k x+1$ 与 $l_{1}: y=k_{1} x+1$ 关于直线 $y=x+1$ 对称,直线 $l$ 与 $l_{1}$ 分别交椭圆 $E: \\frac{x^{2}}{4}+y^{2}=1$ 于点 $A 、 M$ 和 $A 、 N$.\n\n<img_4242>\n对任意的 $k$ ，直线 $M N$ 恒过定点，求该定点.",
+        "solution": [
+            "直线 $l$ 与 $l_{1}$ 的交点为 $A(0,1)$.\n\n设点 $P(x, y)$ 是直线 $l$ 上异于点 $A(0,1)$ 的任意一点, 点 $P_{0}\\left(x_{0}, y_{0}\\right)$ 是点 $P$ 关于直线 $y=x+1$ 的对称点.由 $\\frac{y+y_{0}}{2}=\\frac{x+x_{0}}{2}+1$ 得 $y-x=x_{0}-y_{0}+2$.\n\n由 $\\frac{y-y_{0}}{x-x_{0}}=-1$ 得 $y+x=y_{0}+x_{0}$.\n\n联合解得 $\\left\\{\\begin{array}{l}x=y_{0}-1 \\\\ y=x_{0}+1\\end{array}\\right.$.\n\n代入直线 $l: y=k x+1$ 可得 $x_{0}=k\\left(y_{0}-1\\right)$.\n\n又由点 $P_{0}\\left(x_{0}, y_{0}\\right)$ 在直线 $l_{1}: y=k_{1} x+1$ 上, 有 $y_{0}=k_{1} x_{0}+1$, 则 $y_{0}-1=k_{1} x_{0}$.\n\n所以有 $x_{0}=k k_{1} x_{0}$, 从而由 $x_{0} \\neq 0$ 可得 $k k_{1}=1$.\n\n设点 $M 、 N$ 的坐标分别为 $\\left(x_{1}, y_{1}\\right)$ 与 $\\left(x_{2}, y_{2}\\right)$.\n\n由 $\\left\\{\\begin{array}{l}y_{1}=k x_{1}+1 \\\\ \\frac{x_{1}^{2}}{4}+y_{1}^{2}=1\\end{array}\\right.$ 可得 $\\left(4 k^{2}+1\\right) x_{1}^{2}+8 k x_{1}=0$. 所以有 $x_{1}=\\frac{-8 k}{4 k^{2}+1}, y_{1}=\\frac{1-4 k^{2}}{4 k^{2}+1}$.\n\n同理求得 $x_{2}=\\frac{-8 k_{1}}{4 k_{1}^{2}+1}, y_{2}=\\frac{1-4 k_{1}^{2}}{4 k_{1}^{2}+1}$.\n\n由 $k k_{1}=1$ 可得 $x_{2}=\\frac{-8 k}{4+k^{2}}, y_{2}=\\frac{k^{2}-4}{4+k^{2}}$.\n\n则直线 $M N$ 的斜率为 $k_{M N}=\\frac{y_{1}-y_{2}}{x_{1}-x_{2}}=\\frac{\\frac{1-4 k^{2}}{4 k^{2}+1}-\\frac{k^{2}-4}{4+k^{2}}}{\\frac{-8 k}{4 k^{2}+1}-\\frac{-8 k}{4+k^{2}}}=\\frac{8-8 k^{4}}{8 k\\left(3 k^{2}-3\\right)}=-\\frac{k^{2}+1}{3 k}$.\n\n所以直线 $M N$ 的方程为 $y-\\frac{1-4 k^{2}}{4 k^{2}+1}=-\\frac{k^{2}+1}{3 k}\\left(x-\\frac{-8 k}{4 k^{2}+1}\\right)$, 化简得 $y=-\\frac{k^{2}+1}{3 k} x-\\frac{5}{3}$.\n\n因此, 对任意的 $k$, 直线 $M N$ 恒过定点 $\\left(0,-\\frac{5}{3}\\right)$."
+        ],
+        "final_answer": [
+            "$\\left(0,-\\frac{5}{3}\\right)$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Tuple",
+        "error": null
+    },
+    {
+        "id": 788,
+        "subfield": "Conic Sections",
+        "context": null,
+        "question": "已知 $F$ 为椭圆 $C: \\frac{x^{2}}{4}+\\frac{y^{2}}{3}=1$ 的右焦点, 点 $P$ 为直线 $x=4$ 上动点, 过点 $P$ 作椭圆 $C$的切线 $P A 、 P B, A 、 B$ 为切点.\n\n<img_4140>\n求 $\\triangle P A B$ 面积的最小值.",
+        "solution": [
+            "$F(1,0)$, 设 $P(4, t), A\\left(x_{1}, y_{1}\\right), B\\left(x_{2}, y_{2}\\right)$ .\n\n则切线 $P A, P B$ 的方程分别为 $\\frac{x_{1} x}{4}+\\frac{y_{1} y}{3}=1, \\frac{x_{2} x}{4}+\\frac{y_{2} y}{3}=1$ .\n\n由切线 $P A, P B$ 过点 $P(4, t)$, 得 $x_{1}+\\frac{y_{1} t}{3}=1, x_{2}+\\frac{y_{2} t}{3}=1$, 即 $x_{1}+\\frac{t}{3} y_{1}=1, x_{2}+\\frac{t}{3} y_{2}=1$ .\n\n由此可得直线 $A B$ 方程为 $x+\\frac{t}{3} y=1$ .\n\n由 $\\left\\{\\begin{array}{l}x+\\frac{t}{3} y=1 \\\\ \\frac{x^{2}}{4}+\\frac{y^{2}}{3}=1\\end{array}\\right.$, 得 $\\left(t^{2}+12\\right) y^{2}-6 t y-27=0$ .\n\n$\\triangle=36 t^{2}+4 \\times 27 \\times\\left(t^{2}+12\\right)>0, \\quad y_{1}+y_{2}=\\frac{6 t}{t^{2}+12}, \\quad y_{1} y_{2}=\\frac{-27}{t^{2}+12} .$\n\n于是, $|A B|=\\sqrt{1+\\left(-\\frac{t}{3}\\right)^{2}} \\cdot\\left|y_{1}-y_{2}\\right|=\\sqrt{1+\\left(-\\frac{t}{3}\\right)^{2}} \\cdot \\sqrt{\\left(\\frac{6 t}{t^{2}+12}\\right)^{2}-4 \\times \\frac{-27}{t^{2}+12}}=\\frac{4\\left(t^{2}+9\\right)}{t^{2}+12}$ .\n\n又点 $P(4, t)$ 到直线 $A B$ 方程的距离 $d=\\sqrt{9+t^{2}}$ .\n\n$\\therefore \\quad \\mathrm{S}_{\\triangle P A B}=\\frac{1}{2}|A B| \\cdot d=\\frac{1}{2} \\times \\frac{4\\left(t^{2}+9\\right)}{t^{2}+12} \\times \\sqrt{9+t^{2}}=\\frac{2\\left(t^{2}+9\\right) \\sqrt{9+t^{2}}}{t^{2}+12}$ .\n\n设 $\\sqrt{t^{2}+9}=\\lambda$, 由 $t \\in R$ 知, $\\lambda \\geq 3$, 且 $\\mathrm{S}_{\\triangle P A B}=f(\\lambda)=\\frac{2 \\lambda^{3}}{\\lambda^{2}+3}$ .\n\n$\\because \\quad f^{\\prime}(\\lambda)=\\frac{6 \\lambda^{2}\\left(\\lambda^{2}+3\\right)-2 \\lambda^{3}(2 \\lambda)}{\\left(\\lambda^{2}+3\\right)^{2}}=\\frac{2 \\lambda^{4}+18 \\lambda^{2}}{\\left(\\lambda^{2}+3\\right)^{2}}>0$,\n\n$\\therefore f(\\lambda)$ 在区间 $[3,+\\infty)$ 上为增函数, $f(\\lambda)$ 的最小值为 $f(3)=\\frac{9}{2}$, 此时 $t=0$ .\n\n$\\therefore \\triangle P A B$ 面积的最小值为 $\\frac{9}{2}$ ."
+        ],
+        "final_answer": [
+            "$\\frac{9}{2}$"
+        ],
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": "Numerical",
+        "error": null
+    }
+]

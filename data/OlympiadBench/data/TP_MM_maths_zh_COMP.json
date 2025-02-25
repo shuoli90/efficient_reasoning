@@ -1,0 +1,1138 @@
+[
+    {
+        "id": 3,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在等腰 $\\triangle A B C$ 中, $A B=B C, I$ 为内心, $M$ 为 $B I$ 的中点, $P$ 为边 $A C$ 上一点, 满足 $A P=3 P C, P I$ 延长线上一点 $H$ 满足 $M H \\perp P H, Q$ 为 $\\triangle A B C$ 的外接圆上劣弧 $A B$ 的中点. 证明: $B H \\perp Q H$.\n\n<img_4057>",
+        "solution": [
+            "取 $A C$ 的中点 $N$, 链接 $IN, BQ, QC$, 如下图. \n\n<img_4177>\n\n由 $A P=3 P C$, 可知 $P$ 为 $N C$ 的中点.易知 $B, I, N$ 共线, $\\angle I N C=90^{\\circ}$.由 $I$ 为 $\\triangle A B C$ 的内心, 可知 $C I$ 经过点 $Q$, 且\n\n$$\n\\angle Q I B=\\angle I B C+\\angle I C B=\\angle A B I+\\angle A C Q=\\angle A B I+\\angle A B Q=\\angle Q B I,\n$$\n\n又 $M$ 为 $B I$ 的中点, 所以 $Q M \\perp B I$, 进而 $Q M \\| C N$.\n\n考虑 $\\triangle H M Q$ 和 $\\triangle H I B$. 由于 $M H \\perp P H$, 故\n\n$$\n\\angle H M Q=90^{\\circ}-\\angle H M I=\\angle H I B .\n$$\n\n又 $\\angle I H M=\\angle I N P=90^{\\circ}$, 故 $\\frac{H M}{H I}=\\frac{N P}{N I}$, 于是\n\n$$\n\\frac{H M}{H I}=\\frac{N P}{N I}=\\frac{1}{2} \\cdot \\frac{N C}{N I}=\\frac{1}{2} \\cdot \\frac{M Q}{M I}=\\frac{M Q}{I B}\n$$\n\n所以 $\\triangle H M Q \\sim \\triangle H I B$, 得 $\\angle H Q M=\\angle H B I$. 从而 $H, M, B, Q$ 四点共圆, 于是有\n\n$$\n\\angle B H Q=\\angle B M Q=90^{\\circ} \\text {, }\n$$\n\n即 $B H \\perp Q H$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 10,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $A, B, C, D, E$ 是圆 $\\Omega$ 上顺次的五点, 满足 $A B C=B C D=C D E$, 点 $P, Q$ 分别在线段 $A D, B E$ 上, 且 $P$ 在线段 $C Q$ 上. 证明: $\\angle P A Q=\\angle P E Q$.\n\n<img_4183>",
+        "solution": [
+            "设 $A D$ 与 $B E$ 交于点 $S, C Q$ 的延长线交圆 $\\Omega$ 于 $T$, 如下图.\n\n<img_4200>\n\n注意到 $A B C=B C D=C D E$, 因此 $A B, C D$ 所对的圆周角相等, 设为 $\\alpha, B C, D E$所对的圆周角相等, 设为 $\\beta$. 于是\n\n$$\n\\begin{aligned}\n& \\angle A T Q=\\angle A T C=\\alpha+\\beta, \\\\\n& \\angle P T E=\\angle C T E=\\alpha+\\beta, \\\\\n& \\angle P S Q=\\angle B D A+\\angle D B E=\\alpha+\\beta .\n\\end{aligned}\n$$\n\n由 $\\angle A T Q=\\angle P S Q$ 可得 $S, A, T, Q$ 四点共圆, 由 $\\angle P T E=\\angle P S Q$ 可得 $P, S, T, E$ 四点共圆. 所以\n\n$$\n\\angle P A Q=\\angle P T S=\\angle P E Q\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 26,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 点 $A, B, C, D, E$ 在一条直线上顺次排列, 满足 $B C=C D=\\sqrt{A B \\cdot D E}$, 点 $P$在该直线外, 满足 $P B=P D$. 点 $K, L$ 分别在线段 $P B, P D$ 上, 满足 $K C$ 平分 $\\angle B K E$, $L C$ 平分 $\\angle A L D$.\n\n证明: $A, K, L, E$ 四点共圆.\n\n<img_4097>",
+        "solution": [
+            "令 $A B=1, B C=C D=t(>0)$, 由条件知 $D E=t^{2}$.\n\n注意到 $\\angle B K E<\\angle A B K=\\angle P D E<180^{\\circ}-\\angle D E K$, 可在 $C B$ 延长线上取一点 $A^{\\prime}$,使得 $\\angle A^{\\prime} K E=\\angle A B K=\\angle A^{\\prime} B K$, 并连接 $LE$, 如下图.\n\n<img_4165>\n\n此时有 $\\triangle A^{\\prime} B K \\sim \\triangle A^{\\prime} K E$, 故 $\\frac{A^{\\prime} B}{A^{\\prime} K}=\\frac{A^{\\prime} K}{A^{\\prime} E}=\\frac{B K}{K E}$.\n\n又 $K C$ 平分 $\\angle B K E$, 故 $\\frac{B K}{K E}=\\frac{B C}{C E}=\\frac{1}{t+t^{2}}=\\frac{1}{1+t}$. 于是有\n\n$\\frac{A^{\\prime} B}{A^{\\prime} E}=\\frac{A^{\\prime} B}{A^{\\prime} K} \\cdot \\frac{A^{\\prime} K}{A^{\\prime} E}=\\left(\\frac{B K}{K E}\\right)^{2}=\\frac{1}{1+2 t+t^{2}}=\\frac{A B}{A E}$.\n\n由上式两端减 1 , 得 $\\frac{B E}{A^{\\prime} E}=\\frac{B E}{A E}$, 从而 $A^{\\prime}=A$. 因此 $\\angle A K E=\\angle A^{\\prime} K E=\\angle A B K$.\n\n同理可得 $\\angle A L E=\\angle E D L$.\n\n而 $\\angle A B K=\\angle E D L$, 所以 $\\angle A K E=\\angle A L E$. 因此 $A, K, L, E$ 四点共圆."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 33,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $\\triangle A B C$ 为锐角三角形, $A B<A C, M$ 为 $B C$ 边的中点, 点 $D$ 和 $E$ 分别为 $\\triangle A B C$ 的外接圆弧 $B A C$ 和弧 $B C$ 的中点, $F$ 为 $\\triangle A B C$ 的内切圆在 $A B$ 边上的切点, $G$ 为 $A E$ 与 $B C$ 的交点, $N$ 在线段 $E F$ 上, 满足 $N B \\perp A B$.\n\n证明: 若 $B N=E M$, 则 $D F \\perp F G$. \n\n<img_4148>",
+        "solution": [
+            "作辅助线如下图.\n\n<img_4139>\n\n\n由条件知, $D E$ 为 $\\triangle A B C$ 外接圆的直径, $D E \\perp B C$ 于 $M, A E \\perp A D$. 记 $I$ 为 $\\triangle A B C$的内心, 则 $I$ 在 $A E$ 上, $I F \\perp A B$. 由 $N B \\perp A B$ 可知 $\\angle N B E=\\angle A B E-\\angle A B N=$ $\\left(180^{\\circ}-\\angle A D E\\right)-90^{\\circ}=90^{\\circ}-\\angle A D E=\\angle M E I$. (1)\n\n又根据内心的性质, 有 $\\angle E B I=\\angle E B C+\\angle C B I=\\angle E A C+\\angle A B I=\\angle E A B+$ $\\angle A B I=\\angle E I B$, 从而 $B E=E I$. 结合 $B N=E M$ 及 (1) 知, $\\triangle N B E \\cong \\triangle M E I$. 于是 $\\angle E M I=\\angle B N E=90^{\\circ}+\\angle B F E=180^{\\circ}-\\angle E F I$, 故 $E, F, I, M$ 四点共圆. 进而可知 $\\angle A F M=90^{\\circ}+\\angle I F M=90^{\\circ}+\\angle I E M=\\angle A G M$, 从而 $A, F, G, M$ 四点共圆.再由 $\\angle D A G=\\angle D M G=90^{\\circ}$ 知, $A, G, M, D$ 四点共圆, 所以 $A, F, G, M, D$ 五点共圆.从而 $\\angle D F G=\\angle D A G=90^{\\circ}$ ，即 $D F \\perp F G$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 37,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图所示, 在平面直角坐标系 $x O y$ 中, $A, B$ 与 $C, D$ 分别是椭圆 $\\Gamma: \\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1(a>$ $b>0)$ 的左右顶点与上下顶点. 设 $P, Q$ 是 $\\Gamma$ 上且位于第一象限的两点, 满足 $O Q \\| A P$, $M$ 是线段 $A P$ 的中点, 射线 $O M$ 与椭圆交于点 $R$.\n\n证明: 线段 $O Q, O R, B C$ 能构成一个直角三角形.\n\n<img_4135>",
+        "solution": [
+            "设点 $P$ 坐标为 $\\left(x_{0}, y_{0}\\right)$. 由于 $\\overrightarrow{O Q}\\|\\overrightarrow{A P}, \\overrightarrow{A P}=\\overrightarrow{O P}-\\overrightarrow{O A} ; \\overrightarrow{O R}\\| \\overrightarrow{O M}, \\overrightarrow{O M}=\\frac{1}{2}(\\overrightarrow{O P}+$ $\\overrightarrow{O A})$, 故存在实数 $\\lambda, \\mu$, 使得 $\\overrightarrow{O Q}=\\lambda(\\overrightarrow{O P}-\\overrightarrow{O A}), \\overrightarrow{O R}=\\mu(\\overrightarrow{O P}+\\overrightarrow{O A})$. 此时点 $Q, R$的坐标可分别表示是 $\\left(\\lambda\\left(x_{0}+a\\right), \\lambda y_{0}\\right),\\left(\\mu\\left(x_{0}-a\\right), \\mu y_{0}\\right)$. 由于点 $Q, R$ 都在椭圆上, 所以 $\\lambda^{2}\\left(\\frac{\\left(x_{0}+a\\right)^{2}}{a^{2}}+\\frac{y_{0}^{2}}{b^{2}}\\right)=\\mu^{2}\\left(\\frac{\\left(x_{0}-a\\right)^{2}}{a^{2}}+\\frac{y_{0}^{2}}{b^{2}}\\right)=1$.\n\n结合 $\\frac{x_{0}^{2}}{a^{2}}+\\frac{y_{0}^{2}}{b^{2}}=1$ 知, 上式可化为 $\\lambda^{2}\\left(2+\\frac{2 x_{0}}{a}\\right)=\\mu^{2}\\left(2-\\frac{2 x_{0}}{a}\\right)=1$, 解得 $\\lambda^{2}=$ $\\frac{a}{2\\left(a+x_{0}\\right)}, \\mu^{2}=\\frac{a}{2\\left(a-x_{0}\\right)}$.\n\n\n\n因此 $|O Q|^{2}+|O R|^{2}=\\lambda^{2}\\left(\\left(x_{0}+a\\right)^{2}+y_{0}^{2}\\right)+\\mu^{2}\\left(\\left(x_{0}-a\\right)^{2}+y_{0}^{2}\\right)$\n\n$=\\frac{a}{2\\left(a+x_{0}\\right)}\\left(\\left(x_{0}+a\\right)^{2}+y_{0}^{2}\\right)+\\frac{a}{2\\left(a-x_{0}\\right)}\\left(\\left(x_{0}-a\\right)^{2}+y_{0}^{2}\\right)$\n\n$=\\frac{a\\left(a+x_{0}\\right)}{2}+\\frac{a y_{0}^{2}}{2\\left(a+x_{0}\\right)}+\\frac{a\\left(a-x_{0}\\right)}{2}+\\frac{a y_{0}^{2}}{2\\left(a-x_{0}\\right)}$\n\n$=a^{2}+\\frac{a y_{0}^{2}}{2}\\left(\\frac{1}{a+x_{0}}+\\frac{1}{a-x_{0}}\\right)$\n\n$=a^{2}+\\frac{a y_{0}^{2}}{2} \\cdot \\frac{2 a}{a^{2}-x_{0}^{2}}=a^{2}+\\frac{a^{2} \\cdot b^{2}\\left(1-\\frac{x_{0}^{2}}{a^{2}}\\right)}{a^{2}-x_{0}^{2}}=a^{2}+b^{2}=|B C|^{2}$.\n\n从而线段 $O Q, O R, B C$ 能构成一个直角三角形."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 39,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图所示, 在等腰 $\\triangle A B C$ 中, $A B=A C$, 边 $A C$ 上一点 $D$ 及 $B C$ 延长线上一点 $E$满足 $\\frac{A D}{D C}=\\frac{B C}{2 C E}$, 以 $A B$ 为直径的圆 $w$ 与线段 $D E$ 交于一点 $F$. 证明: $B, C, F, D$ 四点共圆.\n<img_4227>",
+        "solution": [
+            "如下图, 取 $B C$ 中点 $H$, 则由 $A B=A C$ 知 $A H \\perp B C$, 故 $H$ 在圆 $w$ 上.\n\n<img_4161>\n\n延长 $F D$ 至 $G$, 使得 $A G \\| B C$, 结合已知条件得, $\\frac{A G}{C E}=\\frac{A D}{D C}=\\frac{B C}{2 C E}$, 故 $A G=$ $\\frac{1}{2} B C=B H=H C$, 从而 $A G B H$ 为矩形, $A G H C$ 为平行四边形. 由 $A G B H$ 为矩形知, $G$ 亦在圆 $w$ 上. 故 $\\angle H G F=\\angle H B F$. 又 $A G H C$ 为平行四边形, 由 $A C \\| G H$,得 $\\angle C D F=\\angle H G F$. 所以 $\\angle C D F=\\angle H B F=\\angle C B F$, 故 $B, C, F, D$ 四点共圆."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 46,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在 $\\triangle A B C$ 中, $A B=A C, I$ 为 $\\triangle A B C$ 的内心. 以 $A$ 为圆心, $A B$ 为半径作圆 $\\Gamma_{1}$, 以 $I$ 为圆心, $I B$ 为半径作圆 $\\Gamma_{2}$, 过点 $B, I$ 的圆 $\\Gamma_{3}$ 与 $\\Gamma_{1}, \\Gamma_{2}$ 分别交于点 $P, Q$ (不同于点 $B$ ). 设 $I P$ 与 $B Q$ 交于点 $R$. 证明: $B R \\perp C R$.\n\n<img_4120>",
+        "solution": [
+            "如下图, 连接 $I B, I C, I Q, P B, P C$.\n\n<img_4195>\n\n由于点 $Q$ 在圆 $\\Gamma_{2}$ 上, 故 $I B=I Q$, 所以\n\n$$\n\\angle I B Q=\\angle I Q B .\n$$\n\n又 $B, I, P, Q$ 四点共圆, 所以 $\\angle I Q B=\\angle I P B$, 于是 $\\angle I B Q=\\angle I P B$, 故 $\\triangle I B P$ 与\n$\\triangle I R B$ 相似, 从而有 $\\angle I R B=\\angle I B P$, 且\n\n$$\n\\frac{I B}{I R}=\\frac{I P}{I B}\n$$\n\n注意到 $A B=A C$, 且 $I$ 为 $\\triangle A B C$ 的内心, 故 $I B=I C$, 所以\n\n$$\n\\frac{I C}{I R}=\\frac{I P}{I C}\n$$\n\n于是 $\\triangle I C P$ 与 $\\triangle I R C$ 相似, 故\n\n$$\n\\angle I R C=\\angle I C P .\n$$\n\n又点 $P$ 在圆 $\\Gamma_{1}$ 的弧 $B C$ 上, 故\n\n$$\n\\angle B P C=180^{\\circ}-\\frac{1}{2} \\angle A,\n$$\n\n因此\n\n$$\n\\begin{aligned}\n\\angle B R C & =\\angle I R B+\\angle I R C \\\\\n& =\\angle I B P+\\angle I C P \\\\\n& =360^{\\circ}-\\left(90^{\\circ}+\\frac{1}{2} \\angle A\\right)-\\left(180^{\\circ}-\\frac{1}{2} \\angle A\\right) \\\\\n& =90^{\\circ},\n\\end{aligned}\n$$\n\n故 $B R \\perp C R$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 56,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 点 $D$ 是锐角 $\\triangle A B C$ 的外接圆 $\\omega$ 上弧 $B C$ 的中点, 直线 $D A$ 与圆 $\\omega$ 过点 $B, C$的切线分别相交于点 $P, Q, B Q$ 与 $A C$ 的交点为 $X, C P$ 与 $A B$ 的交点为 $Y, B Q$ 与 $C P$ 的交点为 $T$. 求证: $A T$ 平分线段 $X Y$.\n\n\n\n<img_4068>",
+        "solution": [
+            "首先证明 $Y X \\| B C$, 即证 $\\frac{A X}{X C}=\\frac{A Y}{Y B}$. 连接 $B D, C D$, 如下图.\n\n<img_4225>\n\n为了方便我们直接用三角形代表该三角形的面积, 因为\n\n$$\n\\frac{\\triangle A C Q}{\\triangle A B C} \\cdot \\frac{\\triangle A B C}{\\triangle A B P}=\\frac{\\triangle A C Q}{\\triangle A B P}\n$$\n\n于是\n\n$$\n\\frac{A C \\cdot C Q \\cdot \\sin \\angle A C Q}{A B \\cdot B C \\cdot \\sin \\angle A B C} \\cdot \\frac{A C \\cdot B C \\cdot \\sin \\angle A C B}{A B \\cdot B P \\cdot \\sin \\angle A B P}=\\frac{A C \\cdot A Q \\cdot \\angle C A Q}{A B \\cdot A P \\cdot \\sin \\angle B A P}\n$$\n\n根据弦切角定理, 有\n\n$$\n\\angle A C Q=\\angle A B C, \\angle A C B=\\angle A B P\n$$\n\n又 $D$ 是弧 $B C$ 的中点, 于是\n\n$$\n\\angle C A Q=\\angle D B C=\\angle D C B=\\angle B A P,\n$$\n\n于是可得\n\n$$\n\\frac{A B \\cdot A Q}{A C \\cdot A P}=\\frac{C Q}{B P}\n$$\n\n因为 $\\angle C A Q=\\angle B A P$, 所以 $\\angle B A Q=\\angle C A P$, 于是\n\n$$\n\\frac{\\triangle A B Q}{\\triangle A C P}=\\frac{A B \\cdot A Q \\cdot \\sin \\angle B A Q}{A C \\cdot A P \\cdot \\sin \\angle C A P}=\\frac{A B \\cdot A Q}{A C \\cdot A P}\n$$\n\n\n\n而\n\n$$\n\\frac{\\triangle B C Q}{\\triangle B C P}=\\frac{B C \\cdot C Q \\cdot \\sin \\angle B C Q}{B C \\cdot B P \\cdot \\sin \\angle C B P}=\\frac{C Q}{B P}\n$$\n\n因此可得\n\n$$\n\\frac{\\triangle A B Q}{\\triangle A C P}=\\frac{\\triangle C B Q}{\\triangle B C P}\n$$\n\n即\n\n$$\n\\frac{\\triangle A B Q}{\\triangle C B Q}=\\frac{\\triangle A C P}{\\triangle B C P}\n$$\n\n又\n\n$$\n\\frac{\\triangle A B Q}{\\triangle C B Q}=\\frac{A X}{X C}, \\frac{\\triangle A C P}{\\triangle B C P}=\\frac{A Y}{Y B}\n$$\n\n故 $\\frac{A X}{X C}=\\frac{A Y}{Y B}$.\n\n设 $B C$ 边的中点为 $M$, 因为\n\n$$\n\\frac{A X}{X C} \\cdot \\frac{C M}{M B} \\cdot \\frac{B Y}{Y A}=1\n$$\n\n所以由塞瓦定理的逆定理可知 $A M, B X, C Y$ 三线共点于 $T$, 故由 $Y X \\| B C$ 可知 $A T$平分线段 $X Y$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 62,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图所示, 在 $\\triangle A B C$ 中, $X, Y$ 是直线 $B C$ 上两点 ( $X, B, C, Y$ 顺次排列), 使得\n\n$$\nB X \\cdot A C=C Y \\cdot A B\n$$\n\n设 $\\triangle A C X, \\triangle A B Y$ 的外心分别为 $O_{1}, O_{2}$, 直线 $O_{1} O_{2}$ 与 $A B, A C$ 分别交于点 $U, V$. 证明: $\\triangle A U V$ 是等腰三角形.\n\n<img_4193>",
+        "solution": [
+            "如下图, 设圆 $O_{1}$ 与圆 $O_{2}$ 的公共弦为 $A D, A D$ 交 $X Y$ 于 $E$.\n\n\n\n<img_4145>\n\n由于 $A D$ 为两圆的根轴, 于是 $E$ 点对圆 $O_{1}$ 和圆 $O_{2}$ 的幂相等, 从而\n\n$$\nX E \\cdot C E=B E \\cdot Y E\n$$\n\n进而结合合分比定理有\n\n$$\n\\frac{B E}{C E}=\\frac{X E}{Y E}=\\frac{X B}{Y C}\n$$\n\n又由已知, 有 $\\frac{X B}{Y C}=\\frac{A B}{A C}$, 于是有 $\\frac{B E}{C E}=\\frac{A B}{A C}$, 从而 $A E$ 是 $\\angle B A C$ 的角平分线. 又 $A D \\perp O_{1} O_{2}$, 于是 $U, V$ 关于直线 $A D$ 对称, 因此 $\\triangle A U V$ 是等腰三角形.",
+            "如图, 设 $\\triangle A B C$ 的外心为 $O$, 连结 $O O_{1}, O O_{2}$, 过点 $O, O_{1}, O_{2}$ 分别作直线 $B C$ 的垂线, 垂足分别为 $D, D_{1}, D_{2}$. 作 $O_{1} K \\perp O D$ 于点 $K$.\n\n<img_4154>\n\n我们证明 $O O_{1}=O O_{2}$. 在直角三角形 $O K O_{1}$ 中,\n\n$$\nO O_{1}=\\frac{O_{1} K}{\\sin \\angle O_{1} O K}\n$$\n\n由外心的性质, $O O_{1} \\perp A C$, 又 $O D \\perp B C$, 故 $\\angle O_{1} O K=\\angle A C B$. 而 $D, D_{1}$ 分别是 $B C, C X$ 的中点, 所以\n\n$$\nD D_{1}=C D_{1}-C D=\\frac{1}{2} C X-\\frac{1}{2} B C=\\frac{1}{2} B X\n$$\n\n因此\n\n$$\nO O_{1}=\\frac{O_{1} K}{\\sin \\angle O_{1} O K}=\\frac{D D_{1}}{\\sin \\angle A C B}=\\frac{\\frac{1}{2} B X}{\\frac{A B}{2 R}}=R \\cdot \\frac{B X}{A B}\n$$\n\n\n\n这里 $R$ 是 $\\triangle A B C$ 的外接圆半径. 同理 $O O_{2}=R \\cdot \\frac{C Y}{A C}$. 由已知条件可得 $\\frac{B X}{A B}=\\frac{C Y}{A C}$,故 $O O_{1}=O O_{2}$. 由于 $O O_{1}=O O_{2}$, 故 $\\angle O O_{1} O_{2}=\\angle O O_{2} O_{1}$, 从而 $\\angle A U V=\\angle A V U$.这样 $A U=A V$, 即 $\\triangle A U V$ 是等腰三角形."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 70,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $\\triangle A B C$ 内接于圆 $O, P$ 为弧 $B C$ 上一点, 点 $K$ 在线段 $A P$ 上, 使得 $B K$ 平分 $\\angle A B C$. 过 $K 、 P 、 C$ 三点的圆 $\\Omega$ 与边 $A C$ 交于点 $D$, 连接 $B D$ 交圆 $\\Omega$ 于点 $E$, 连接 $P E$ 并延长与边 $A B$ 交于点 $F$, 证明: $\\angle A B C=2 \\angle F C B$.\n\n<img_4198>",
+        "solution": [
+            "设 $C F$ 与圆 $\\Omega$ 交于点 $L$ (异于 $C$ ). 连接 $P B 、 P C 、 B L 、 K L$, 如下图.\n\n<img_4215>\n\n注意此时 $C 、 D 、 L 、 K 、 E 、 P$ 六点均在圆 $\\Omega$ 上, 结合 $A 、 B 、 P 、 C$ 四点共圆, 可知\n\n$$\n\\angle F E B=\\angle D E P=180^{\\circ}-\\angle D C P=\\angle A B P=\\angle F B P\n$$\n\n因此 $\\triangle F B E \\sim \\triangle F P B$, 因此\n\n$$\nF B^{2}=F E \\cdot F P\n$$\n\n又由圆幂定理可知, $F E \\cdot F P=F L \\cdot F C$, 所以\n\n$$\nF B^{2}=F L \\cdot F C,\n$$\n\n\n\n因此 $\\triangle F B L \\sim \\triangle F C B$. 因此\n\n$$\n\\angle F L B=\\angle F B C=\\angle A P C=\\angle K P C=\\angle K L C,\n$$\n\n即 $B 、 K 、 L$ 三点共线. 再根据 $\\triangle F B L \\sim \\triangle F C B$ 得\n\n$$\n\\angle F C B=\\angle F B L=\\angle F B K=\\frac{1}{2} \\angle A B C,\n$$\n\n即 $\\angle A B C=2 \\angle F C B$.",
+            "设 $C F$ 与圆 $\\Omega$ 交于点 $L$ (异于 $C$ ), 如下图.\n\n<img_4180>\n\n对圆内接广义六边形 $D C P E L K$ 应用帕斯卡定理可知, $D C$ 与 $K P$ 的交点 $A 、 C L$ 与 $P E$ 的交点 $F 、 L K$ 与 $E D$ 的交点 $B^{\\prime}$ 共线, 因此 $B^{\\prime}$ 是 $A F$ 与 $E D$ 的交点, 即 $B^{\\prime}=B$,所以 $B 、 K 、 L$ 共线. 根据 $A 、 B 、 P 、 C$ 四点共圆及 $L 、 K 、 P 、 C$ 四点共圆, 得\n\n$$\n\\angle A B C=\\angle A P C=\\angle K L C=\\angle F C B+\\angle L B C,\n$$\n\n又由 $B K$ 平分 $\\angle A B C$ 知\n\n$$\n\\angle A B C=2 \\angle L B C\n$$\n\n从而 $\\angle A B C=2 \\angle F C B$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 72,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "平面直角坐标系中 $x O y$ 中, $P$ 是不在 $x$ 轴上的一个动点, 过 $P$ 作抛物线 $y^{2}=4 x$ 的两条切线, 切点设为 $A, B$, 且直线 $P O \\perp A B$ 于 $Q, R$ 为直线 $A B$ 与 $x$ 轴的交点.\n\n<img_4085>\n求证: $R$ 是定点;",
+        "solution": [
+            "设 $P(m, n)$, 则 $A B: n y=2(x+m)$, 根据题意, 直线 $P O$ 与直线 $A B$ 垂直, 于是\n\n$$\n\\frac{n}{m} \\cdot \\frac{2}{n}=-1\n$$\n\n因此 $m=-2$. 进而 $R(2,0)$ 为定点."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 77,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在锐角三角形 $A B C$ 中, $\\angle B A C \\neq 60^{\\circ}$, 过点 $B, C$ 分别作三角形 $A B C$ 的外接圆的切线 $B D, C E$, 且满足 $B D=C E=B C$. 直线 $D E$ 与 $A B, A C$ 的延长线分别交于点 $F, G$. 设 $C F$ 与 $B D$ 交于点 $M, C E$ 与 $B G$ 交于点 $N$.\n\n<img_4127>\n\n证明: $A M=A N$.",
+        "solution": [
+            "如图, 设两条切线 $B D, C E$ 交于点 $K$, 则 $B K=C K$. 结合 $B D=C E$ 可知 $D E \\| B C$.作 $\\angle B A C$ 的平分线 $A L$ 交 $B C$ 于点 $L$, 连结 $L M, L N$.\n\n<img_4245>\n\n由 $D E \\| B C$ 知,\n\n$$\n\\angle A B C=\\angle D F B, \\angle F D B=\\angle D B C=\\angle B A C,\n$$\n\n故 $\\triangle A B C$ 与 $\\triangle D F B$ 相似.\n\n由此并结合 $D E \\| B C, B D=C B$ 及内角平分线定理可得\n\n$$\n\\frac{M C}{M F}=\\frac{B C}{F D}=\\frac{B D}{F D}=\\frac{A C}{A B}=\\frac{L C}{L B},\n$$\n\n因此 $L M \\| B F$.\n\n同理, $L N \\| C G$.\n\n\n\n由此推出\n\n$$\n\\begin{aligned}\n\\angle A L M & =\\angle A L B+\\angle B L M \\\\\n& =\\angle A L B+\\angle A B L \\\\\n& =180^{\\circ}-\\angle B A L \\\\\n& =180^{\\circ}-\\angle C A L \\\\\n& =\\angle A L C+\\angle A C L \\\\\n& =\\angle A L C+\\angle C L N \\\\\n& =\\angle A L N,\n\\end{aligned}\n$$\n\n再结合 $B C \\| F G$ 及内角平分线定理可得\n\n$$\n\\begin{aligned}\n\\frac{L M}{L N} & =\\frac{L M}{B F} \\cdot \\frac{B F}{C G} \\cdot \\frac{C G}{L N} \\\\\n& =\\frac{C L}{B C} \\cdot \\frac{A B}{A C} \\cdot \\frac{B C}{B L} \\\\\n& =\\frac{L C}{L B} \\cdot \\frac{A B}{A C}=1,\n\\end{aligned}\n$$\n\n即 $L M=L N$.\n\n故由\n\n$$\nA L=A L, \\angle A L M=\\angle A L N, L M=L N,\n$$\n\n得到 $\\triangle A L M$ 与 $\\triangle A L N$ 全等, 因而 $A M=A N$, 证毕."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 83,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $A B$ 是圆 $\\omega$ 的一条弦, $P$ 为弧 $A B$ 内一点, $E, F$ 为线段 $A B$上两点, 满足 $A E=E F=F B$. 连结 $P E, P F$ 并延长, 与圆 $\\omega$ 分别相交于点 $C, D$. 求证:\n\n$$\nE F \\cdot C D=A C \\cdot B D\n$$\n\n<img_4053>",
+        "solution": [
+            "连结 $A D, B C, C F, D E$, 如下图. \n\n<img_4113>\n\n\n由于 $A E=E F=F B$, 从而\n\n$$\n\\frac{B C \\cdot \\sin \\angle B C E}{A C \\cdot \\sin \\angle A C E}=\\frac{\\text { 点 } B \\text { 到直线 } C P \\text { 的距离 }}{\\text { 点 } A \\text { 到直线 } C P \\text { 的距离 }}=\\frac{B E}{A E}=2 . (1)\n$$\n\n同样\n\n$$\n\\frac{A D \\cdot \\sin \\angle A D F}{B D \\cdot \\sin \\angle B D F}=\\frac{\\text { 点 } A \\text { 到直线 } P D \\text { 的距离 }}{\\text { 点 } B \\text { 到直线 } P D \\text { 的距离 }}=\\frac{A F}{B F}=2 . (2)\n$$\n\n另一方面, 由于\n\n$$\n\\begin{aligned}\n& \\angle B C E=\\angle B C P=\\angle B D P=\\angle B D F, \\\\\n& \\angle A C E=\\angle A C P=\\angle A D P=\\angle A D F,\n\\end{aligned}\n$$\n\n\n\n故将 (1) 、(2) 两式相乘可得 $\\frac{B C \\cdot A D}{A C \\cdot B D}=4$, 即\n\n$$\nB C \\cdot A D=4 A C \\cdot B D . (3)\n$$\n\n由托勒密定理\n\n$$\nA D \\cdot B C=A C \\cdot B D+A B \\cdot C D . (4)\n$$\n\n故由 (3)(4) 得\n\n$$\nA B \\cdot C D=3 A C \\cdot B D\n$$\n\n即\n\n$$\nE F \\cdot C D=A C \\cdot B D\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 91,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图在平面直角坐标系 $x O y$ 中, 菱形 $A B C D$ 的边长为 4 , 且 $|O B|=|O D|=6$.\n\n<img_4054>\n求证: $|O A| \\cdot|O C|$ 为定值;",
+        "solution": [
+            "因为\n\n$$\n|O B|=|O D|,|A B|=|A D|=|C B|=|C D| \\text {, }\n$$\n\n所以 $O, A, C$ 三点共线. \n\n\n连接 $B D$, 则 $B D$ 垂直平分线段 $A C$, 设垂足为 $K$, 如下图.\n\n<img_4132>\n\n于是有\n\n$$\n\\begin{aligned}\n|O A| \\cdot|O C| & =(|O K|-|A K|)(|O K|+|A K|) \\\\\n& =|O K|^{2}-|A K|^{2} \\\\\n& =\\left(|O B|^{2}-|B K|^{2}\\right)-\\left(|A B|^{2}-|B K|^{2}\\right) \\\\\n& =|O B|^{2}-|A B|^{2} \\\\\n& =20 .\n\\end{aligned}\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 93,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在锐角 $\\triangle A B C$ 中, $A B>A C, M, N$ 是 $B C$ 边上不同的两点, 使得 $\\angle B A M=$ $\\angle C A N$. 设 $\\triangle A B C$ 和 $\\triangle A M N$ 的外心分别为 $O_{1}, O_{2}$, 求证: $O_{1}, O_{2}, A$ 三点共线.\n\n<img_4103>",
+        "solution": [
+            "连接 $A O_{1}, A O_{2}$, 过 $A$ 作 $A O_{1}$ 的垂线 $A P$ 交 $B C$ 的延长线于点 $P$, \n如下图.\n\n<img_4220>\n\n\n则有 $A P$ 是圆 $O_{1}$ 的切线, 所以\n\n$$\n\\angle B=\\angle P A C\n$$\n\n又因为 $\\angle B A M=\\angle C A N$, 所以\n\n$$\n\\angle A M P=\\angle B+\\angle B A M=\\angle P A C+\\angle C A N=\\angle P A N\n$$\n\n因而 $A P$ 是 $\\triangle A M N$ 外接圆 $O_{2}$ 的切线, 故 $A P \\perp A O_{2}$.\n\n因为\n\n$$\nA P \\perp A O_{1}, A P \\perp A O_{2},\n$$\n\n所以 $O_{1}, O_{2}, A$ 三点共线."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 101,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "作斜率为 $\\frac{1}{3}$ 的直线 $l$ 与椭圆 $C: \\frac{x^{2}}{36}+\\frac{y^{2}}{4}=1$ 交于 $A, B$ 两点 (如图所示), 且 $P(3 \\sqrt{2}, \\sqrt{2}$ )在直线 $l$ 的左上方.\n\n\n<img_4194>\n证明: $\\triangle P A B$ 的内切圆的圆心在一条定直线上;",
+        "solution": [
+            "设直线 $l: y=\\frac{1}{3} x+m, A\\left(x_{1}, y_{1}\\right), B\\left(x_{2}, y_{2}\\right)$.\n\n将 $y=\\frac{1}{3} x+m$ 代入 $\\frac{x^{2}}{36}+\\frac{y^{2}}{4}=1$ 中, 化简得\n\n$$\n2 x^{2}+6 m x+9 m^{2}-36=0 .\n$$\n\n于是有\n\n$$\nx_{1}+x_{2}=-3 m, x_{1} x_{2}=\\frac{9 m^{2}-36}{2} .\n$$\n\n因为\n\n$$\nk_{P A}=\\frac{y_{1}-\\sqrt{2}}{x_{1}-3 \\sqrt{2}}, k_{P B}=\\frac{y_{2}-\\sqrt{2}}{x_{2}-3 \\sqrt{2}}\n$$\n\n所以\n\n$$\n\\begin{aligned}\nk_{P A}+k_{P B} & =\\frac{y_{1}-\\sqrt{2}}{x_{1}-3 \\sqrt{2}}+\\frac{y_{2}-\\sqrt{2}}{x_{2}-3 \\sqrt{2}} \\\\\n& =\\frac{\\left(y_{1}-\\sqrt{2}\\right)\\left(x_{2}-3 \\sqrt{2}\\right)+\\left(y_{2}-\\sqrt{2}\\right)\\left(x_{1}-3 \\sqrt{2}\\right)}{\\left(x_{1}-3 \\sqrt{2}\\right)\\left(x_{2}-3 \\sqrt{2}\\right)},\n\\end{aligned}\n$$\n\n上式中\n\n$$\n\\begin{aligned}\n\\text { 分子 } & =\\left(\\frac{1}{3} x_{1}+m-\\sqrt{2}\\right)\\left(x_{2}-3 \\sqrt{2}\\right)+\\left(\\frac{1}{3} x_{2}+m-\\sqrt{2}\\right)\\left(x_{1}-3 \\sqrt{2}\\right) \\\\\n& =\\frac{2}{3} x_{1} x_{2}+(m-2 \\sqrt{2})\\left(x_{1}+x_{2}\\right)-6 \\sqrt{2}(m-\\sqrt{2}) \\\\\n& =\\frac{2}{3} \\cdot \\frac{9 m^{2}-36}{2}+(m-2 \\sqrt{2})(-3 m)-6 \\sqrt{2}(m-\\sqrt{2}) \\\\\n& =3 m^{2}-12-3 m^{2}+6 \\sqrt{2} m-6 \\sqrt{2} m+12=0,\n\\end{aligned}\n$$\n\n因此\n\n$$\nk_{P A}+k_{P B}=0\n$$\n\n\n\n又 $P$ 在直线 $l$ 的左上方, 因此, $\\angle A P B$ 的角平分线是平行于 $y$ 轴的直线, 所以 $\\triangle P A B$的内切圆的圆心在直线 $x=3 \\sqrt{2}$ 上."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 103,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $P, Q$ 分别是圆内接四边形 $A B C D$ 的对角线 $A C, B D$ 的中点. 若 $\\angle B P A=$ $\\angle D P A$, 证明: $\\angle A Q B=\\angle C Q B$.\n\n<img_4114>",
+        "solution": [
+            "延长线段 $D P$ 与圆交于另一点 $E$, 延长线段 $A Q$ 与圆交于另一点 $F$, 如下图. \n\n<img_4167>\n\n则\n\n$$\n\\angle C P E=\\angle D P A=\\angle B P A .\n$$\n\n因为 $P$ 是线段 $A C$ 的中点, 故 $\\widehat{A B}=\\widehat{C E}$, 从而\n\n$$\n\\angle C D P=\\angle B D A \\text {. }\n$$\n\n又 $\\angle A B D=\\angle P C D$, 所以\n\n$$\n\\triangle A B D \\backsim \\triangle P C D\n$$\n\n于是\n\n$$\n\\frac{A B}{B D}=\\frac{P C}{C D},\n$$\n\n即\n\n$$\nA B \\cdot C D=P C \\cdot B D,\n$$\n\n从而有\n\n$$\n\\begin{aligned}\nA B \\cdot C D & =\\frac{1}{2} A C \\cdot B D \\\\\n& =A C \\cdot\\left(\\frac{1}{2} B D\\right) \\\\\n& =A C \\cdot B Q,\n\\end{aligned}\n$$\n\n又 $\\angle A B Q=\\angle A C D$, 所以 $\\triangle A B Q \\backsim \\triangle A C D$, 故\n\n$$\n\\angle Q A B=\\angle D A C .\n$$\n\n同时, 有 $\\angle C A B=\\angle D A F$, 故\n\n$$\n\\widehat{B C}=\\widehat{D F}.\n$$\n\n又因为 $Q$ 为 $B D$ 的中点, 所以\n\n$$\n\\angle C Q B=\\angle D Q F,\n$$\n\n而 $\\angle A Q B=\\angle D Q F$, 所以\n\n$$\n\\angle A Q B=\\angle C Q B.\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 109,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4224>\n\n如图, 圆 $O 1$ 和圆 $O 2$ 与 $\\triangle A B C$ 的三边所在的三条直线都相切, $E 、 F 、 G 、 H$ 为切点, 并且 $E G 、 F H$ 的延长线交于 $P$ 点。求证直线 $P A$ 与 $B C$ 垂直。",
+        "solution": [
+            "证明 设 $\\triangle A B C$ 的三边分别为 $a、b、c$, 三个角分别为 $A、 B 、 C$ 则 $C E=B F=C G=B H=\\frac{1}{2}(a+b+c)$.\n\n$\\therefore B E=\\frac{1}{2}(a+b+c)-a=\\frac{1}{2}(b+c-a)$.\n\n$\\therefore E F=\\frac{1}{2}(a+b+c)+\\frac{1}{2}(b+c-a)=b+c$.\n\n连 $C O_{2}$, 则 $C O_{2}$ 平分 $\\angle E C G, CO_{2} \\perp E G \\Rightarrow \\angle F E P=90^{\\circ}-\\frac{1}{2}$ $\\angle C$.\n\n同理 $\\angle E F P-90^{\\circ}-\\frac{1}{2} \\angle B, \\angle E P F=\\frac{1}{2}(B+C)$.\n\n<img_4224>\n\n$$\n\\because \\frac{E P}{\\sin \\left(90^{\\circ}-\\frac{1}{2} B\\right)}=\\frac{E F}{\\sin \\frac{B^{+} C}{2}} \\quad, \\quad \\therefore\n$$\n\n$E P=(b+c) \\frac{\\cos \\frac{B}{2}}{\\sin \\frac{B+C}{2}}$.\n\n设 $P 、 A$ 在 $E F$ 上的射影分别为 $M 、 N$, 则 $E M=E P \\cos \\angle F E P=(b+c) \\frac{\\cos \\frac{B}{2} \\sin \\frac{C}{2}}{\\sin \\frac{B+C}{2}}$.\n\n又 $B N=c \\cos B$, 故只须证 $c \\cos B+\\frac{1}{2}(b+c-a)=(b+c) \\frac{\\cos \\frac{B}{2} \\sin \\frac{C}{2}}{\\sin \\frac{B+C}{2}}$,\n\n即 $\\sin C \\cos B+\\frac{1}{2}(\\sin B+\\sin C-\\sin (B+C))=\\frac{\\cos \\frac{B}{2} \\sin \\frac{C}{2}}{\\sin \\frac{B+C}{2}}(\\sin B+\\sin C)$ 就是 $2 \\cos \\frac{B-C}{2} \\cos \\frac{B}{2} \\sin \\frac{C}{2}=\\sin C \\cos B-\\frac{1}{2} \\sin B \\cos C-\\frac{1}{2} \\cos B \\sin C+\\sin \\frac{B+C}{2} \\cos \\frac{B-C}{2}$\n\n右边 $=\\frac{1}{2} \\sin (C-B)+\\sin \\frac{B+C}{2} \\cos \\frac{B-C}{2}=\\cos \\frac{B-C}{2}\\left(\\sin \\frac{B+C}{2}-\\sin \\frac{B-C}{2}\\right)$ $=2 \\cos \\frac{B-C}{2} \\cos \\frac{B}{2} \\sin \\frac{C}{2}$ 。故证。"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 114,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 在四边形 $A B C D$ 中，对角线 $A C$ 平分 $\\angle B A D$ 。在 $C D$ 上取一点 $E, B E$ 与 $A C$ 相交于 $F$, 延长 $D F$ 交 $B C$ 于 $G_{\\circ}$ 求证: $\\angle G A C=\\angle E A C$.\n\n<img_4055>",
+        "solution": [
+            "连结 $\\mathrm{BD}$ 交 $\\mathrm{AC}$ 于 $\\mathrm{H}$. 对 $\\triangle \\mathrm{BCD}$ 用塞瓦定理, 可得 $\\frac{C G}{G B} \\cdot \\frac{B H}{H D} \\cdot \\frac{D E}{B C}=1$因为 $A H$ 是 $\\angle \\mathrm{B} A \\mathrm{D}$ 的平分线, 由角平分线定理, 可得 $\\frac{B H}{H D}=\\frac{A B}{A D}$.\n\n敬 $\\frac{C G}{G B} \\cdot \\frac{A B}{A D} \\cdot \\frac{D E}{B C}=1$.\n\n过点 $\\mathrm{C}$ 作 $A B$ 的平行线 $A G$ 的延长线于 $I$, 过点 $C$ 作 $A D$ 的平行线交 $A \\mathrm{E}$ 的延长线于 $\\mathrm{J}$.\n\n则 $\\frac{C G}{G B}=\\frac{C I}{A B}, \\frac{D E}{E C}=\\frac{A D}{C J}$. 所以, $\\frac{C I}{A B} \\cdot \\frac{A B}{A D} \\cdot \\frac{A D}{C J}=1$\n\n从而, $\\mathrm{CI}=\\mathrm{CJ}$.\n\n又因为 $\\mathrm{CI} / / \\mathrm{AB}, \\mathrm{CJ} / / \\mathrm{AD}$,\n\n故 $\\angle \\mathbf{A C I}=\\boldsymbol{\\pi}-\\angle \\mathbf{A B C}=\\boldsymbol{\\pi}-\\angle \\mathrm{DAC}=\\angle \\mathrm{ACJ}$.\n\n因此, $\\triangle \\mathrm{ACI} \\cong \\triangle \\mathrm{ACJ}$.\n\n从而, $\\angle \\mathrm{IAC}=\\angle \\mathrm{JAC}$, 即 $\\angle \\mathrm{GAC}=\\angle \\mathrm{EAC}$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 115,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, $\\triangle A B C$ 和 $\\triangle A D E$ 是两个不全等的等腰直角三角形, 现固定 $\\triangle A B C$, 而将 $\\triangle A D E$绕 $A$ 点在平面上旋转, 试证: 不论 $\\triangle A D E$ 旋转到什么位置, 线段 $E C$ 上必存在点 $M$, 使 $\\triangle B M D$为等腰直角三角形.\n\n<img_4210>",
+        "solution": [
+            "以 $A$ 为原点, $A C$ 为 $x$ 轴正方向建立复平面. 设 $C$表示复数 $c$, 点 $E$ 表示复数 $e(c 、 e \\in R)$. 则点 $B$ 表示复数 $b=\\frac{1}{2} c+\\frac{1}{2} c i$,点 $D$ 表示复数 $d=\\frac{1}{2} e-\\frac{1}{2} e i$.\n\n把 $\\triangle A D E$ 绕点 $A$ 旋转角 $\\theta$ 得到 $\\triangle A D E$,\n\n则点 $E^{\\prime}$ 表示复数 $e^{\\prime}=e(\\cos \\theta+i \\sin \\theta)$. 点 $D^{\\prime}$ 表示复数 $d^{\\prime}=d(\\cos \\theta+i \\sin \\theta)$\n\n<img_4086>\n\n表示 $E^{\\prime} C$ 中点 $M$ 的复数 $m=\\frac{1}{2}\\left(c+e^{\\prime}\\right)$.\n\n$\\therefore$ 表示向量 $\\overrightarrow{\\mathrm{MB}}$ 的复数: $z_{1}=b-\\frac{1}{2}\\left(c+e^{\\prime}\\right)=\\frac{1}{2} c+\\frac{1}{2} c i-\\frac{1}{2} \\cdot c-\\frac{1}{2} e(\\cos \\theta+i \\sin \\theta)=-\\frac{1}{2}$ $e \\cos \\theta+\\frac{1}{2}(c-e \\sin \\theta) i$.\n\n表示向量 $\\overrightarrow{\\mathrm{MD}^{\\prime}}$ 的复数: $Z_{2}=d^{\\prime}-m=\\left(\\frac{1}{2} e-\\frac{1}{2} e i\\right)(\\cos \\theta+i \\sin \\theta)-\\frac{1}{2} c-\\frac{1}{2} e(\\cos \\theta+i \\sin \\theta)$\n\n\n\n$$\n=\\frac{1}{2}(e \\sin \\theta-c)-\\frac{1}{2} i e \\cos \\theta .\n$$\n\n显然: $Z_{2}=Z_{1} i$. 于是 $|M B|=|M D^{\\prime}|$, 且 $\\angle B M D^{\\prime}=90^{\\circ}$. 即 $\\triangle B M D^{\\prime}$ 为等腰直角三角形. 故证."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 120,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, $M, N$ 分别为锐角三角形 $\\triangle A B C(\\angle A<\\angle B)$ 的外接圆 $\\Gamma$ 上弧 $B C 、 A C$ 的中点. 过点 $C$ 作 $P C / / M N$ 交圆 $\\Gamma$ 于 $P$ 点, $I$ 为 $\\triangle A B C$ 的内心, 连接 $P I$ 并延长交圆 $\\Gamma$ 于 $T$.\n\n<img_4196>\n求证: $M P \\cdot M T=N P \\cdot N T$;",
+        "solution": [
+            "连 $N I, M I$. 由于 $P C / / M N, P, C, M, N$ 共圆, 故 $P C M N$ 是等腰梯形. 因此 $N P=M C$, $P M=N C$.\n\n<img_4162>\n\n连 $A M ， C I$, 则 $A M$ 与 $C I$ 交于 $I$, 因为\n\n$\\angle M I C=\\angle M A C+\\angle A C I=\\angle M C B+\\angle B C I=\\angle M C I$,\n\n所以 $M C=M I$. 同理\n\n$N C=N I$.\n\n于是\n\n$N P=M I, \\quad P M=N I$.\n\n故四边形 MPNI 为平行四边形。因此 $S_{\\triangle P M T}=S_{\\triangle P N T}$ (同底，等高).\n\n又 $P, N, T, M$ 四点共圆, 故 $\\angle T N P+\\angle P M T=180^{\\circ}$, 由三角形面积公式\n\n$S_{\\triangle P M T}=\\frac{1}{2} P M \\cdot M T \\sin \\angle P M T$\n\n$=S_{\\triangle P N T}=\\frac{1}{2} P N \\cdot N T \\sin \\angle P N T$\n\n$=\\frac{1}{2} P N \\cdot N T \\sin \\angle P M T$\n\n于是 $P M \\cdot M T=P N \\cdot N T$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 121,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, $M, N$ 分别为锐角三角形 $\\triangle A B C(\\angle A<\\angle B)$ 的外接圆 $\\Gamma$ 上弧 $B C 、 A C$ 的中点. 过点 $C$ 作 $P C / / M N$ 交圆 $\\Gamma$ 于 $P$ 点, $I$ 为 $\\triangle A B C$ 的内心, 连接 $P I$ 并延长交圆 $\\Gamma$ 于 $T$.\n\n<img_4196>\n在弧 $A B$ (不含点 $C$ ) 上任取一点 $Q(Q \\neq A, T, B)$, 记 $\\triangle A Q C, \\triangle Q C B$ 的内心分别为 $I_{1}, I_{2}$,\n\n<img_4235>\n\n求证: $Q, I_{1}, I_{2}, T$ 四点共圆.",
+        "solution": [
+            "连 $N I, M I$. 由于 $P C / / M N, P, C, M, N$ 共圆, 故 $P C M N$ 是等腰梯形. 因此 $N P=M C$, $P M=N C$.\n\n连 $A M ， C I$, 则 $A M$ 与 $C I$ 交于 $I$, 因为\n\n$\\angle M I C=\\angle M A C+\\angle A C I=\\angle M C B+\\angle B C I=\\angle M C I$,\n\n所以 $M C=M I$. 同理\n\n$N C=N I$.\n\n于是\n\n$N P=M I, \\quad P M=N I$.\n\n故四边形 MPNI 为平行四边形。因此 $S_{\\triangle P M T}=S_{\\triangle P N T}$ (同底，等高).\n\n又 $P, N, T, M$ 四点共圆, 故 $\\angle T N P+\\angle P M T=180^{\\circ}$, 由三角形面积公式\n\n$S_{\\triangle P M T}=\\frac{1}{2} P M \\cdot M T \\sin \\angle P M T$\n\n$=S_{\\triangle P N T}=\\frac{1}{2} P N \\cdot N T \\sin \\angle P N T$\n\n$=\\frac{1}{2} P N \\cdot N T \\sin \\angle P M T$\n\n于是 $P M \\cdot M T=P N \\cdot N T$.\n\n因为 $\\angle N C I_{1}=\\angle N C A+\\angle A C I_{1}=\\angle N Q C+\\angle Q C I_{1}=\\angle C I_{1} N$,\n\n所以 $N C=N I_{1}$, 同理 $M C=M I_{2}$. 由 $M P \\cdot M T=N P \\cdot N T$ 得 $\\frac{N T}{M P}=\\frac{M T}{N P}$.\n\n因 $N P=M C$, $P M=N C$.\n\n故$\\frac{N T}{N I_{1}}=\\frac{M T}{M I_{2}}$.\n\n又因$\\angle I_{1} N T=\\angle Q N T=\\angle Q M T=\\angle I_{2} M T ，$\n\n有\n\n$\\Delta I_{1} N T \\sim \\Delta I_{2} M T$.\n\n故 $\\angle N T I_{1}=\\angle M T I_{2}$, 从而\n\n$\\angle I_{1} Q I_{2}=\\angle N Q M=\\angle N T M=\\angle I_{1} T I_{2}$.\n\n因此 $Q, I_{1}, I_{2}, T$ 四点共圆."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 126,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 在锐角 $\\triangle A B C$ 中, $A B < A C, A D$ 是边 $B C$ 上的高, $P$ 是线段 $A D$ 内一点。过 $P$ 作 $P E \\perp A C$, 垂足为 $E$, 作 $P F \\perp A B$, 垂足为 $F。 O_{1} 、 O_{2}$ 分别是 $\\triangle B D F 、 \\triangle C D E$ 的外心。求证： $O_{1} 、 O_{2} 、 E 、 F$ 四点共圆的充要条件为 $P$ 是 $\\triangle A B C$ 的垂心。\n\n<img_4088>",
+        "solution": [
+            "连结 $B P 、 C P 、 O_{1} O_{2} 、 E O_{2} 、 E F 、 F O_{1}$ 。因为 $P D \\perp B C, P F \\perp A B$, 故 $B 、 D 、 P 、 F$四点共圆, 且 $B P$ 为该圆的直径。又因为 $O_{1}$ 是 $\\triangle B D F$ 的外心, 故 $O_{1}$ 在 $B P$ 上且是 $B P$ 的中点。同理可证 $C 、 D 、 P 、 E$ 四点共圆, 且 $O_{2}$ 是的 $C P$ 中点。综合以上知 $O_{1} O_{2}$ $/ / B C$, 所以 $\\angle P O_{2} O_{1}=\\angle P C B$ 。因为 $A F \\cdot A B=A P \\cdot A D=A E \\cdot A C$, 所以 $B 、 C$ 、 $E 、 F$ 四点共圆。\n\n充分性：设 $P$ 是 $\\triangle A B C$ 的垂心, 由于 $P E \\perp A C, P F \\perp A B$, 所以 $B 、 O_{1} 、 P$ 、 $E$ 四点共线, $C 、 O_{2} 、 P 、 F$ 四点共线, $\\angle F O_{2} O_{1}=\\angle F C B=\\angle F E B=\\angle F E O_{1}$, 故 $O_{1} 、 O_{2} 、 E_{1} F$ 四点共圆。\n\n必要性: 设 $O_{1} 、 O_{2} 、 E 、 F$ 四点共圆, 故 $\\angle O_{1} O_{2} E+\\angle E F O_{1}=180^{\\circ}$ 。\n\n由于 $\\angle P O_{2} O_{1}=\\angle P C B=\\angle A C B-\\angle A C P$, 又因为 $O_{2}$ 是直角 $\\triangle C E P$ 的斜边中点,也就是 $\\triangle C E P$ 的外心, 所以 $\\angle P O_{2} E=2 \\angle A C P$ 。因为 $O_{1}$ 是直角 $\\triangle B F P$ 的斜边中点, 也就是 $\\triangle B F P$ 的外心, 从而 $\\angle P F O_{1}=90^{\\circ}-\\angle B F O_{1}=90^{\\circ}-\\angle A B P$ 。\n\n<img_4212>\n因为 $B 、 C 、 E 、 F$ 四点共圆, 所以 $\\angle A F E=\\angle A C B, \\angle P F E=90^{\\circ}-\\angle A C B$ 。于是, 由 $\\angle O_{1} O_{2} E+\\angle$ $E F O_{1}=180^{\\circ}$ 得\n\n$(\\angle A C B-\\angle A C P)+2 \\angle A C P+\\left(90^{\\circ}-\\angle A B P\\right)+\\left(90^{\\circ}-\\angle A C B\\right)=180^{\\circ}$ ， 即 $\\angle A B P=\\angle A C P$ 。 又因为 $A B < A C, A D \\perp B C$, 故 $B D<C D$ 。设 $B^{\\prime}$ 是点 $B$ 关于直线 $A D$ 的对称点, 则 $B^{\\prime}$ 在线段 $D C$ 上且 $B^{\\prime} D=B D$ 。连结 $A B^{\\prime} 、 P B^{\\prime}$ 。由对称性, 有 $\\angle A B^{\\prime} P=\\angle A B P$, 从而 $\\angle A B^{\\prime} P=\\angle A C P$, 所以 $A 、 P 、 B^{\\prime} 、 C$ 四点共圆。由此可知 $\\angle P B^{\\prime} B=\\angle C A P=90^{\\circ}-\\angle A C B$ 。因为 $\\angle P B C=\\angle P B^{\\prime} B$,故 $\\angle P B C+\\angle A C B=\\left(90^{\\circ}-\\angle A C B\\right)+\\angle A C B=90^{\\circ}$, 故直线 $B P$ 和 $A C$ 垂直。由题设 $P$ 在边 $B C$ 的高上, 所以 $P$ 是 $\\triangle A B C$ 的垂心."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 130,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4169>\n\n如图, 锐角三角形 $A B C$ 的外心为 $O, K$ 是边 $B C$ 上一点 (不是边 $B C$ 的中点), $D$ 是线段 $A K$ 延长线上一点, 直线 $B D$ 与 $A C$ 交于点 $N$, 直线 $C D$ 与 $A B$ 交于点 $M$. 求证: 若 $O K \\perp M N$,则 $A, B, D, C$ 四点共圆.",
+        "solution": [
+            "用反证法. 若 $A, B, D, C$ 不四点共圆，设三角形 $A B C$ 的外接圆与 $A D$ 交于点 $E$, 连接 $B E$ 并延长交直线 $A N$ 于点 $Q$, 连接 $C E$ 并延长交直线 $A M$ 于点 $P$, 连接 $P Q$.\n\n因为 $P K^{2}=P$ 的幂 $($ 关于 $\\odot O)+K$ 的幂 $($ 关于 $\\odot O$ )\n\n$$\n=\\left(P O^{2}-r^{2}\\right)+\\left(K O^{2}-r^{2}\\right),\n$$\n\n同理\n\n$$\nQ K^{2}=\\left(Q O^{2}-r^{2}\\right)+\\left(K O^{2}-r^{2}\\right),\n$$\n\n所以\n\n$$\nP O^{2}-P K^{2}=Q O^{2}-Q K^{2},\n$$\n\n故\n\n$$\nO K \\perp P Q \\text {. }\n$$\n\n由题设, $O K \\perp M N$, 所以 $P Q / / M N$, 于是\n\n$$\n\\frac{A Q}{Q N}=\\frac{A P}{P M}. \\quad \\quad (1)\n$$\n\n由梅内劳斯（Menelaus）定理，得\n\n$$\n\\begin{aligned}\n& \\frac{N B}{B D} \\cdot \\frac{D E}{E A} \\cdot \\frac{A Q}{Q N}=1,  \\quad \\quad (2)\\\\\n& \\frac{M C}{C D} \\cdot \\frac{D E}{E A} \\cdot \\frac{A P}{P M}=1 . \\quad \\quad (3)\n\\end{aligned}\n$$\n\n由(1)，(2)，(3)可得\n\n$$\n\\frac{N B}{B D}=\\frac{M C}{C D}\n$$\n\n所以 $\\frac{N D}{B D}=\\frac{M D}{D C}$, 故 $\\triangle D M N \\sim \\triangle D C B$, 于是 $\\angle D M N=\\angle D C B$, 所以 $B C / / M N$, 故 $O K \\perp B C$,即 $K$ 为 $B C$ 的中点, 矛盾! 从而 $A, B, D, C$ 四点共圆."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 139,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4151>\n\n如图, 给定凸四边形 $A B C D, \\angle B+\\angle D<180^{\\circ}, P$ 是平面上的动点, 令 $f(P)=P A \\cdot B C+P D \\cdot C A+P C \\cdot A B$.\n求证：当 $f(P)$ 达到最小值时, $P 、 A 、 B 、 C$ 四点共圆;",
+        "solution": [
+            "如图, 由托勒密不等式, 对平面上的任意点 $P$, 有 $P A \\cdot B C+P C \\cdot A B \\geq P B \\cdot A C$. 因此\n\n$f(P)=P A \\cdot B C+P C \\cdot A B+P D \\cdot C A \\geq P B \\cdot C A+P D \\cdot C A$\n\n$=(P B+P D) \\cdot C A$.\n\n因为上面不等式当且仅当 $P 、 A 、 B 、 C$ 顺次共圆时取等号, 因此当且仅当 $P$ 在 $\\triangle A B C$ 的外接圆且在 $A C$ 上时, $f(P)=(P B+P D) \\cdot C A$. 又因 $P B+P D \\geq B D$, 此不等式当且仅当 $B, P, D$ 共线且 $P$ 在 $B D$ 上时取等号. 因比当且仅当 $P$ 为 $\\triangle A B C$ 的外接圆与 $B D$ 的交点时, $f(P)$ 取最小值 $f(P)_{\\min }=A C \\cdot B D$. 故当 $f(P)$ 达最小值时, $P 、 A 、 B 、 C$ 四点共圆."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 148,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 在 $\\triangle A B C$ 中, $P 、 Q 、 R$ 将其周长三等分, 且 $P 、 Q$ 在 $A B$ 边上, 求证: $\\frac{S \\Delta P Q R}{S \\Delta A B C}>\\frac{2}{9}$.\n\n<img_4143>",
+        "solution": [
+            "作 $\\triangle A B C$ 及 $\\triangle P Q R$ 的高 $C N 、 R H$. 设 $\\triangle A B C$ 的周长为 1 . 则 $P Q=\\frac{1}{3}$.\n\n则 $\\frac{S \\triangle P Q R}{S \\triangle A B C}=\\frac{P Q \\cdot R H}{A B \\cdot C N}=\\frac{P Q}{A B} \\cdot \\frac{A R}{A C}$, 但 $A B<\\frac{1}{2}$, 于是 $\\frac{P Q}{A B}>\\frac{2}{3}$,\n\n$A P \\leqslant A B-P Q<\\frac{1}{2}-\\frac{1}{3}=\\frac{1}{6}, \\therefore A R=\\frac{1}{3}-A P>\\frac{1}{6}, A C<\\frac{1}{2}$, 故 $\\frac{A R}{A C}>\\frac{1}{3}$, 从而 $\\frac{S \\triangle P Q R}{S \\triangle A B C}>\\frac{2}{9}$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 152,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4138>\n\n\n四边形 $A B C D$ 内接于圆 $O$, 对角线 $A C$ 与 $B D$ 相交于 $P$, 设三角形 $A B P 、 B C P 、 C D P$ 和 $D A P$的外接圆圆心分别是 $O_{1} 、 O_{2} 、 O_{3} 、 O_{4}$. 求证 $O P 、 O_{1} O_{3} 、 O_{2} O_{4}$ 三直线共点.",
+        "solution": [
+            "$\\because O$ 为 $\\triangle A B C$ 的外心, $\\therefore O A=O B$.\n\n$\\because O_{1}$ 为 $\\triangle P A B$ 的外心, $\\therefore O_{1} A=O_{1} B$.\n\n$\\therefore O O_{1} \\perp A B$.\n\n作 $\\triangle P C D$ 的外接圆 $\\odot O_{3}$, 延长 $P O_{3}$ 与所作圆交于点 $E$, 并与 $A B$ 交于点 $F$, 连 $D E$, 则 $\\angle 1=\\angle 2=\\angle 3, \\angle E P D=\\angle B P F$,\n\n$\\therefore \\angle P F B=\\angle E D P=90^{\\circ}$.\n\n$\\therefore P O_{3} \\perp A B$, 即 $O O_{1} / / P O_{3}$.\n\n同理, $O O_{3} / / P O_{1}$. 即 $O O_{1} P O_{3}$ 是平行四边形.\n\n$\\therefore O_{1} O_{3}$ 与 $P O$ 互相平分, 即 $O_{1} O_{3}$ 过 $P O$ 的中点.\n\n同理, $\\mathrm{O}_{2} \\mathrm{O}_{4}$ 过 $P O$ 中点.\n\n$\\therefore O P 、 O_{1} O_{3} 、 O_{2} O_{4}$ 三直线共点.\n\n<img_4082>"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 156,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4243>\n\n已知 在 $\\triangle A B C$ 中, $A B > A C, \\angle A$ 的一个外角的平分线交 $\\triangle A B C$ 的外接圆于点 $E$, 过 $E$作 $E F \\perp A B$, 垂足为 $F$.\n\n求证 $2 A F=A B-A C$.",
+        "solution": [
+            "<img_4095>\n\n在 $F B$ 上取 $F G=A F$, 连 $E G 、 E C 、 E B$,于是 $\\triangle A E G$ 为等腰三角形, $\\therefore E G=E A$.\n\n又 $\\angle 3=180^{\\circ}-\\angle E G A=180^{\\circ}-\\angle E A G=180^{\\circ}-\\angle 5=\\angle 4$.\n\n$\\angle 1=\\angle 2$. 于是 $\\triangle E G B \\cong \\triangle E A C$. $\\therefore B G=A C$,故证."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 167,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, $O 、 I$ 分别为 $\\triangle A B C$ 的外心和内心, $A D$ 是 $B C$ 边上的高, $I$ 在线段 $O D$上。求证: $\\triangle A B C$ 的外接圆半径等于 $B C$ 边上的旁切圆半径。\n\n<img_4199>\n\n\n注: $\\triangle A B C$ 的 $B C$ 边上的旁切圆是与边 $A B 、 A C$ 的延长线以及边 $B C$ 都相切的圆。",
+        "solution": [
+            "由旁切圆半径公式, 有\n\n$r_{a}=\\frac{2 S}{b+c-a}=\\frac{a h_{a}}{b+c-a}$, 故只须证明\n\n$\\frac{R}{h_{a}}=\\frac{a}{b+c-a}$ 即可。连 $A I$ 并延长交 $\\odot O$ 于 $K$, 连 $O K$ 交 $B C$ 于 $M$, 则 $K$ 、 $M$ 分别为弧 $B C$ 及弦 $B C$ 的中点。且 $O K \\perp B C$ 。于是 $O K / / A D$, 又 $O K=R$,故\n\n$\\frac{R}{h_{a}}=\\frac{O K}{A D}=\\frac{I K}{I A}=\\frac{K B}{I A}$,\n\n故只须证 $\\frac{K B}{I A}=\\frac{a h_{a}}{b+c-a}=\\frac{B M}{\\frac{1}{2}(b+c-a)}$.\n\n<img_4201>\n\n\n\n作 $I N \\perp A B$, 交 $A B$ 于 $N$, 则 $A N=\\frac{1}{2}(b+c-a)$,\n\n而由 $\\triangle A I N \\sim \\triangle B K M$, 可证 $\\frac{K B}{I A}=\\frac{B M}{A N}$ 成立, 故证。"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 176,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 在 $\\triangle A B C$ 中, $P$ 为边 $B C$ 上任意一点, $P E / / B A, P F / / C A$, 若 $S$ $\\triangle A B C=1$, 证明: $S_{\\triangle B P F 、} S_{\\triangle P C E 、} 、 S_{\\square P E A F}$ 中至少有一个不小于 $\\frac{4}{9}\\left(S_{X Y \\cdots Z}\\right.$ 表示多边形 $X Y \\cdots Z$的面积).\n\n<img_4070>",
+        "solution": [
+            "<img_4144>\n\n如图, 三等分 $B C$ 于 $M 、 N$, 若点 $P$ 在 $B M$ 上 (含点 $M$ ), 则由于 $P E / / A B$, 则 $\\triangle C P E \\sim \\triangle C B A . C P: C B \\geqslant \\frac{2}{3}$. 于是 $S_{\\triangle P C E} \\geqslant \\frac{4}{9}$. 同理, 若 $P$ 在 $N C$ 上 (含点 $N$), 则 $S_{\\triangle B P F} \\geqslant \\frac{4}{9}$.\n\n若点 $P$ 在线段 $M N$ 上. 连 $E F$, 设 $\\frac{\\mathrm{BP}}{\\mathrm{BC}}=r\\left(\\frac{1}{3}<r<\\frac{2}{3}\\right)$, 则 $\\frac{\\mathrm{CP}}{\\mathrm{BC}}=1-r$.\n\n$$\nS_{\\triangle B P F}=r^{2}, S_{\\triangle P C E}=(1-r)^{2} . \\therefore S_{\\triangle B P F}+S_{\\triangle P C E}=r^{2}+(1-r)^{2}=2 r^{2}-2 r+1=2\\left(r-\\frac{1}{2}\\right)^{2}+\\frac{1}{2}<2\\left(\\frac{1}{3}-\\frac{1}{2}\\right)^{2}+\\frac{1}{2} =\\frac{5}{9}\n$$\n\n于是 $S_{\\square A E P F} \\geqslant \\frac{4}{9}$. 故命题成立."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 189,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 设三角形的外接圆 $O$ 的半径为 $R$, 内心为 $I, \\angle B=60^{\\circ}, \\angle$ $A<\\angle C, \\angle A$ 的外角平分线交圆 $O$ 于 $E$.\n\n<img_4081>\n证明: $I O=A E$",
+        "solution": [
+            "$\\because \\angle B=60^{\\circ}, \\therefore \\angle A O C=\\angle A I C=120^{\\circ}$.\n\n$\\therefore A, O, I, C$ 四点共圆. 圆心为 弧$A C$ 的中点 $F$, 半径为 $R$\n\n$\\therefore O$ 为 $\\odot F$ 的弧 $A C$ 中点, 设 $O F$ 延长线交 $\\odot F$ 于 $H, A I$ 延长线交弧 $B C$ 于 $D$.\n\n<img_4222>\n\n由 $\\angle E A D=90^{\\circ}$ (内外角平分线) 知 $D E$ 为 $\\odot O$ 的直径. $\\angle O A D=\\angle O D A$\n\n但 $\\angle O A I=\\angle O H I$, 故 $\\angle O H I=\\angle A D E$, 于是 $R t \\triangle D A E \\cong R t$ $\\triangle H I O$\n\n$\\therefore A E=I O$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 190,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 设三角形的外接圆 $O$ 的半径为 $R$, 内心为 $I, \\angle B=60^{\\circ}, \\angle$ $A<\\angle C, \\angle A$ 的外角平分线交圆 $O$ 于 $E$.\n\n<img_4081>\n证明: $2 R<I O+I A+I C<(1+\\sqrt{3}) R$",
+        "solution": [
+            "$\\because \\angle B=60^{\\circ}, \\therefore \\angle A O C=\\angle A I C=120^{\\circ}$.\n\n$\\therefore A, O, I, C$ 四点共圆. 圆心为 弧$A C$ 的中点 $F$, 半径为 $R$\n\n$\\therefore O$ 为 $\\odot F$ 的弧 $A C$ 中点, 设 $O F$ 延长线交 $\\odot F$ 于 $H, A I$ 延长线交弧 $B C$ 于 $D$.\n\n<img_4222>\n\n由 $\\angle E A D=90^{\\circ}$ (内外角平分线) 知 $D E$ 为 $\\odot O$ 的直径. $\\angle O A D=\\angle O D A$\n\n但 $\\angle O A I=\\angle O H I$, 故 $\\angle O H I=\\angle A D E$, 于是 $R t \\triangle D A E \\cong R t$ $\\triangle H I O$\n\n$\\therefore A E=I O$\n\n由 $\\triangle A C H$ 为正三角形, 易证 $I C+I A=I H$.\n\n由 $O H=2 R$. $\\therefore I O+I A+I C=I O+I H>O H=2 R$.\n\n设 $\\angle O H I=\\alpha$, 则 $0<\\alpha<30^{\\circ}$.\n\n$\\therefore I O+I A+I C=I O+I H=2 R(\\sin \\alpha+\\cos \\alpha)=2 R \\sqrt{2} \\sin \\left(\\alpha+45^{\\circ}\\right)$\n\n又 $\\alpha+45^{\\circ}<75^{\\circ}$, 故 $I O+I A+I C<2 \\sqrt{2} R(\\sqrt{6}+\\sqrt{2}) / 4=R(1+\\sqrt{3})$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 215,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4076>\n\n如图, 封闭多面体 $A B C D F E$, 平行四边形 $A B C D$ 中, $A C$ 与 $B D$ 相交于点 $O, E$ 在平面 $A B C D$ 的射影为 $O, E F / /$ 平面 $A B C D$, 且 $E F=\\frac{1}{2} B C$, 其中 $A B=B C=A C=A E=a$.\n求证: 平面 $A B C D \\perp$ 平面 $C F D$;",
+        "solution": [
+            "取 $\\mathrm{CD}$ 的中点 $\\mathrm{M}$, 连接 $\\mathrm{FM} 、 \\mathrm{OM}, \\mathrm{OE}$\n\n$\\because E F / /$ 平面 $A B C D, E F \\subset$ 平面 $B C F E$, 平面 $A B C D \\cap$ 平面 $E F C B=B C$\n\n$\\therefore E F / / B C . \\because E F=\\frac{1}{2} B C$,\n\n$\\because \\mathrm{O} 、 \\mathrm{M}$ 分别为 $\\mathrm{BD}, \\mathrm{CD}$ 的中点, $\\therefore O M / / B C, O M=\\frac{1}{2} B C$\n\n$\\therefore O M / / E F, O M=E F \\therefore$ 四边形 $\\mathrm{OMFE}$ 为平行四边形, $\\therefore \\mathrm{OE} / / \\mathrm{FM}$\n\n$\\because O E \\perp$ 平面 $A B C D \\therefore F M \\perp$ 平面 $A B C D$\n\n$\\because F M \\subset$ 平面 $C F D \\therefore$ 平面 $A B C D \\perp$ 平面 $C F D$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 231,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4083>\n\n如图, 在四棱锥 $P-A B C D$ 中, $P A \\perp$ 平面 $A B C D$, 四边形 $A B C D$为矩形, $E$ 是 $P D$ 的中点, $M$ 是 $E C$ 的中点, 点 $Q$ 在线段 $P C$ 上且 $P Q=3 Q C$.\n证明 $Q M / /$ 平面 $P A B$;",
+        "solution": [
+            "取 $P C$ 中点 $F, \\because E$ 是 $P D$ 的中点, $\\therefore E F / / C D$, 又由题意知 $Q$ 是 $F C$ 的中点, $M$ 是 $E C$ 的中点, $\\therefore E F / / Q M$,\n\n$\\therefore Q M / / C D / / A B$. 又 $Q M \\not \\subset$ 平面 $P A B, A B \\subset$ 平面 $P A B$,\n\n$\\therefore Q M / /$ 平面 $P A B$ ."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 248,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4123>\n\n如图, $E A \\perp$ 平面 $A B C, A E / / C D, A B=A C=C D=2 A E=4$, $B C=2 \\sqrt{3}, M$ 为 $B D$ 的中点.\n求证: 平面 $A E M \\perp$ 平面 $B C D$",
+        "solution": [
+            "取 $B C$ 中点 $N$, 连接 $M N, A N, \\therefore M N=A E, M N / / A E$,\n\n<img_4099>\n\n$\\because E A \\perp$ 平面 $A B C, \\therefore$ 四边形 $A E M N$ 是矩形,\n\n$\\therefore E M \\perp M N,$\n\n由题意知, $E D=E B=2 \\sqrt{5}, \\because M$ 为 $B D$ 的中点,\n\n$\\therefore E M \\perp B D$,\n\n又 $\\because B D \\cap M N=M, \\therefore E M \\perp$ 平面 $B C D$,\n\n$\\because E M \\subset$ 平面 $A E M, \\therefore$ 平面 $A E M \\perp$ 平面 $B C D$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 261,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4191>\n\n如图, 在四棱锥 $A-B C D E$ 中, 平面 $A B C \\perp$ 平面 $B C D E ; \\angle C D E=\\angle B E D=90^{\\circ}, A B=C D=2$, $D E=B E=1, \\quad A C=\\sqrt{2}$.\n证明: 平面 $A C E \\perp$ 平面 $B C D E$;",
+        "solution": [
+            "$\\because C D=2, D E=B E=1, \\angle C D E=\\angle B E D=90^{\\circ}$,\n\n$\\therefore B C=\\sqrt{2}$,\n\n$\\because A B=2, A C=\\sqrt{2}, \\therefore A C \\perp B C$\n\n$\\because$ 平面 $A B C \\perp$ 平面 $B C D E$, 平面 $A B C \\cap$ 平面 $B C D E=B C, A C \\subset$ 平面 $\\mathrm{ABC}$ 且 $A C \\perp B C$\n\n$\\therefore AC \\perp$ 面$BCDE$\n\n$\\because A C \\subset$ 面 $A C E \\therefore$ 平面 $A C E \\perp$ 平面 $B C D E$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 272,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图, 多面体 $A-P C B E$ 中, 四边形 $P C B E$ 是直角梯形, 且 $P C \\perp B C, P E \\| B C$, 平面 $P C B E \\perp$平面 $A B C, A C \\perp B E, M$ 是 $A E$ 的中点, $N$ 是 $P A$ 上的点.\n\n<img_4104>\n若 $M N \\|$ 平面 $A B C$, 求证: $N$ 是 $P A$ 中点;",
+        "solution": [
+            "记 $P A E \\cap A B C=l$, 因为 $M N \\| A B C$, 根据线面平行的性质定理, 有 $M N \\| l$.\n\n又 $P E \\| B C$, 所以 $P E \\| A B C$, 从而 $P E \\| l$, 于是 $P E \\| M N$.\n\n又 $M$ 是 $A E$ 的中点, 于是 $N$ 是 $P A$ 的中点."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 283,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4241>\n\n如图, 在三棱柱 $A B C-A_{1} B_{1} C_{1}$ 中, 侧棱 $A A_{1} \\perp$ 底面 $A B C$, $A B=A C=2 A A_{1}, \\angle B A C=120^{\\circ}, D 、 D_{1}$ 分别是线段 $B C 、 B_{1} C_{1}$ 的中点, 过线段 $A D$ 的中点 $F$ 作 $B C$ 的平行线, 分别交 $A B 、 A C$ 于点 $M 、 N$.\n证明: $M N \\perp$ 平面 $A D D_{1} A_{1}$;",
+        "solution": [
+            "因为 $A B=A C, D$ 是 $B C$ 的中点, 所以 $B C \\perp A D$,\n\n因为 $M N / / B C$, 所以 $M N \\perp A D$,\n\n因为 $A A_{1} \\perp$ 平面 $A B C, M N \\subset$ 平面 $A B C$,\n\n所以 $A A_{1} \\perp M N$,\n\n因为 $A D, A A_{1} \\subset$ 平面 $A D D_{1} A_{1}$, 且 $A D$ I $A A_{1}=A$,\n\n所以 $M N \\perp$ 平面 $A D D_{1} A_{1}$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 299,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4217>\n\n如图, 正方形 $A D E F$ 与 $\\square A B C D$ 所在的平面互相垂直, 且 $A B=2 A D=2 a$, $\\angle B A D=60^{\\circ}, G$ 为 $B D$ 的中点.\n求证: 平面 $B D E \\perp$ 平面 $B C E$ 。",
+        "solution": [
+            "$\\because A B=2 A D=2 a, \\angle B A D=60^{\\circ}$,\n\n$\\therefore$ 在 $\\triangle A B D$ 中, $B D^{2}=4 a^{2}+a^{2}-2 \\cdot 2 a \\cdot a \\cdot \\cos 60^{\\circ}=3 a^{2}, B D^{2}+A D^{2}=A B^{2}$,\n\n$\\therefore \\angle A D B=90^{\\circ}, B D \\perp A D$,\n\n又 $A D E F$ 为正方形, $\\therefore A D \\perp D E$,\n\n又 $A D / / B C, \\therefore B C \\perp D E, B C \\perp B D$,\n\n又 $B D \\subset$ 面 $B D E, D E \\subset$ 面 $B D E, B D \\cap D E=D$,\n\n$\\therefore B C \\perp$ 平面 $B D E$,\n\n又 $B C \\subset$ 平面 $B C E, \\therefore$ 平面 $B D E \\perp$ 平面 $B C E$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 314,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4231>\n\n如图, 正三棱柱 $\\mathrm{ABC}-\\mathrm{A}^{\\prime} \\mathrm{B}^{\\prime} \\mathrm{C}^{\\prime}$ 的所有棱长都为2 , 点 $M, N$ 分别是 $B A^{\\prime}$ 与 $B^{\\prime} C^{\\prime}$ 的中点.\n求证: $M N / /$ 平面 $A C C^{\\prime} A^{\\prime}$.",
+        "solution": [
+            "连接 $A C^{\\prime}$,\n\n<img_4094>\n\n$\\because M, N$ 分别是 $B^{\\prime} A$ 与 $B^{\\prime} C$ 的中点\n\n$\\therefore M N / / A C^{\\prime}$, 又 $\\because M N \\not \\subset$ 平面 $A C C^{\\prime} A^{\\prime}, A C^{\\prime} \\subset$ 平面 $A C C^{\\prime} A^{\\prime}$. 所以 $M N / /$ 平面 $A C C^{\\prime} A^{\\prime}$;"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 353,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图，已知长方形 $A B C D$ 中, $A B=4, A D=2, M$ 为 $D C$的中点, 将 $\\triangle A D M$ 沿 $A M$ 折起, 使得平面 $A D M \\perp$ 平面 $A B C M$.\n\n<img_4087>\n求证: $A D \\perp B M$.",
+        "solution": [
+            "连接 $B M \\because A B=4, A M=B M=2 \\sqrt{2}$\n\n$\\therefore B M \\perp A M$\n\n$\\because$ 平面 $A D M \\perp$ 平面 $A B C M$,\n\n平面 $A D M \\cap$ 平面 $A B C M=A M, B M \\subset$ 平面 $A B C M$ ，\n\n$\\therefore B M \\perp$ 平面 $A D M$\n\n又 $\\because A D \\subset$ 平面 $A D M \\therefore A D \\perp B M$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 368,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4077>\n\n如图, 平面四边形 $A B C D$ 中, $\\triangle A B D$ 为等边三角形, $B D=2$, $B C=C D=\\sqrt{2}$, 沿直线 $B D$ 将 $\\triangle A B D$ 折成 $A^{\\prime} B D$.\n当 $A^{\\prime} C=2$ 时, 求证: 平面 $A^{\\prime} B D \\perp$ 平面 $B C D$;",
+        "solution": [
+            "取 $B D$ 中点 $M$, 连接 $A^{\\prime} M, M C$.\n\n<img_4117>\n\n$\\because \\triangle A B D$ 为等边三角形, $B D=2, \\therefore A^{\\prime} M \\perp D B$,\n\n$A^{\\prime} M=\\sqrt{3}$,\n\n$\\because B C=C D=\\sqrt{2}, \\therefore M C=1$,\n\n当 $A^{\\prime} C=2$ 时, $A^{\\prime} M^{2}+M C^{2}=A^{\\prime} C^{2}$,\n\n$\\therefore A^{\\prime} M \\perp M C$,\n\n又 $D B \\cap M C=M, D B, M C \\subset$ 面 $B C D$\n\n$\\therefore A^{\\prime} M \\perp$ 平面 $B C D$ ，\n\n$\\because A^{\\prime} M \\subset$ 平面 $A^{\\prime} B D ， \\therefore$ 平面 $A^{\\prime} B D \\perp$ 平面 $B C D$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 380,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4181>\n\n如图, 在四棱锥 $\\mathrm{P}-\\mathrm{ABCD}$ 中, $\\mathrm{PD} \\perp$ 平面 $\\mathrm{ABCD}$, 底面 $\\mathrm{ABCD}$ 是菱形, $\\angle \\mathrm{BAD}=60^{\\circ}$ $A B=2 a, P D=2\\left(1-a^{2}\\right)$, 其中 $0<a<1,O$ 为 $A C$ 与 $B D$ 的交点, $E$ 为棱 $P B$上一点.\n求证: 平面 $\\mathrm{EAC} \\perp$ 平面 $\\mathrm{PBD}$;",
+        "solution": [
+            "$\\because P D \\perp$ 平面 $A B C D, A C \\subset $ 平面 $A B C D, \\therefore A C \\perp P D$\n\n$\\because$ 四边形 $A B C D$ 是菱形, $\\therefore A C \\perp B D$\n\n又 $\\because P D \\cap B D=D, \\therefore A C \\perp$ 平面 $P B D$\n\n而 $A C \\subset $ 平面 $E A C, \\therefore$ 平面 $E A C \\perp$ 平面 $P B D$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 395,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "<img_4074>\n\n如图, 在斜三棱柱 $A B C-A_{1} B_{1} C_{1}$ 中, $A C=B C=A A_{1}=a, \\angle A C B=90^{\\circ}$,又点 $B_{1}$ 在底面 $A B C$ 上的射影 $D$ 落在 $B C$ 上, 且 $B C=3 B D$.\n求证: $A C \\perp$ 平面 $B B_{1} C_{1} C$;",
+        "solution": [
+            "$\\because$ 点 $B_{1}$ 在底面 $A B C$ 上的射影 $D$ 落在 $B C$ 上,\n\n$\\therefore B_{1} D \\perp$ 平面 $A B C, \\because A C \\subset$ 平面 $A B C, \\therefore B_{1} D \\perp A C$,\n\n又 $\\angle A C B=90^{\\circ}, \\therefore B C \\perp A C$,\n\n又 $B_{1} D \\cap B C=D, B_{1} D, B C \\subset$ 平面 $B B_{1} C_{1} C \\therefore A C \\perp$ 平面 $B B_{1} C_{1} C$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 412,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在凸四边形 $A B C D$ 中, $M$ 为边 $A B$ 的中点, 且 $M C=M D$. 分别过点 $C, D$ 作边 $B C, A D$ 的垂线, 设两条垂线的交点为 $P$, 过点 $P$ 作 $P Q \\perp A B$ 于 $Q$. 求证: $\\angle P Q C=\\angle P Q D$.\n<img_4101>",
+        "solution": [
+            "联结 $P A, P B$, 分别取 $P A, P B$ 的中点 $E, F$, 联结 $E M, E D, F M, F C$, 则四边形 $P E M F$ 为平行四边形.\n\n从而 $\\angle P E M=\\angle P F M$, 由 $M E=\\frac{1}{2} B P=C F, M F=\\frac{1}{2} A P=D E, M D=M C$, 所以\n\n即 $\\angle D E M=\\angle M F C$, 所以 $\\angle P E D=\\angle D E M-\\angle P E M=\\angle M F C-\\angle P F M=\\angle P F C$.\n\n又 $\\angle P E D=2 \\angle P A D, \\angle P F C=2 \\angle P B C$, 得 $\\angle P A D=\\angle P B C$.\n\n由于 $\\angle P Q A=\\angle P D A=90^{\\circ}, \\angle P Q B=\\angle P C B=90^{\\circ}$, 则 $P, Q, A, D$ 和 $P, Q, B, C$ 分别四点共圆. \n\n故 $\\angle P Q D=\\angle P A D, \\angle P Q C=\\angle P B C$, 所以 $\\angle P Q C=\\angle P Q D$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 420,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $\\odot O$ 切 $A B, A C$ 于点 $B, C$, 过 $C$ 的割线 $C D \\| A B$ 交 $\\odot O$ 于点 $D, E$ 是 $A B$延长线上一点, 直线 $C E$ 分别交 $B D$ 和 $\\odot O$ 于点 $F, G$, 延长 $B G$ 与 $C D$ 的延长线相交于点 $P$. 求证: $A, F, P$三点共线.\n\n<img_4192>",
+        "solution": [
+            "连结 $A F, F P, B C$, 如下图.\n\n<img_4137>\n\n\n由弦切角性质, 有 $\\angle A B C=\\angle A C B=\\angle B D C=\\angle B C D$, 则 $\\triangle A B C$ 与 $\\triangle B C D$ 均为等腰三角形且相似.因此可得 $\\frac{A B}{B C}=\\frac{B C}{C D}$, 于是有\n\n$$\nA B \\cdot C D=B C^{2}\\cdots(1)\n$$\n\n又由\n\n$$\n\\angle B D P=\\pi-\\angle B D C=\\angle C B E, \\angle D B P=\\angle D C G=\\angle B E C\n$$\n\n可知 $\\triangle B D P \\sim \\triangle E B C$, 则有 $\\frac{B C}{B E}=\\frac{D P}{B D}$, 从而由 $B C=B D$ 可得 $\\frac{B C}{B E}=\\frac{D P}{B C}$, 于是\n\n$$\nB C^{2}=B E \\cdot D P\\cdots(2)\n$$\n\n由(1)与(2)可得 $A B \\cdot C D=B E \\cdot D P$, 故\n\n$$\n\\frac{C D}{B E}=\\frac{D P}{A B}\\cdots(3)\n$$\n\n由 $C P \\| A E$ 可知 $\\triangle C D F \\sim \\triangle E B F$, 从而 $\\frac{D F}{F B}=\\frac{C D}{B E}$, 联合 (3)式, 易知\n\n$$\n\\frac{D F}{F B}=\\frac{D P}{A B}\\cdots(4)\n$$\n\n由 $C P \\| A E$ 可得 $\\angle F D P=\\angle F B A$, 从而由(4)式可知 $\\triangle A F B \\sim \\triangle P F D, \\angle A F B=\\angle P F D$, 故 $A 、 F 、 P$三点共线."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 433,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在 $\\triangle \\mathrm{ABC}$ 中, $\\angle \\mathrm{C}=90^{\\circ}, \\angle \\mathrm{ABC}$ 的平分线交 $\\mathrm{AC}$ 于点 $\\mathrm{E}$, 过点 $\\mathrm{E}$ 作 $\\mathrm{BE}$的垂线交 $A B$ 于点 $F, \\odot O$ 是 $\\triangle B E F$ 的外接圆, $\\odot O$ 交 $B C$ 于点 $D$.\n\n<img_4066>\n求证: $\\mathrm{AC}$ 是 $\\odot O$ 的切线.",
+        "solution": [
+            "如图, 连接 OE.\n\n$\\because B E$ 平分 $\\angle A B C$,\n\n$\\therefore \\angle \\mathrm{CBE}=\\angle \\mathrm{OBE}$,\n\n$\\because O B=O E$,\n\n$\\therefore \\angle O B E=\\angle O E B$,\n\n$\\therefore \\angle \\mathrm{OEB}=\\angle \\mathrm{CBE}$,\n\n$\\therefore \\mathrm{OE} / / \\mathrm{BC}$,\n\n$\\therefore \\angle A E O=\\angle C=90^{\\circ}$,\n\n$\\therefore \\mathrm{AC}$ 是 $\\odot \\mathrm{O}$ 的切线;"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 434,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在 $\\triangle \\mathrm{ABC}$ 中, $\\angle \\mathrm{C}=90^{\\circ}, \\angle \\mathrm{ABC}$ 的平分线交 $\\mathrm{AC}$ 于点 $\\mathrm{E}$, 过点 $\\mathrm{E}$ 作 $\\mathrm{BE}$的垂线交 $A B$ 于点 $F, \\odot O$ 是 $\\triangle B E F$ 的外接圆, $\\odot O$ 交 $B C$ 于点 $D$.\n\n<img_4066>\n过点 $\\mathrm{E}$ 作 $\\mathrm{EH} \\perp \\mathrm{AB}$, 垂足为 $\\mathrm{H}$, 求证: $\\mathrm{CD}=\\mathrm{HF}$.",
+        "solution": [
+            "连结 DE.\n\n$\\because \\angle C B E=\\angle O B E, E C \\perp B C$ 于 $C, E H \\perp A B$ 于 $H$,\n\n$\\therefore \\mathrm{EC}=\\mathrm{EH}$.\n\n$\\because \\angle \\mathrm{CDE}+\\angle \\mathrm{BDE}=180^{\\circ}, \\angle \\mathrm{HFE}+\\angle \\mathrm{BDE}=180^{\\circ}$,\n\n$\\therefore \\angle \\mathrm{CDE}=\\angle \\mathrm{HFE}$.\n\n在 $\\triangle \\mathrm{CDE}$ 与 $\\triangle \\mathrm{HFE}$ 中,\n\n$$\n\\left\\{\\begin{array}{c}\n\\angle C D E=\\angle H F E \\\\\n\\angle C=\\angle E H F=90^{\\circ}, \\\\\nE C=E H\n\\end{array}\\right.\n$$\n\n$\\therefore \\triangle \\mathrm{CDE} \\cong \\triangle \\mathrm{HFE}$ (AAS),\n\n$\\therefore \\mathrm{CD}=\\mathrm{HF}$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 455,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图所示, 设 $A B C D$ 是矩形, 点 $E, F$ 分别是线段 $A D, B C$ 的中点, 点 $G$ 在线段 $E F$ 上, 点 $D, H$ 关于线段 $A G$ 的垂直平分线 $l$ 对称. 求证: $\\angle H A B=3 \\angle G A B$.\n\n<img_4186>",
+        "solution": [
+            "由 $E, F$ 分别是 $A D, B C$ 的中点, 得 $E F \\| A B \\perp A D$.\n\n设 $P$ 是 $E$ 关于 $l$ 的对称点, 则 $E P \\| A G \\perp l$, 故四边形 $A E P G$ 是等腰梯形.\n\n进而 $\\angle P A G=\\angle E G A=\\angle G A B, \\angle A P G=\\angle G E A$, 从而 $A P \\perp H G$.\n\n再由 $H P=D E=E A=P G$, 得 $\\angle H A P=\\angle P A G=\\angle G A B$.\n\n因此 $\\angle H A B=3 \\angle G A B$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 464,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 圆 $C$ 与 $x$ 轴相切于点 $T(2,0)$, 与 $y$ 轴的正半轴相交于 $A 、 B$ 两点 $(A$ 在 $B$ 的上方)，且 $|A B|=3$.\n\n<img_4109>\n设过点 $B$ 的直线 $l$ 与椭圆 $\\frac{x^{2}}{8}+\\frac{y^{2}}{4}=1$ 相交于 $P 、 Q$ 两点. 求证: 射线 $A B$ 平分 $\\angle P A Q$.",
+        "solution": [
+            "易知 $A C=\\frac{5}{2}$, 故圆方程为 $(x-2)^{2}+\\left(y-\\frac{5}{2}\\right)^{2}=\\frac{25}{4}$;\n\n可知 $A(0,4), B(0,1)$, 且直线 $P Q$ 的斜率必存在, 可设 $l_{P Q}: y=k x+1$.\n\n原命题等价于证明 $k_{A P}+k_{A Q}=0$.\n\n设 $P\\left(x_{1}, y_{1}\\right), Q\\left(x_{2}, y_{2}\\right)$, 将直线方程与椭圆方程联立得 $\\left(2 k^{2}+1\\right) x^{2}+4 k x-6=0$, 所以\n\n$$\nk_{A P}+k_{A Q}=\\frac{y_{1}-4}{x_{1}}+\\frac{y_{2}-4}{x_{2}}=\\frac{k x_{1}-3}{x_{1}}+\\frac{k x_{2}-3}{x_{2}}=2 k-3 \\cdot \\frac{x_{1}+x_{2}}{x_{1} x_{2}}=2 k-3 \\cdot \\frac{-4 k}{-6}=0\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 465,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在锐角 $\\triangle A B C$ 中, $M$ 是 $B C$ 的中点, 圆 $O$ 过点 $A$ 且与直线 $B C$ 相切于点 $C$, 直线 $A M$ 与圆 $O$ 交于另一点 $D$, 直线 $B D$ 与圆 $O$ 交于另一点 $E$. 证明: $\\angle E A C=\\angle B A C$.\n\n<img_4184>",
+        "solution": [
+            "由圆幂定理知 $M C^{2}=M D \\cdot M A$, 所以 $B M^{2}=M D \\cdot M A$, 易知 $\\triangle A B M \\sim \\triangle B D M$, 所以 $\\angle A B C=\\angle B D M=\\angle A D M=\\angle A C E ;$ 又弦切角 $\\angle A C B=\\angle A E C$, 易知 $\\angle E A C=\\angle B A C$, 证毕!\n\n#"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 466,
+        "subfield": "Elementary Functions",
+        "context": null,
+        "question": "已知函数 $f(x)=\\frac{x}{\\ln x}, g(x)=k(x-1), k \\in \\mathbf{R}$.\n\n<img_4111>\n证明: 对任意 $k \\in \\mathbf{R}$, 直线 $y=g(x)$ 都不可能是曲线 $y=f(x)$ 的切线;",
+        "solution": [
+            "$f(x)$ 的定义域为 $(0,1) \\cup(1,+\\infty), f^{\\prime}(x)=\\frac{\\ln x-1}{(\\ln x)^{2}}$.\n\n假设存在 $x_{0} \\in(0,1) \\cup(1,+\\infty)$ 使 $f(x)$ 在点 $\\left(x_{0}, f\\left(x_{0}\\right)\\right)$ 处的切线方程为 $g(x)=k(x-1)$, 则\n\n$$\nk=f^{\\prime}\\left(x_{0}\\right)=\\frac{\\ln x_{0}-1}{\\left(\\ln x_{0}\\right)^{2}}\n$$\n\n切线方程为\n\n$$\ny=k\\left(x-x_{0}\\right)+f\\left(x_{0}\\right)=k x-\\frac{x_{0} \\ln x_{0}-x_{0}}{\\left(\\ln x_{0}\\right)^{2}}+\\frac{x_{0}}{\\ln x_{0}}=k x+\\frac{x_{0}}{\\left(\\ln x_{0}\\right)^{2}}\n$$\n\n对比系数得\n\n$$\n-k=\\frac{x_{0}}{\\left(\\ln x_{0}\\right)^{2}} \\Rightarrow \\frac{1-\\ln x_{0}}{\\left(\\ln x_{0}\\right)^{2}}=\\frac{x_{0}}{\\left(\\ln x_{0}\\right)^{2}} \\Rightarrow 1-\\ln x_{0}=x_{0}\n$$\n\n易知此方程有且只有一个实根 $x_{0}=1$, 此实根不在函数的定义域内，故假设不成立，证毕;"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 478,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在锐角 $\\triangle A B C$ 中, $D, E$ 是边 $B C$ 上的点, $\\triangle A B C, \\triangle A B D, \\triangle A D C$ 的外心分别为 $O, P, Q$, \n\n<img_4072>\n证明: $\\triangle A P Q \\sim \\triangle A B C$;",
+        "solution": [
+            "连结 $P D, Q D$, 如下图.\n\n<img_4079>\n\n因为 $P, Q$ 分别为 $\\triangle A B D, \\triangle A D C$ 的外心, 所以 $P Q$ 为线段 $A D$ 的垂直平分线, 所以\n\n$$\n\\begin{aligned}\n& \\angle A P Q=\\frac{1}{2} \\angle A P D=\\angle A B D=\\angle A B C \\\\\n& \\angle A Q P=\\frac{1}{2} \\angle A Q D=\\angle A C D=\\angle A C B\n\\end{aligned}\n$$\n\n所以 $\\triangle A P Q \\sim \\triangle A B C$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 479,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在锐角 $\\triangle A B C$ 中, $D, E$ 是边 $B C$ 上的点, $\\triangle A B C, \\triangle A B D, \\triangle A D C$ 的外心分别为 $O, P, Q$, \n\n<img_4072>\n证明: 若 $E O \\perp P Q$, 则 $Q O \\perp P E$.",
+        "solution": [
+            "连结 $O A, O B, O P, P B, Q C$, 延长 $O Q$ 与 $A C$ 相交于点 $F$, 如下图.\n\n<img_4079>\n\n由 $O, P, Q$ 分别为 $\\triangle A B C, \\triangle A B D, \\triangle A D C$的外心, 知 $O P, O Q, P Q$ 分别是线段 $A B, A C, A D$ 的垂直平分线, 所以\n\n$$\n\\angle A P B=\\angle A P D+\\angle B P D=2(\\angle A B D+\\angle B A D)=2 \\angle A D C=\\angle A Q C\n$$\n\n又\n\n$$\n\\angle O B P=\\angle O A P, \\angle A Q F=\\frac{1}{2} \\angle A Q C=\\frac{1}{2} \\angle A P B=\\angle A P O\n$$\n\n所以 $A, P, O, Q$ 四点共圆, $\\angle O A P=\\angle O Q P$.\n\n又 $E O \\perp P Q, D A \\perp P Q$, 所以 $E O \\| D A$\n\n$$\n\\angle O E C=\\angle A D C=\\frac{1}{2} \\angle A P B=\\angle B P O\n$$\n\n所以 $P, B, E, O$ 四点共圆, $\\angle O E P=\\angle O B P$.\n\n设 $E O, Q O$ 的延长线分别与 $P Q, P E$ 相交于 $M, N$, 则\n\n$$\n\\angle O E P=\\angle O B P=\\angle O A P=\\angle O Q P\n$$\n\n所以 $M, N, E, Q$ 四点共圆.\n\n又 $E O \\perp P Q$, 所以 $\\angle Q N E=\\angle Q M E=90^{\\circ}$, 所以 $Q O \\perp P E$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 488,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "已知梯形 $A B C D$, 边 $C D 、 A B$ 分别为上、下底, 且 $\\angle A D C=90^{\\circ}$, 对角线 $A C \\perp B D$, 过 $D$ 作 $D E \\perp B C$于点 $E$.\n\n<img_4236>\n证明: $A C^{2}=C D^{2}+A B \\cdot C D$.",
+        "solution": [
+            "由于 $\\angle A D C=90^{\\circ}$, 故 $A C^{2}=C D^{2}+A D^{2}$, 因为对角线 $A C \\perp B D$, 所以\n\n$$\n\\angle D C A=90^{\\circ}-\\angle B D C=\\angle A D B\n$$\n\n而 $\\angle A D C=90^{\\circ}=\\angle B A D$, 则 $\\triangle A C D \\sim \\triangle B D A$, 故\n\n$$\n\\frac{A D}{C D}=\\frac{A B}{A D} \\Rightarrow A D^{2}=A B \\cdot C D\n$$\n\n因此, 有\n\n$$\nA C^{2}=C D^{2}+A B \\cdot C D\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 489,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "已知梯形 $A B C D$, 边 $C D 、 A B$ 分别为上、下底, 且 $\\angle A D C=90^{\\circ}$, 对角线 $A C \\perp B D$, 过 $D$ 作 $D E \\perp B C$于点 $E$.\n\n<img_4236>\n证明:$\\frac{A E}{B E}=\\frac{A C \\cdot C D}{A C^{2}-C D^{2}}$.",
+        "solution": [
+            "由于 $\\angle A D C=90^{\\circ}$, 故 $A C^{2}-C D^{2}=A D^{2}$, 所以\n\n$$\n\\frac{A C \\cdot C D}{A C^{2}-C D^{2}}=\\frac{A C \\cdot C D}{A D^{2}}=\\frac{A C \\cdot C D}{A B \\cdot C D}=\\frac{A C}{A B}\n$$\n\n因为\n\n$$\n\\angle B A D+\\angle D E B=180^{\\circ}\n$$\n\n所以 $A 、 B 、 E 、 D$ 四点共圆, 故 $\\angle A E B=\\angle A D B$.\n\n由于 $\\angle B A C=90^{\\circ}-\\angle C A D=\\angle A D B$ 且 $\\angle A E B=\\angle B A C, \\angle E B A=\\angle A B C$, 则 $\\triangle A B E \\sim \\triangle C B A$, 故\n\n$$\n\\frac{A E}{B E}=\\frac{C A}{A B}\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 502,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "设锐角 $\\triangle A B C$ 边 $B C, C A, A B$ 上的垂足分别为 $D, E, F$, 直线 $E F$ 与 $\\triangle A B C$ 的外接圆的一个交点为 $P$,直线 $B P$ 与 $D F$ 交于点 $Q$. 证明: $A P=A Q$.\n\n<img_4115>",
+        "solution": [
+            "<img_4223>\n\n如上图所示, 由于 $D, E, F$ 是垂足, 则 $\\angle B F C=\\angle B E C=90^{\\circ}$, 故 $B, F, E, C$ 四点共圆, 从而\n\n而\n\n$$\n\\left\\{\\begin{array}{l}\n\\angle B F D=\\angle F Q B+\\angle F B Q \\\\\n\\angle B C A=\\angle P C B+\\angle P C A \\quad \\Rightarrow \\angle F Q B=\\angle P C B=\\angle P A F \\\\\n\\angle F B Q=\\angle A B P=\\angle P C A\n\\end{array}\\right.\n$$\n\n故 $A, F, P, Q$ 四点共圆 $\\Rightarrow \\angle A Q P=\\angle A F E=\\angle A C B=\\angle A P Q \\Rightarrow A P=A Q$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 518,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 设 $\\triangle A B C$ 的外接圆为 $\\odot O, \\angle B A C$ 的角平分线与 $B C$ 交于点 $D, M$ 为 $B C$ 的中点, 若 $\\triangle A D M$的外接圆 $\\odot Z$ 分别与 $A B, A C$ 交于 $P, Q, N$ 为 $P Q$ 的中点. 证明: $M N \\| A D$.\n\n<img_4091>",
+        "solution": [
+            "设 $A B=c, B C=a, A C=b$.\n\n在 $\\triangle A B C$ 中, $A D$ 为 $\\angle B A C$ 的平分线,\n\n$$\n\\therefore \\frac{B D}{D C}=\\frac{A B}{A C}, \\quad \\therefore \\quad \\frac{B D}{B D+D C}=\\frac{A B}{A B+A C}, \\quad \\therefore \\quad \\frac{B D}{a}=\\frac{c}{b+c}, \\quad \\therefore \\quad B D=\\frac{a c}{b+c}\n$$\n\n又 $B M=\\frac{a}{2}$, 由 $B P \\cdot B A=B D \\cdot B M$ 得 $B P=\\frac{B D \\cdot B M}{A B}=\\frac{a^{2}}{2(b+c)}$.\n\n由 $C Q \\cdot C A=C M \\cdot C D$ 得 $C Q=\\frac{a^{2}}{2(b+c)}$, 因此 $C Q=B P$.\n\n连接 $B Q, P C$, 并设 $X, Y$ 分别为 $B Q, P C$ 的中点, 如下图所示.\n\n<img_4233>\n\n易证 $X N$ 平行且等于 $M Y$, 所以四边形 $N X M Y$ 为平行四边形, 由 $C Q=B P$ 知 $N X=N Y$, 所以四边形 $N X M Y$ 为菱形, 从而 $M N$ 平分 $\\angle X N Y$.\n\n又 $A D$ 平分 $\\angle B A C, A B\\|N X, A C\\| N Y$, 所以 $M N \\| A D$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 522,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在圆内接四边形 $A B C D$ 中, 对角线 $A C$ 与 $B D$ 交于点 $P, \\triangle A B D$ 与 $\\triangle A B C$ 的内心分别为 $I_{1}$ 和 $I_{2}$, 直线 $I_{1} I_{2}$ 分别与 $A C, B D$ 交于点 $M, N$, 求证: $P M=P N$.\n\n<img_4237>",
+        "solution": [
+            "因为 $I_{1}, I_{2}$ 分别为 $\\triangle A B D$ 与 $\\triangle A B C$ 的内心, 所以\n\n$$\n\\begin{aligned}\n& \\angle I_{1} A B=\\frac{1}{2} \\angle D A B, \\angle I_{1} B A=\\frac{1}{2} \\angle D B A, \\\\\n& \\angle I_{2} A B=\\frac{1}{2} \\angle C A B, \\angle I_{2} B A=\\frac{1}{2} \\angle C B A\n\\end{aligned}\n$$\n\n故\n\n$$\n\\angle A I_{1} B=180^{\\circ}-\\frac{1}{2}(\\angle D A B+\\angle D B A), \\quad \\angle A I_{2} B=180^{\\circ}-\\frac{1}{2}(\\angle C A B+\\angle C B A)\n$$\n\n在 $\\triangle A B D$ 与 $\\triangle A B C$ 中, $\\angle A D B=\\angle A C B$, 所以\n\n$$\n\\angle D A B+\\angle D B A=\\angle C A B+\\angle C B A\n$$\n\n因此 $\\angle I_{1} I_{2} A=\\angle I_{1} B A=\\frac{1}{2} \\angle D B A$, 则\n\n$$\n\\angle P M N=\\angle M A I_{2}+\\angle M I_{2} A=\\frac{1}{2}(\\angle C A B+\\angle D B A)\n$$\n\n同理 $\\angle P N M=\\frac{1}{2}(\\angle C A B+\\angle D B A)$, 所以 $\\angle P M N=\\angle P N M$, 即 $P M=P N$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 533,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $\\triangle A B C$ 的内心为 $I, D, E, F$ 分别是边 $B C, C A, A B$ 的中点. 证明: 直线 $D I$平分 $\\triangle D E F$ 的周长.\n<img_4155>",
+        "solution": [
+            "如图, 不妨设 $A B \\geq A C, \\triangle A B C$ 的内切圆切 $B C, C A, A B$ 于 $T, K_{1}, K_{2}$, 过 $T$ 作内切圆的直径 $T K$, 过 $K$ 作 $\\odot I$ 的切线分别交 $A C, A B$ 于 $M, N$, 则 $N M \\| B C$.\n\n由于 $\\odot I$ 是 $\\triangle A M N$ 的旁切圆, $A K_{1}=A K_{2}$, 因 $M K=M K_{1}, N K=N K_{2}$, 所以有 $A M+M K=$ $A N+N K$.\n\n延长 $A K$ 交 $B C$ 于 $G$, 则由三角形内切圆性质知: $B G=C T$, 因此 $D T=D G$, 故 $D I$ 是 $\\triangle T G K$ 的中位线, 所以 $D P \\| A G$, 因 $B D E F$ 为平行四边形, 所以 $\\triangle D E P \\sim \\triangle A B G$, 相似比为 $\\frac{D E}{A B}=\\frac{1}{2}$.\n\n同理 $\\triangle D F P \\sim \\triangle A C G$, 相似比为 $\\frac{D F}{A C}=\\frac{1}{2}$.\n\n又注意 $\\triangle A M K \\sim \\triangle A C G, \\triangle A N K \\sim \\triangle A B G$, 相似比均为 $\\frac{A K}{A G}$.\n\n既然有 $A M+M K=A N+N K$, 所以 $A C+C G=A B+B G$, 因此, $D F+F P=D E+E P$, 即所证结论成立."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 534,
+        "subfield": "Solid Geometry",
+        "context": null,
+        "question": "如图, 四棱雉 $S-A B C D$ 中, $S D \\perp$ 底面 $A B C D, A B \\| D C, A D \\perp D C, A B=A D=1, D C=S D=2, E$为棱 $S B$ 上的一点, 平面 $E D C \\perp$ 平面 $S B C$.\n\n<img_4153>\n证明: $S E=2 E B$;",
+        "solution": [
+            "以 $D$ 为坐标原点, 射线 $D A, D C, D S$ 分别为 $x$ 轴, $y$ 轴, $z$ 轴建立直角坐标系 $D x y z$, 如下图.\n\n<img_4121>\n\n设 $A=(1,0,0)$ ，则 $B(1,1,0), C(0,2,0), S(0,0,2)$.\n\n$\\overrightarrow{S C}=(0,2,-2), \\overrightarrow{B C}=(-1,1,0)$.\n\n设平面 $S B C$ 的法向量为 $n=(a, b, c)$, 由 $n \\perp \\overrightarrow{S C}, n \\perp \\overrightarrow{B C}$ 得到 $n \\cdot \\overrightarrow{S C}=0, n \\cdot \\overrightarrow{B C}=0$, 故 $b-c=0,-a+b=0$.取 $a=b=c=1$, 则 $n=(1,1,1)$, 又设 $\\overrightarrow{S E}=\\lambda \\overrightarrow{E B}(\\lambda>0)$, 则\n\n$$\nE\\left(\\frac{\\lambda}{1+\\lambda}, \\frac{\\lambda}{1+\\lambda}, \\frac{2}{1+\\lambda}\\right), \\quad \\overrightarrow{D E}=\\left(\\frac{\\lambda}{1+\\lambda}, \\frac{\\lambda}{1+\\lambda}, \\frac{2}{1+\\lambda}\\right), \\quad \\overrightarrow{D C}=(0,2,0)\n$$\n\n设平面 $C D E$ 的法向量为 $m=(x, y, z)$, 由 $m \\perp \\overrightarrow{D E}, m \\perp \\overrightarrow{D C}$, 得到 $m \\cdot \\overrightarrow{D E}=0, m \\cdot \\overrightarrow{D C}=0$, 故\n\n$$\n\\frac{\\lambda x}{1+\\lambda}+\\frac{\\lambda y}{1+\\lambda}+\\frac{2 z}{1+\\lambda}=0, \\quad 2 y=0\n$$\n\n令 $x=2$, 则 $m=(2,0,-\\lambda)$, 由平面 $D E C \\perp$ 平面 $S B C$, 得到 $m \\perp n$, 所以\n\n$$\nm \\cdot n=0, \\quad 2-\\lambda=0, \\quad \\lambda=2\n$$\n\n故 $S E=2 E B $ ."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 559,
+        "subfield": "Conic Sections",
+        "context": null,
+        "question": "如图, $F_{1}, F_{2}$ 是双曲线 $x^{2}-\\frac{y^{2}}{4}=1$ 的两个焦点, 一条直线与双曲线的右支相切, 且分别交两条浙近线于 $A, B$, 又设 $O$ 为坐标原点.\n\n<img_4214>\n求证:$|O A| \\cdot|O B|=\\left|O F_{1}\\right|^{2}$.",
+        "solution": [
+            "若直线 $A B$ 的斜率不存在, 即切点位于实轴的顶点, 则 $A, B$ 的坐标分别为 $(1,2),(1,-2)$, 这时 $|O A|=|O B|=\\sqrt{5}=\\left|O F_{1}\\right|$, 结论成立.\n\n若直线 $A B$ 的斜率存在, 可设直线 $A B$ 的方程为 $y=k x+b$, 由于 $A B$ 与双曲线相切, 所以关于 $x$ 的方程\n\n$$\nx^{2}-\\frac{1}{4}(k x+b)^{2}=1\n$$\n\n有两个相等的实根，即\n\n$$\n\\Delta=\\left(\\frac{1}{2} k b\\right)^{2}-4 \\cdot\\left(1-\\frac{1}{4} k^{2}\\right) \\cdot\\left(-\\frac{1}{4} b^{2}-1\\right)=0\n$$\n\n整理得 $k^{2}=b^{2}+4$, 由于 $A, B$ 的横坐标 $x_{1}, x_{2}$ 是方程 $x^{2}-\\frac{1}{4}(k x+b)^{2}=0$ 的两个实根, 我们有\n\n$$\nx_{1} x_{2}=\\frac{-\\frac{b^{2}}{4}}{1-\\frac{k^{2}}{4}}=1\n$$\n\n注意 $A, B$ 的坐标分别为 $\\left(x_{1}, 2 x_{1}\\right),\\left(x_{2},-2 x_{2}\\right)$, 可知 $|O A|=\\sqrt{5}\\left|x_{1}\\right|,|O B|=\\sqrt{5}\\left|x_{2}\\right|$, 因此\n\n$$\n|O A| \\cdot|O B|=5\\left|x_{1} x_{2}\\right|=5=\\left|O F_{1}\\right|^{2}\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 560,
+        "subfield": "Conic Sections",
+        "context": null,
+        "question": "如图, $F_{1}, F_{2}$ 是双曲线 $x^{2}-\\frac{y^{2}}{4}=1$ 的两个焦点, 一条直线与双曲线的右支相切, 且分别交两条浙近线于 $A, B$, 又设 $O$ 为坐标原点.\n\n<img_4214>\n求证:$F_{1}, F_{2}, A, B$ 四点在一个圆上.",
+        "solution": [
+            "在 $\\triangle O A F_{1}$ 与 $\\triangle O F_{1} B$ 中, $\\angle A O F_{1}=\\angle F_{1} O B$, 且 $\\frac{|O A|}{\\left|O F_{1}\\right|}=\\frac{\\left|O F_{1}\\right|}{|O B|}$, 所以 $\\triangle O A F_{1} \\sim \\triangle O F_{1} B$.\n\n同理 $\\triangle O A F_{2} \\sim \\triangle O F_{2} B$, 这样, 我们有\n\n$$\n\\begin{aligned}\n\\angle F_{1} A F_{2}+\\angle F_{1} B F_{2} & =\\left(\\angle F_{1} A O+\\angle O A F_{2}\\right)+\\left(\\angle F_{1} B O+\\angle O B F_{2}\\right) \\\\\n& =\\left(\\angle B F_{1} O+\\angle O F_{2} B\\right)+\\left(\\angle A F_{1} O+\\angle O F_{2} A\\right) \\\\\n& =\\left(\\angle B F_{1} O+\\angle A F_{1} O\\right)+\\left(\\angle O F_{2} B+\\angle O F_{2} A\\right) \\\\\n& =\\angle B F_{1} A+\\angle B F_{2} A\n\\end{aligned}\n$$\n\n即四边形 $F_{1} A F_{2} B$ 中一组对角之和等于另一组对角之和, 从而对角之和为 $180^{\\circ}$, 该四边形内接于圆."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 564,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, $D$ 为锐角 $\\triangle A B C$ 内一点, 使得 $\\angle A D B=\\angle A C B+90^{\\circ}$, 且 $A C \\cdot B D=A D \\cdot B C$, 延长 $A D 、 B D$ 、 $C D$, 分别与 $\\triangle A B C$ 的外接圆 $\\Gamma$ 交于点 $G 、 E 、 F$.\n\n<img_4219>\n证明:  $E F=F G ;$",
+        "solution": [
+            "注意到,\n\n$$\n\\begin{gathered}\n\\triangle E F D \\sim \\triangle C B D \\Rightarrow \\frac{E F}{F D}=\\frac{B C}{B D}, \\quad \\triangle F D G \\sim \\triangle A D C \\Rightarrow \\frac{F G}{F D}=\\frac{A C}{A D} \\\\\nA C \\cdot B D=A D \\cdot B C \\Rightarrow \\frac{B C}{B D}=\\frac{A C}{A D}\n\\end{gathered}\n$$\n\n故\n\n$$\n\\frac{E F}{F D}=\\frac{F G}{F D} \\Rightarrow E F=F G\n$$"
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 565,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, $D$ 为锐角 $\\triangle A B C$ 内一点, 使得 $\\angle A D B=\\angle A C B+90^{\\circ}$, 且 $A C \\cdot B D=A D \\cdot B C$, 延长 $A D 、 B D$ 、 $C D$, 分别与 $\\triangle A B C$ 的外接圆 $\\Gamma$ 交于点 $G 、 E 、 F$.\n\n<img_4219>\n证明: $\\frac{S_{\\triangle E F G}}{S_{\\text {圆 } \\Gamma}}=\\frac{1}{\\pi}$.",
+        "solution": [
+            "由\n\n$\\angle E F G=\\angle E F C+\\angle C F G=\\angle E B C+\\angle C A G=\\angle A D B-\\angle A C B=90^{\\circ} \\Rightarrow \\triangle E F G$ 为等腰直角三角形\n\n于是, $E G$ 为圆 $\\Gamma$ 的直径, 设圆 $\\Gamma$ 的半径为 $R$, 故 $\\frac{S_{\\triangle E F G}}{S_{\\text {圆 } \\Gamma}}=\\frac{\\frac{1}{4}(2 R)^{2}}{\\pi R^{2}}=\\frac{1}{\\pi}$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 665,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4124>\n\n如图,已知锐角 $\\triangle A B C$ 满足 $A B>A C, O 、 H$ 分别为 $\\triangle A B C$ 的外心、垂心,直线 $B H$ 与 $A C$ 交于点 $B_{1}$,直线 $C H$ 与 $A B$ 交于点 $C_{1}$. 若 $O H / / B_{1} C_{1}$, 证明: $\\cos 2 B+\\cos 2 C+1$ $=0$.",
+        "solution": [
+            "联结 $A O 、 A H$.\n\n因为 $A 、 B_{1} 、 H 、 C_{1}$ 四点共圆, 且 $O H / / B_{1} C_{1}$, 所以, $\\angle O H C_{1}=\\angle H C_{1} B_{1}=\\angle H A B_{1}$ $=90^{\\circ}-\\angle A C B$.\n\n又因为 $B 、 C 、 B_{1} 、 C_{1}$ 四点共圆, 所以,\n\n$\\angle A H C_{1}=\\angle A B_{1} C_{1}=\\angle A B C$\n\n故 $\\angle A H O=\\angle O H C_{1}+\\angle A H C_{1}=90^{\\circ}-\\angle A C B+\\angle A B C$\n\n由 $\\angle O A B=\\angle C A H=90^{\\circ}-\\angle A C B$, 知\n\n$\\angle O A H=\\angle B A C-\\angle O A B-\\angle C A H=\\angle B A C-2\\left(90^{\\circ}-\\angle A C B\\right)$\n\n$=\\angle A C B-\\angle A B C$.\n\n则 $\\angle A H O+\\angle O A H=90^{\\circ}$.\n\n从而, $\\angle A O H=90^{\\circ}$.\n\n设 $\\triangle A B C$ 的外接圆半径为 $R$. 则\n\n$A H=2 R \\cos A$.\n\n由 $A O=A H \\cos \\angle O A H$, 知\n\n$R=2 R \\cos A \\cdot \\cos (C-B)$\n\n$\\Rightarrow 2 \\cos A \\cdot \\cos (C-B)=1$\n\n$\\Rightarrow \\cos (A+C-B)+\\cos (A-C+B)=1$\n\n$\\Rightarrow \\cos 2 B+\\cos 2 C+1=0$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 669,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4125>\n\n如图,已知锐角 $\\triangle A B C$ 的外接圆为 $\\odot O$, 过点 $A$ 作 $\\odot O$ 的切线 $l, l$ 与直线 $B C$ 交于点 $D, E$ 为 $D A$ 延长线上一点, $F$ 为劣弧 $\\overparen{B C}$ 上一点, 直线 $E F$ 与劣弧 $\\overparen{A B}$ 交于点 $G$, 直线 $F B 、 G C$ 分别与 $l$ 交于点 $P 、 Q$. 证明: $A D=A E$ 的充分必要条件为 $A P=A Q$.",
+        "solution": [
+            "设 $E F$ 与 $B C$ 交于点 $H$.\n\n对直线 $G C Q$ 和 $\\triangle H E D$, 应用梅涅劳斯定理得\n\n$\\frac{H G}{G E} \\cdot \\frac{E Q}{Q D} \\cdot \\frac{D C}{C H}=1 \\quad \\quad (1)$.\n\n对直线 $P B F$ 和 $\\triangle H E D$, 应用梅涅劳斯定理得 $\\frac{H F}{F E} \\cdot \\frac{E P}{P D} \\cdot \\frac{D B}{B H}=1 \\quad \\quad (2)$.\n\n(1) $\\times$ (2) 得\n\n$\\frac{H G}{G E} \\cdot \\frac{E Q}{Q D} \\cdot \\frac{D C}{C H} \\cdot \\frac{H F}{F E} \\cdot \\frac{E P}{P D} \\cdot \\frac{D B}{B H}=1 \\quad \\quad (3)$.\n\n由相交弦定理和切割线定理得\n\n$H B \\cdot H C=H F \\cdot H G$,\n\n$E G \\cdot E F=E A^{2}$,\n\n$D B \\cdot D C=D A^{2}$.\n\n代人式(3)得 $\\frac{D A^{2}}{E A^{2}} \\cdot \\frac{E Q}{Q D} \\cdot \\frac{E P}{P D}=1$.\n\n故 $A D^{2}(A Q+A E)(A P-A E)=A E^{2}(A Q-A D)(A P+A D)$.\n\n整理得\n\n$(A D+A E)[A P \\cdot A Q(A D-A E)+A D \\cdot A E(A P-A Q)]=0$\n\n$\\Rightarrow A P \\cdot A Q(A D-A E)=A D \\cdot A E(A Q-A P)$.\n\n因此, $A D=A E$ 的充分必要条件为 $A P=A Q$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 673,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 已知 $\\triangle A B C$ 满足 $A B$ $<A C, M$ 为边 $B C$ 的中点, 过点 $A$ 的 $\\odot O$ 与边 $B C$ 切于点 $B$, 且与线段 $A M$ 交于点 $D$, 与 $C A$的延长线交于点 $E$, 过点 $C$ 且平行于 $B E$ 的直线与 $B D$ 的延长线交于点 $F, F E 、 C B$ 的延长线交于点 $G$. 证明: $G A=G D$.\n\n<img_4209>",
+        "solution": [
+            "因为 $\\angle D A C=\\angle E B D=\\angle D F C$, 所以, $A 、 D 、 C 、 F$ 四点共圆, 设该圆为 $\\odot O_{1}$.\n\n由 $M C^{2}=M B^{2}=M A \\cdot M D$, 知 $M C$ 与 $\\odot O_{1}$切于点 $C$.\n\n因为 $B E / / C F$, 所以, $G$ 是 $\\odot O$ 与 $\\odot O_{1}$ 的一个位似中心.\n\n又 $A D$ 是 $\\odot O$ 与 $\\odot O_{1}$ 的公共弦, 于是, 点$G$ 在 $A D$ 的中垂线 $O O_{1}$ 上.\n\n故 $G A=G D$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 677,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "<img_4158>\n\n如图,已知锐角 $\\triangle A B C$ 的外接圆为 $\\odot O, A D$ 为 $\\odot O$ 的直径,过点 $B 、 C$ 且垂直于 $B C$ 的直线与 $C A 、 B A$ 的延长线分别交于点 $E 、 F$. 证明: $\\angle A D F=\\angle B E D$.",
+        "solution": [
+            "<img_4146>\n\n如图, 联结 $B D 、 C D$.\n\n则 $\\angle D B F=\\angle D C E=90^{\\circ}$,\n\n且 $\\frac{B F}{C E}=\\frac{\\frac{B C}{\\cos \\angle C B F}}{\\frac{B C}{\\cos \\angle B C E}}=\\frac{\\sin \\angle B C D}{\\sin \\angle C B D}=\\frac{B D}{C D} .$\n\n故 $\\triangle D B F \\backsim \\triangle D C E$\n\n$\\Rightarrow \\angle B D F=\\angle C D E$\n\n$\\Rightarrow \\angle B D E=\\angle C D F$.\n\n因为 $B E / / C F$, 所以, $A$ 是线段 $C F$ 与 $E B$的一个位似中心. 设点 $D$ 关于此位似变换的对应点为 $D^{\\prime}$. 则\n\n$\\angle B D E=\\angle F D C=\\angle B D^{\\prime} E$.\n\n于是, $B 、 D 、 D^{\\prime} 、 E$ 四点共圆.\n\n故 $\\angle A D F=\\angle A D^{\\prime} B=\\angle B D^{\\prime} D=\\angle B E D$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 723,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 已知锐角 $\\triangle A B C$ 的外接圆为 $\\odot O$, 其垂心、内心分别为 $H 、 I, A H$ 的中点为 $M$, 且满足 $A O / / M I$. 设 $A H$ 的延长线与 $\\odot O$ 交于点 $D$, 直线 $A O 、 O D$ 与 $B C$ 分别交于点 $P 、 Q$.\n<img_4105>\n证明: $\\triangle O P Q$ 为等腰三角形;",
+        "solution": [
+            "显然, $\\angle O A D=\\angle O D A$.\n\n因为 $A D \\perp B C$, 所以,\n\n$\\angle O A D+\\angle A P C=90^{\\circ}$,\n\n$\\angle O D A+\\angle D Q C=90^{\\circ}$.\n\n又 $\\angle D Q C=\\angle P Q O$, 则\n\n$\\angle O D A+\\angle P Q O=90^{\\circ}$.\n\n于是, $\\angle P Q O=\\angle A P C=\\angle O P Q$, 即 $O P$ $=O Q, \\triangle O P Q$ 为等腰三角形."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 724,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 已知锐角 $\\triangle A B C$ 的外接圆为 $\\odot O$, 其垂心、内心分别为 $H 、 I, A H$ 的中点为 $M$, 且满足 $A O / / M I$. 设 $A H$ 的延长线与 $\\odot O$ 交于点 $D$, 直线 $A O 、 O D$ 与 $B C$ 分别交于点 $P 、 Q$.\n<img_4105>\n证明: 若$I Q \\perp B C$，则$\\cos B + \\cos C = 1$.",
+        "solution": [
+            "如下图, 由 $I Q \\perp B C$, 知 $Q$ 为 $\\triangle A B C$的内切圆 $\\odot I$ 与 $B C$ 的切点.\n\n<img_4093>\n\n则 $B Q=\\frac{B A+B C-A C}{2}, N$ 为 $P Q$ 的中点.故 $B P=2 B N-B Q=\\frac{B A+B C+A C}{2}-B A$.\n\n因此, $P$ 为 $\\triangle A B C$ 中 $\\angle A$ 内的旁切圆 $\\odot I_{a}$ 与 $B C$ 的切点.\n\n设 $P_{1} Q$ 为 $\\odot I$ 的直径, 过点 $P_{1}$ 作 $B C$ 的平行线, 与 $A B 、 A C$ 分别交于点 $B_{1} 、 C_{1}$. 则 $A$ 为 $\\triangle A B_{1} C_{1}$ 与 $\\triangle A B C$ 的位似中心.\n\n因为 $P_{1} 、 P$ 为对应点 $\\left(P_{1}\\right.$ 为 $\\triangle A B_{1} C_{1}$ 中 $\\angle A$ 内的旁切圆 $\\odot I$ 与 $B_{1} C_{1}$ 的切点, $P$ 为 $\\triangle A B C$ 中 $\\angle A$ 内的旁切圆 $\\odot I_{a}$ 与 $B C$ 的切点), 所以, $A 、 P_{1} 、 P$ 三点共线.\n\n又 $O N$ 为 $Rt \\triangle P P_{1} Q$ 的中位线, 则\n\n$O N=\\frac{1}{2} P_{1} Q=I Q$.\n\n设 $\\odot O, \\odot I$ 的半径分别为 $R$、$r$. 则在 $\\triangle C O N$中,有\n\n$R \\cos A=r \\Rightarrow \\frac{r}{R}=\\cos A$.\n\n由 $\\cos A+\\cos B+\\cos C=1+\\frac{r}{R}$\n\n$\\Rightarrow \\cos A+\\cos B+\\cos C=1+\\cos A$\n\n$\\Rightarrow \\cos B+\\cos C=1$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 743,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如下图, 设 $\\triangle A B C$ 的外接圆为 $\\Gamma$, 在点 $B 、 C$ 处分别作圆 $\\Gamma$ 的切线, 两条切线交于点 D. 由 $\\triangle A B C$ 的边 $A B 、 C A$ 分别向形外作正方形 $B A G H$ 、正方形 $A C E F$, 设 $E F$ 与 $H G$ 交于点 $X$. 证明: $X 、 A 、 D$ 三点共线.\n\n<img_4160>",
+        "solution": [
+            "如图, 设点 $A$ 在 $G F$ 上的投影为 $R$, $A R$ 与 $B C$ 交于点 $M$.\n\n<img_4112>\n\n由面积法知\n\n$$\n\\begin{aligned}\n& \\frac{B M}{C M}=\\frac{S_{\\triangle A B M}}{S_{\\triangle A C M}}=\\frac{\\frac{1}{2} A B \\cdot A M \\sin \\angle B A M}{\\frac{1}{2} A C \\cdot A M \\sin \\angle C A M} \\\\\n& =\\frac{A B \\cos \\angle R A G}{A C \\cos \\angle R A F}=\\frac{A G \\cos \\angle R A G}{A F \\cos \\angle R A F}=1 .\n\\end{aligned}\n$$\n\n故 $M$ 为边 $B C$ 的中点.\n\n设 $X A$ 与 $B C$ 交于点 $K$. 则由 $G 、 A 、 F 、 X$ 四点共圆得\n\n$$\n\\begin{aligned}\n& \\angle C A K=90^{\\circ}-\\angle F A X=90^{\\circ}-\\angle F G X \\\\\n& =\\angle A G F=90^{\\circ}-\\angle G A R=\\angle B A M,\n\\end{aligned}\n$$\n\n即 $A X$ 在 $A M$ 的共轭中线上.\n\n另一方面, 在边 $B C$ 上作一点 $M^{\\prime}$, 使得\n\n$\\angle C A D=\\angle B A M^{\\prime}$.\n\n由面积法知\n\n$$\n\\begin{aligned}\n& \\frac{B M^{\\prime}}{M^{\\prime} C}=\\frac{S_{\\triangle A B M^{\\prime}}}{S_{\\triangle A C M^{\\prime}}}=\\frac{\\frac{1}{2} A B \\cdot A M^{\\prime} \\sin \\angle B A M^{\\prime}}{\\frac{1}{2} A C \\cdot A M^{\\prime} \\sin \\angle C A M^{\\prime}} \\\\\n& =\\frac{A B \\sin \\angle C A D}{A C \\sin \\angle B A D}=\\frac{A B \\cdot \\frac{C D \\sin \\angle A C D}{A D}}{A C \\cdot \\frac{B D \\sin \\angle A B D}{A D}}\n\\end{aligned}\n$$\n\n$$\n=\\frac{A B \\sin \\angle A C D}{A C \\sin \\angle A B D}=\\frac{A B \\sin \\angle A B C}{A C \\sin \\angle A C B}=1 .\n$$\n\n故点 $M^{\\prime}$ 与 $M$ 重合.\n\n因此, $A D$ 也在 $A M$ 的共轭中线上.\n\n综上, $X 、 A 、 D$ 三点共线."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 747,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 在锐角 $\\triangle A B C$ 中, $D 、 E 、 F$ 分别为边 $B C 、 C A 、 A B$ 上的点, $L 、 M 、 N$ 分别为线段 $E F 、 F D 、 D E$ 的中点. \n\n<img_4100>\n证明: $A L 、 B M 、 C N$ 三线共点的充分必要条件是 $A D 、 B E 、 C F$ 三线共点;",
+        "solution": [
+            "设 $\\angle C A L=\\alpha_{1}, \\angle B A L=\\alpha_{2}$,\n\n$\\angle A B M=\\beta_{1}, \\angle C B M=\\beta_{2}$,\n\n$\\angle B C N=\\gamma_{1}, \\angle A C N=\\gamma_{2}$.\n\n由分角线定理知\n\n$1=\\frac{E L}{L F}=\\frac{A E \\sin \\alpha_{1}}{A F \\sin \\alpha_{2}}$,\n\n$1=\\frac{F M}{M D}=\\frac{B F \\sin \\beta_{1}}{B D \\sin \\beta_{2}}$,\n\n$1=\\frac{D N}{N E}=\\frac{C D \\sin \\gamma_{1}}{C E \\sin \\gamma_{2}}$.\n\n三式相乘得\n\n$\\frac{\\sin \\alpha_{1}}{\\sin \\alpha_{2}} \\cdot \\frac{\\sin \\beta_{1}}{\\sin \\beta_{2}} \\cdot \\frac{\\sin \\gamma_{1}}{\\sin \\gamma_{2}}=\\frac{A F}{A E} \\cdot \\frac{B D}{B F} \\cdot \\frac{C E}{C D}$\n\n$=\\frac{A F}{F B} \\cdot \\frac{B D}{D C} \\cdot \\frac{C E}{E A} \\quad \\quad (1)$.\n\n由塞瓦定理,知 $A D 、 B E 、 C F$ 三线共点的充分必要条件是\n\n$\\frac{A F}{F B} \\cdot \\frac{B D}{D C} \\cdot \\frac{C E}{E A}=1$.\n\n又由角元塞瓦定理,知 $A L 、 B M 、 C N$ 三线共点的充分必要条件是\n\n$\\frac{\\sin \\alpha_{1}}{\\sin \\alpha_{2}} \\cdot \\frac{\\sin \\beta_{1}}{\\sin \\beta_{2}} \\cdot \\frac{\\sin \\gamma_{1}}{\\sin \\gamma_{2}}=1$.\n\n因此, 由式(1)知\n\n$A L 、 B M 、 C N$ 三线共点\n\n$\\Leftrightarrow A D 、 B E 、 C F$ 三线共点."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 748,
+        "subfield": "Geometry",
+        "context": null,
+        "question": "如图, 在锐角 $\\triangle A B C$ 中, $D 、 E 、 F$ 分别为边 $B C 、 C A 、 A B$ 上的点, $L 、 M 、 N$ 分别为线段 $E F 、 F D 、 D E$ 的中点. \n\n<img_4100>\n证明：若 $A D 、 B E 、 C F$ 为 $\\triangle A B C$ 的三条高线, $X 、 Y 、 Z$ 分别为线段 $E F 、 F D 、 D E$ 上的点,且满足 $D X / / A L, E Y / / B M, F Z / / C N$, 设 $\\triangle A B C$ 、 $\\triangle X Y Z$ 的外接圆半径分别为 $R 、 r$, 则\n\n$$\nr=2 R \\cos A \\cdot \\cos B \\cdot \\cos C,\n$$\n\n其中, $A 、 B 、 C$ 表示 $\\triangle A B C$ 的内角.",
+        "solution": [
+            "先证明一个引理.\n\n引理 设 $\\triangle A B C$ 的内切圆 $\\odot I$ 与边 $B C$切于点 $D, \\angle A$ 内的旁切圆为 $\\odot I_{1}, M$ 为边 $B C$的中点, 则 $A D / / M I_{1}$.\n\n证明 如下图, 设 $\\odot I_{1}$ 与边 $B C$ 切于点 $E, E E_{1}$ 为 $\\odot I_{1}$ 的直径, 过点 $E_{1}$ 作 $B C$ 的平行线, 与直线 $A B 、 A C$ 分别交于点 $B_{1} 、 C_{1}$. 则 $B_{1} C_{1}$与 $\\odot I_{1}$ 切于点 $E_{1}$.\n\n<img_4173>\n\n因为 $A$ 是 $\\triangle A B C$ 与 $\\triangle A B_{1} C_{1}$ 的位似中心, $D 、 E_{1}$ 为对应点, 所以, $A 、 D 、 E_{1}$ 三点共线.\n\n由 $B D=C E$, 知 $M$ 为线段 $D E$ 的中点.\n\n于是, $D E_{1} / / M I_{1}$, 即 $A D / / M I_{1}$.\n\n引理得证.\n\n因为 $B 、 C 、 E 、 F$ 四点共圆, 所以,\n\n$\\angle A E F=\\angle B$.\n\n类似地, $\\angle C E D=\\angle B$.\n\n因此, $E A$ 为 $\\angle D E F$ 的外角平分线,且\n\n$\\angle D E F=180^{\\circ}-2 \\angle B$.\n\n类似地, $F A$ 为 $\\angle E F D$ 的外角平分线.\n\n从而, $A$ 为 $\\triangle D E F$ 中 $\\angle D$ 内的旁心.\n\n又 $D X / / A L, E Y / / B M, F Z / / C N$, 由引理知 $X$ 为 $\\triangle D E F$ 的内切圆 (圆心为 $\\triangle A B C$ 的垂心 $H)$ 与边 $E F$ 的切点.\n\n类似地, $Y 、 Z$ 为 $\\triangle D E F$ 的内切圆分别与边 $F D 、 D E$ 的切点.\n\n从而, $\\triangle X Y Z$ 的外接圆就是 $\\triangle D E F$ 的内切圆.\n\n设 $\\triangle D E F$ 的外接圆半径为 $R_{1}$.\n\n因为 $\\triangle D E F$ 的外接圆是 $\\triangle A B C$ 的九点圆, 所以, $R=2 R_{1}$.\n\n由于 $\\angle D E F=180^{\\circ}-2 \\angle B$, 类似得\n\n$\\angle F D E=180^{\\circ}-2 \\angle A$,\n\n$\\angle E F D=180^{\\circ}-2 \\angle C$.\n\n故 $r=4 R_{1} \\sin \\frac{\\angle F D E}{2} \\cdot \\sin \\frac{\\angle D E F}{2} \\cdot \\sin \\frac{\\angle E F D}{2}$\n\n$=2 R \\cos A \\cdot \\cos B \\cdot \\cos C$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 768,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "设椭圆 $C$ 的两焦点为 $F_{1}, F_{2}$, 两准线为 $l_{1}, l_{2}$, 过椭圆上的一点 $P$, 作平行于 $F_{1} F_{2}$ 的直线, 分别交 $l_{1}, l_{2}$ 于 $M_{1}, M_{2}$, 直线 $M_{1} F_{1}$ 与 $M_{2} F_{2}$ 交于点 $Q$.证明: $P, F_{1}, Q, F_{2}$ 四点共圆.\n\n<img_4185>",
+        "solution": [
+            "设陏圆方程为 $\\frac{x^{2}}{a^{2}}+\\frac{y^{2}}{b^{2}}=1,(a>b>0)$, 据对称性知, 点 $Q$ 在 $Y$ 轴上 (如图); 记 $Q F_{1}=Q F_{2}=m$,\n\n$P F_{1}=r_{1}, P F_{2}=r_{2}, P Q=t, M_{1} F_{1}=M_{2} F_{2}=k$, 则有:\n\n$\\frac{P F_{1}}{P M_{1}}=e, r_{1}+r_{2}=2 a$, 为证 $P, F_{1}, Q, F_{2}$ 四点共圆, 据托勒密定理, 只要证, $m r_{1}+m r_{2}=t \\cdot F_{1} F_{2}$, 即 $m \\cdot 2 a=t \\cdot 2 c$, 也即 $\\frac{m}{t}=\\frac{c}{a}=e \\cdots(1)$\n\n由 $\\frac{Q F_{1}}{Q M_{1}}=\\frac{O F_{1}}{H M_{1}}$, 即 $\\frac{m}{m+k}=\\frac{g^{2}}{\\frac{a^{2}}{c}}=\\left(\\frac{c}{a}\\right)=e^{2}$, 所以 $\\frac{k}{m+k}=1-e^{2}$,\n\n在 $\\Delta P M_{1} Q$ 中, 由斯特瓦特定理,\n\n$P F_{1}^{2}=P M_{1}^{2} \\cdot \\frac{m}{m+k}+P Q^{2} \\cdot \\frac{k}{m+k}-m k \\cdots (2)$\n即 $r_{1}^{2}=\\left(\\frac{r_{1}}{e}\\right)^{2} \\cdot e^{2}+t^{2}\\left(1-e^{2}\\right)-m \\cdot \\frac{m\\left(1-e^{2}\\right)}{e^{2}} \\cdots (3)$\n\n因为 $1-e^{2} \\neq 0$, 由(3)得, $\\frac{m^{2}}{t^{2}}=e^{2}$, 即 $\\frac{m}{t}=e$, 故(1)成立, 因此 $P, F_{1}, Q, F_{2}$ 四点共圆.\n\n(也可不用托勒密定理证: 由(2)得 $P Q^{2}=m(m+k)$, 则 $\\triangle P Q F_{1} \\backsim \\Delta M_{1} Q P$, 于是\n\n$\\angle Q P F_{1}=\\angle M_{1}=\\angle M_{2}=\\angle Q F_{2} F_{1}$ , 因此 $P, F_{1}, Q, F_{2}$ 四点共圆."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 776,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图所示, $A D 、 A H$ 分别是 $\\triangle A B C$ （其中 $A B>A C ）$ 的角平分线、高线, 点 $M$ 是 $A D$ 的中点, $\\triangle M D H$ 的外接圆交 $C M$ 于点 $E$. 求证: $\\angle A E B=90^{\\circ}$.\n\n<img_4182>",
+        "solution": [
+            "连结 $H E$.\n\n由 $M$ 是 Rt $\\triangle A H D$ 斜边 $A D$ 的中点可知 $M A=M H=M D, \\angle M D H=\\angle M H D$.\n\n由 $M, D, H, E$ 四点共圆可得 $\\angle H E C=\\angle M D H=\\angle M H D$\n\n从而 $\\angle M H C=180^{\\circ}-\\angle M H D=180^{\\circ}-\\angle H E C=\\angle M E H$.\n\n又由 $\\angle C M H=\\angle H M E$ 可知 $\\triangle C M H \\sim \\triangle H M E$. 故 $\\frac{M H}{M C}=\\frac{M E}{M H}$, 从而 $\\frac{M A}{M C}=\\frac{M E}{M A}$\n\n又因为 $\\angle C M A=\\angle A M E$, 所以 $\\triangle C M A \\sim \\triangle A M E$. 故 $\\angle M C A=\\angle M A E$.\n\n由 $A D$ 是角平分线, 可得 $\\angle B A E=\\angle B A M+\\angle M A E=\\angle M A C+\\angle M C A=\\angle D M E$\n\n则有 $\\angle B H E+\\angle B A E=\\angle D H E+\\angle D M E=180^{\\circ}$, 从而 $A, B, H, E$ 四点共圆.\n\n所以 $\\angle A E B=\\angle A H B=90^{\\circ}$. 命题得证."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 783,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, 在凸五边形 $A B C D E$ 中, 已知 $\\angle A B C=\\angle C D E=\\angle D E A=90^{\\circ}, F$ 是边 $C D$ 的中点,线段 $A D, E F$ 相交于点 $G$, 线段 $A C, B G$ 相交于点 $M$. 若 $A C=A D, A B=D E$,求证: $B M=M G$.\n\n<img_4080>",
+        "solution": [
+            "连接 $A F$, $B F$ 如下图.\n\n<img_4058>\n\n因为 $A C=A D, F$ 是边 $C D$ 的中点,\n\n则 $A F \\perp C D$.\n\n又 $\\angle C D E=\\angle D E A=90^{\\circ}$,\n\n故四边形 $A E D F$ 是矩形.\n\n所以 $\\triangle A C F \\cong \\triangle A D F \\cong \\triangle E F D$.\n\n因此 $\\angle E F D=\\angle A C F$,\n\n从而 $E F / / A C$.\n\n又因为 $A B=D E$,\n\n所以 $\\triangle A C B \\cong \\triangle E F D$, 因此 $\\triangle A C B \\cong \\triangle A C F$,\n\n故 $A B=A F, C B=C F$.\n\n连 $B F, B F$ 交 $A C$ 于 $N$,\n\n$A C$ 垂直平分线段 $B F, B N=N F$.\n\n线段 $A C, B G$ 相交于点 $M$, 因为 $E F / / A C$,\n\n由平行截割定理, $B M=M G$."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 784,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $P_{k}(k=1,2,3, \\ldots, 100)$ 是边长为 1 的正方形 $A B C D$ 内部的点. $E, F, G, H$ 分别是 $A B, B C, C D, D A$ 的中点, 记 $d_{1}=\\sum_{k=1}^{100} E P_{k}$, $d_{2}=\\sum_{k=1}^{100} F P_{k}, d_{3}=\\sum_{k=1}^{100} G P_{k}, d_{4}=\\sum_{k=1}^{100} H P_{k}$.\n\n证明：$d_{1}, d_{2}, d_{3}, d_{4}$ 中至少有两个小于 81.\n\n<img_4171>",
+        "solution": [
+            "<img_4229>\n\n如上图建立坐标系, 以点 $F, H$ 为焦点作经过点 $A$ 的椭圆.\n\n由对称性, 正方形 $A B C D$ 为椭圆的内接正方形. $P_{k}(k=1,2,3, \\ldots, 100)$ 在正方形 $A B C D$内部，则也在椭圆内部\n\n椭圆长轴长 $2 a=A H+A F=\\frac{1+\\sqrt{5}}{2}<1.62$,\n\n延长 $H P_{k}$ 交椭圆于点 $Q_{k}$, 连 $F Q_{k}$,\n\n则 $H P_{k}+F P_{k}<H P_{k}+P_{k} Q_{k}+F Q_{k}=H Q_{k}+F Q_{k}<1.62$,\n\n其中 $k=1,2,3, \\ldots, 100$\n\n所以 $d_{2}+d_{4}=\\sum_{k=1}^{100} H P_{k}+\\sum_{k=1}^{100} F P_{k}=\\sum_{k=1}^{100}\\left(H P_{k}+F P_{k}\\right)<162$,\n\n所以 $\\min \\left\\{d_{2}, d_{4}\\right\\}<81$. 同理 $\\min \\left\\{d_{1}, d_{3}\\right\\}<81$.\n\n所以 $d_{1}, d_{2}, d_{3}, d_{4}$ 中至少有两个小于 81."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 787,
+        "subfield": "Conic Sections",
+        "context": null,
+        "question": "已知 $F$ 为椭圆 $C: \\frac{x^{2}}{4}+\\frac{y^{2}}{3}=1$ 的右焦点, 点 $P$ 为直线 $x=4$ 上动点, 过点 $P$ 作椭圆 $C$的切线 $P A 、 P B, A 、 B$ 为切点.\n\n<img_4140>\n求证: $A 、 F 、 B$ 三点共线;",
+        "solution": [
+            "$F(1,0)$, 设 $P(4, t), A\\left(x_{1}, y_{1}\\right), B\\left(x_{2}, y_{2}\\right)$ .\n\n则切线 $P A, P B$ 的方程分别为 $\\frac{x_{1} x}{4}+\\frac{y_{1} y}{3}=1, \\frac{x_{2} x}{4}+\\frac{y_{2} y}{3}=1$ .\n\n由切线 $P A, P B$ 过点 $P(4, t)$, 得 $x_{1}+\\frac{y_{1} t}{3}=1, x_{2}+\\frac{y_{2} t}{3}=1$, 即 $x_{1}+\\frac{t}{3} y_{1}=1, x_{2}+\\frac{t}{3} y_{2}=1$ .\n\n由此可得直线 $A B$ 方程为 $x+\\frac{t}{3} y=1$ .\n\n易知直线 $A B$ 过点 $F(1,0)$ .\n\n$\\therefore A 、 F 、 B$ 三点共线."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 789,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $O 、 H$ 分别为锐角 $\\triangle A B C$ 的外心、垂心, $A D \\perp B C$ 于 $D, G$ 为 $A H$ 的中点.点 $K$ 在线段 $G H$ 上, 且满足 $G K=H D$, 连 $K O$ 并延长交 $A B$ 于点 $E$ .\n\n<img_4174>\n证明:  $E K / / B C$;",
+        "solution": [
+            "<img_4189>\n\n如上图, 连 $B O$ 并延长交圆 $O$ 于点 $F$, 由 $O$ 为 $\\triangle A B C$外心, 知 $B F$ 为圆 $O$ 的直径.\n\n$\\therefore A F \\perp A B, F C \\perp B C$ .\n\n结合 $H$ 为 $\\triangle A B C$ 的垂心, 得 $H C \\perp A B$ .\n\n$\\therefore A F / / H C$ .\n\n同理, $F C / / A H$ .\n\n$\\therefore$ 四边形 $A H C F$ 为平行四边形, $F C=A H$ .\n\n作 $O M \\perp B C$ 交 $B C$ 于点 $M$, 则 $O M=\\frac{1}{2} F C$ .\n\n因此, 由 $G$ 为 $A H$ 的中点, $G K=H D$, 可得\n\n$K D=K H+H D=K H+G K=G H=\\frac{1}{2} A H=\\frac{1}{2} F C=O M$ .\n\n结合 $K D / / O M$ ，得四边形 $O M D K$ 为平行四边形.\n\n$\\therefore O K / / M D$, 即 $E K / / B C$ ."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    },
+    {
+        "id": 790,
+        "subfield": "Plane Geometry",
+        "context": null,
+        "question": "如图, $O 、 H$ 分别为锐角 $\\triangle A B C$ 的外心、垂心, $A D \\perp B C$ 于 $D, G$ 为 $A H$ 的中点.点 $K$ 在线段 $G H$ 上, 且满足 $G K=H D$, 连 $K O$ 并延长交 $A B$ 于点 $E$ .\n\n<img_4174>\n证明:$G E \\perp G C$ .",
+        "solution": [
+            "连 $B O$ 并延长交圆 $O$ 于点 $F$, 作 $G N \\perp A B$ 于 $N$, 如下图.\n\n\n<img_4071>\n\n由 $O$ 为 $\\triangle A B C$外心, 知 $B F$ 为圆 $O$ 的直径.\n\n$\\therefore A F \\perp A B, F C \\perp B C$ .\n\n结合 $H$ 为 $\\triangle A B C$ 的垂心, 得 $H C \\perp A B$ .\n\n$\\therefore A F / / H C$ .\n\n同理, $F C / / A H$ .\n\n$\\therefore$ 四边形 $A H C F$ 为平行四边形, $F C=A H$ .\n\n作 $O M \\perp B C$ 交 $B C$ 于点 $M$, 则 $O M=\\frac{1}{2} F C$ .\n\n因此, 由 $G$ 为 $A H$ 的中点, $G K=H D$, 可得\n\n$K D=K H+H D=K H+G K=G H=\\frac{1}{2} A H=\\frac{1}{2} F C=O M$ .\n\n结合 $K D / / O M$ ，得四边形 $O M D K$ 为平行四边形.\n\n$\\therefore O K / / M D$, 即 $E K / / B C$ .\n\n由 $H$ 为 $\\triangle A B C$ 的垂心, 知 $\\angle N A G=90^{\\circ}-\\angle A B C=\\angle D C H$, 结合\n\n$H D \\perp B C$, 得 $\\triangle A N G \\backsim \\triangle C D H$ .\n\n$\\therefore \\quad \\frac{N G}{D H}=\\frac{A G}{C H}, \\angle N G A=\\angle D H C$ .\n\n又 $G K=H D, A G=G H$, 因此, $\\frac{N G}{G K}=\\frac{G H}{H C}$ .\n\n又 $\\angle N G K=180^{\\circ}-\\angle N G A=180^{\\circ}-\\angle D H C=\\angle G H C$ .\n\n$\\therefore \\triangle N G K \\sim \\triangle G H C$ .\n\n$\\therefore \\angle K N G=\\angle C G H$ .\n\n由前知, $G K \\perp K E$ .因此, $E 、 K 、 G 、 N$ 四点共圆.\n\n$\\therefore \\angle C G H=\\angle K N G=\\angle G E K$ .\n\n$\\therefore \\angle E G C=\\angle E G K+\\angle C G H=\\angle E G K+\\angle G E K=90^{\\circ}$ .\n\n$\\therefore G E \\perp G C$ ."
+        ],
+        "final_answer": null,
+        "is_multiple_answer": false,
+        "unit": null,
+        "answer_type": null,
+        "error": null
+    }
+]

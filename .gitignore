@@ -1,0 +1,10 @@
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+wandb/
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.pywz

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Temporary Files
 archive/
 tmp/
@@ -155,3 +156,15 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+=======
+venv/
+__pycache__/
+*.pyc
+.DS_Store
+wandb/
+*.pyo
+*.pyd
+*.pyw
+*.pyz
+*.pywz
+>>>>>>> 242c1c5 (update collected 2/27)

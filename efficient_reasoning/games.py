@@ -5,7 +5,7 @@ from vllm import LLM, SamplingParams
 import numpy as np
 
 class Vine(Node):
-    def __init__(self, demonstration_steps: List[str], llm: LLM, sampling_params: SamplingParams, curr_step_index: int, target: str, value: float, benchmark: Benchmark):
+    def __init__(self, demonstration_steps: List[str], llm: LLM, sampling_params: SamplingParams, curr_step_index: int, target: str | dict, value: float, benchmark: Benchmark):
         super().__init__()
         self.value = value
         self.llm = llm
@@ -20,7 +20,10 @@ class Vine(Node):
         if self.curr_step_index == 0:
             self.prefix = self.demonstration_steps[0]
         else:
-            self.prefix = self.demonstration_steps[0] + " " + ".".join(self.demonstration_steps[1:self.curr_step_index+1]) + "."
+            if self.benchmark == Benchmark.BigCodeBench:
+                self.prefix = self.demonstration_steps[0] + " " + "\n".join(self.demonstration_steps[1:self.curr_step_index+1]) + "\n"
+            else:
+                self.prefix = self.demonstration_steps[0] + " " + ".".join(self.demonstration_steps[1:self.curr_step_index+1]) + "."
         
         # generate responses
         self.responses = self.llm.generate(

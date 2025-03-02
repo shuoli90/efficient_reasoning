@@ -26,7 +26,8 @@ if __name__ == "__main__":
     with open(path, 'r') as f:
         for line in f:
             datapoints.append(json.loads(line))
-    
+   
+    # datapoints = datapoints[:1]
     end_of_text_token = "<|end_of_text|>"
     tokenizer = AutoTokenizer.from_pretrained(args.model)
 
@@ -44,17 +45,26 @@ if __name__ == "__main__":
     step_limit = 10
     from collections import defaultdict
     
-    benchmark = "MATH-500"
+    #benchmark = "MATH-500"
+    benchmark = "BigCodeBench"
     games = []
     for i, problem in tqdm(enumerate(datapoints), total=len(datapoints)):
-        target = problem["answer"]
-        demonstration_steps = [problem['problem']] + problem["solution"].strip().split(".")[:-1]
+        if benchmark == "BigCodeBench":
+            demonstration_steps = [problem['problem']] + problem["solution"].strip().split("\n")[:-1]
+            target = {"task_id": problem["task_id"], "test": problem["test"],  "answer": problem["answer"]}
+        else: 
+            demonstration_steps = [problem['problem']] + problem["solution"].strip().split(".")[:-1]
+            target = problem["answer"]
         demonstration_tokens = []
         for idx, step in enumerate(demonstration_steps):
+            
             if idx == 0:
                 demonstration_tokens.append(tokenizer.encode(step + ' '))
             else:
-                demonstration_tokens.append(tokenizer.encode(step + "."))
+                if benchmark == "BigCodeBench":
+                    demonstration_tokens.append(tokenizer.encode(step + '\n'))
+                else:
+                    demonstration_tokens.append(tokenizer.encode(step + "."))
         curr_step_index = 0
         # initialize the record
         game = {}

@@ -9,6 +9,10 @@ from .math_eval import (
     Benchmark,
 )
 
+from .code_utils import (
+    untrusted_check,
+)
+
 __all__ = [
     "last_boxed_only_string",
     "remove_boxed",
@@ -18,4 +22,5 @@ __all__ = [
     "extract_final_answer",
     "compute_accuracy",
     "Benchmark",
+    "untrusted_check",
 ]

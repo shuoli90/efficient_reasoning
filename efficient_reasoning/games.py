@@ -20,7 +20,7 @@ class Vine(Node):
         if self.curr_step_index == 0:
             self.prefix = self.demonstration_steps[0]
         else:
-            if self.benchmark == Benchmark.BigCodeBench:
+            if self.benchmark == "BigCodeBench":
                 self.prefix = self.demonstration_steps[0] + " " + "\n".join(self.demonstration_steps[1:self.curr_step_index+1]) + "\n"
             else:
                 self.prefix = self.demonstration_steps[0] + " " + ".".join(self.demonstration_steps[1:self.curr_step_index+1]) + "."

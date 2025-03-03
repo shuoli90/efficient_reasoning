@@ -26,6 +26,7 @@ setup(
         "joblib",
         "wandb",
         "treelib",
+        "matplotlib",
     ],
     extras_require={
         "develop": [

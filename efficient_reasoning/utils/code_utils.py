@@ -21,7 +21,6 @@
 # THE SOFTWARE.
 
 import itertools
-import multiprocessing
 import os
 import sys
 import time
@@ -32,10 +31,9 @@ import subprocess
 import signal
 import platform
 import faulthandler
-from multiprocessing import Array, Value, Manager
+from multiprocessing import Array, Process, Value, Manager
 from typing import Any, Dict, List, Tuple, Union, Optional
 import tempfile
-import time
 import io
 import numpy as np
 
@@ -148,7 +146,7 @@ def safe_environment():
 
     current_pid = os.getpid()
     current_pgid = os.getpgid(current_pid)
-    manager = multiprocessing.Manager()
+    manager = Manager()
     child_pids = manager.list()
 
     def safe_kill(pid, sig):
@@ -423,7 +421,7 @@ def untrusted_check(
     manager = Manager()
     details = manager.dict()
 
-    p = multiprocessing.Process(
+    p = Process(
         target=unsafe_execute,
         args=(
             entry_point,

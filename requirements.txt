@@ -1,0 +1,9 @@
+matplotlib
+numpy
+pandas
+pyarrow
+setuptools
+sympy
+tqdm
+transformers
+vllm

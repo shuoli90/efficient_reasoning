@@ -1,0 +1,4 @@
+#Installation
+
+Build the Docker image with `docker build -t llmrl .` and run it with `docker run -it --gpus all`.
+T 

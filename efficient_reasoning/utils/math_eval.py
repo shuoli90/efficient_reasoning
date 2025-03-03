@@ -642,6 +642,30 @@ def extract_final_answer(response_text_list: List[str], verbose: bool = False, b
 
     return final_answer_list, failed_list
 
+def check_code(index: int, solution: str, ground_truth_dict: dict[str, str]) -> dict:
+    gt_time_limit = 60
+    max_as_limit = 30*1024
+    max_data_limit = 30*1024
+    max_stack_limit = 10
+    min_time_limit = 10
+    stat, details = code_utils.untrusted_check(
+        solution,
+        ground_truth_dict["test"],
+        ground_truth_dict["entry_point"],
+        max_as_limit,
+        max_data_limit,
+        max_stack_limit,
+        min_time_limit,
+        gt_time_limit,
+    )
+    return {
+        "index": index,
+        "original_solution": solution,
+        "ground_truth": ground_truth_dict,
+        "status": stat,
+        "details": details,
+    }
+
 def compute_accuracy(
     benchmark: Benchmark, ground_truth_list: List[str|dict], final_answer_list: List[str], verbose: bool = False
 ) -> List[bool]:
@@ -652,29 +676,6 @@ def compute_accuracy(
         
         #The target is expected to be the Task ID, so we simply load the dataset and import the test corresponding to the appropriate task ID for evaluating the generated code.
                 
-        def check_code(index: int, solution: str, ground_truth_dict: dict[str, str]) -> dict:
-            gt_time_limit = 2.0
-            max_as_limit = 30*1024,
-            max_data_limit = 30*1024,
-            max_stack_limit = 10,
-            min_time_limit = 0.1
-            stat, details = code_utils.untrusted_check(
-                solution,
-                ground_truth_dict["test"],
-                ground_truth_dict["entry_point"],
-                max_as_limit,
-                max_data_limit,
-                max_stack_limit,
-                min_time_limit,
-                gt_time_limit,
-            )
-            return {
-                "index": index,
-                "original_solution": solution,
-                "ground_truth": ground_truth_dict,
-                "status": stat,
-                "details": details,
-            }
         n_workers = max(1, cpu_count() // 2)
         with ProcessPoolExecutor(max_workers=n_workers) as executor:
             futures = []

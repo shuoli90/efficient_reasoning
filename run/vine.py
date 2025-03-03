@@ -27,7 +27,7 @@ if __name__ == "__main__":
         for line in f:
             datapoints.append(json.loads(line))
    
-    # datapoints = datapoints[:1]
+    datapoints = datapoints[:1]
     end_of_text_token = "<|end_of_text|>"
     tokenizer = AutoTokenizer.from_pretrained(args.model)
 
@@ -51,7 +51,8 @@ if __name__ == "__main__":
     for i, problem in tqdm(enumerate(datapoints), total=len(datapoints)):
         if benchmark == "BigCodeBench":
             demonstration_steps = [problem['problem']] + problem["solution"].strip().split("\n")[:-1]
-            target = {"task_id": problem["task_id"], "test": problem["test"],  "answer": problem["answer"]}
+            demonstration_steps = [x for x in demonstration_steps if len(x) > 0]
+            target = {"task_id": problem["task_id"], "test": problem["test"],  "entry_point": problem["entry_point"]}
         else: 
             demonstration_steps = [problem['problem']] + problem["solution"].strip().split(".")[:-1]
             target = problem["answer"]

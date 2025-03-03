@@ -27,7 +27,7 @@ if __name__ == "__main__":
         for line in f:
             datapoints.append(json.loads(line))
    
-    datapoints = datapoints[:1]
+    #datapoints = datapoints[206:207]
     end_of_text_token = "<|end_of_text|>"
     tokenizer = AutoTokenizer.from_pretrained(args.model)
 

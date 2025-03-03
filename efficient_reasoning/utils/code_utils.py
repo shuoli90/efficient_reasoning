@@ -36,6 +36,7 @@ from typing import Any, Dict, List, Tuple, Union, Optional
 import tempfile
 import io
 import numpy as np
+import matplotlib.pyplot as plt
 
 PASS = "pass"
 FAIL = "fail"
@@ -339,7 +340,6 @@ def reliability_guard(max_as_limit, max_data_limit, max_stack_limit):
     builtins.exit = None
     builtins.quit = None
 
-    import matplotlib.pyplot as plt
     plt.close('all')
 
 def unsafe_execute(

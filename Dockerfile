@@ -8,11 +8,11 @@ RUN apt-get update -q \
     add-apt-repository -y ppa:deadsnakes/ppa && \
     apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y python3.11 \
-    python3-dev \
+    python3.11-dev \
     python3-pip \
+    vim \ 
     && rm -rf /var/lib/apt/lists/*
 
 COPY . ./llmrl
 RUN ln -s /usr/bin/python3.11 /usr/bin/python
-#RUN cd llmrl && python3.11 -m pip install -r requirements.txt
-RUN cd llmrl && make develop
+RUN cd llmrl && python3.11 -m pip install -r requirements.txt && make develop

@@ -14,61 +14,53 @@ from efficient_reasoning.sfttrainers import (
     NSFTTrainer, 
 )
 
+MAX_LENGTH = 512
 
 def preprocess_function(example):
     def process_demonstration(steps, advantages, q_value):
-        input_ids = []
-        id_advantages = []
-        id_q_value = []
-        attention_masks = []
+        completion_ids = None
+        id_advantages = None
+        id_q_value = None
         for index, step in enumerate(steps):
             if index == 0:
-                tmp = step + ' '
+                continue
             else:
                 tmp = step.strip() + '. '
             tokenized = tokenizer(tmp, return_tensors='pt')
-
-            input_ids.append(tokenized['input_ids'][0])
-            id_advantages.append(torch.tensor([advantages[index]] * len(tokenized['input_ids'][0])))
-            id_q_value.append(torch.tensor([q_value[index]] * len(tokenized['input_ids'][0])))
-            if index == 0:
-                attention_masks.append(torch.zeros_like(tokenized['attention_mask'][0]))
-            else:
-                attention_masks.append(torch.ones_like(tokenized['attention_mask'][0]))
             
-        input_ids = torch.hstack(input_ids)
-        id_advantages = torch.hstack(id_advantages)
-        id_q_value = torch.hstack(id_q_value)
-        attention_masks = torch.hstack(attention_masks)
-        return input_ids, id_advantages, id_q_value, attention_masks
+            if completion_ids is None:
+                completion_ids = tokenized['input_ids'][0]
+                id_advantages = torch.tensor([advantages[index]] * len(tokenized['input_ids'][0]))
+                id_q_value = torch.tensor([q_value[index]] * len(tokenized['input_ids'][0]))
+            else:
+                completion_ids = torch.cat([completion_ids, tokenized['input_ids'][0]], dim=0)
+                id_advantages = torch.cat([id_advantages, torch.tensor([advantages[index]] * len(tokenized['input_ids'][0]))], dim=0)
+                id_q_value = torch.cat([id_q_value, torch.tensor([q_value[index]] * len(tokenized['input_ids'][0]))], dim=0)
+                
+        return completion_ids, id_advantages, id_q_value
     
-    input_ids, advantages_ids, q_value_ids, attention_masks = process_demonstration(example['demonstration_steps'], example['advantage'], example['q_value'])        
-    truncate_length = 1024
-    labels = input_ids.clone()[1:]
-    input_ids = input_ids[:-1]
-    advantages_ids = advantages_ids[1:]
-    q_value_ids = q_value_ids[1:]
-    return {'input_ids': input_ids[:truncate_length], 'advantages': advantages_ids[:truncate_length], 'q_value': q_value_ids[:truncate_length], 'labels': labels[:truncate_length], 'attention_mask': attention_masks[:truncate_length]}
+    completion_ids, advantages_ids, q_value_ids = process_demonstration(example['demonstration_steps'], example['advantage'], example['q_value'])     
+    input_ids = tokenizer(example['demonstration_steps'][0]+' ', truncation=True, padding='max_length', max_length=MAX_LENGTH)['input_ids']
+    prompt_mask = tokenizer(example['demonstration_steps'][0]+' ', truncation=True, padding='max_length', max_length=MAX_LENGTH)['attention_mask']
+    return {'input_ids': input_ids, 'completion_ids': completion_ids, 'attention_mask': prompt_mask, 'advantages': advantages_ids, 'q_value': q_value_ids, 'labels': completion_ids, }
     
 
 class CustomCollator(DataCollatorWithPadding):
     def __call__(self, examples):
-        input_ids = [torch.tensor(example['input_ids']) for example in examples]
-        # pad the input_ids to the same length
-        max_length = max([len(input_id) for input_id in input_ids])
-        input_ids = torch.stack([torch.nn.functional.pad(input_id, (0, max_length - len(input_id)), value=tokenizer.pad_token_id) for input_id in input_ids])
-        attention_mask = [torch.tensor(example['attention_mask']) for example in examples]
-        attention_mask = torch.stack([torch.nn.functional.pad(attention_mask, (0, max_length - len(attention_mask)), value=0.0) for attention_mask in attention_mask])
-        labels = [torch.tensor(example['labels']) for example in examples]
-        labels = torch.stack([torch.nn.functional.pad(label, (0, max_length - len(label)), value=tokenizer.pad_token_id) for label in labels])
+        input_ids = torch.stack([torch.tensor(example['input_ids']) for example in examples])
+        prompt_mask = torch.stack([torch.tensor(example['attention_mask']) for example in examples])
+        max_length = max([len(example['completion_ids']) for example in examples])
+        completion_ids = torch.stack([torch.nn.functional.pad(torch.tensor(example['completion_ids']), (0, max_length - len(example['completion_ids'])), value=tokenizer.pad_token_id) for example in examples])
+        completion_mask = torch.stack([torch.nn.functional.pad(torch.ones_like(torch.tensor(example['completion_ids'])), (0, max_length - len(example['completion_ids'])), value=0.0) for example in examples])
         advantages = [torch.tensor(example['advantages']) for example in examples]
-        advantages = torch.stack([torch.nn.functional.pad(advantage, (0, max_length - len(advantage)), value=0.0) for advantage in advantages])
+        advantages = torch.stack([torch.nn.functional.pad(torch.tensor(advantage), (0, max_length - len(advantage)), value=0.0) for advantage in advantages])
         q_value = [torch.tensor(example['q_value']) for example in examples]
-        q_value = torch.stack([torch.nn.functional.pad(q_value, (0, max_length - len(q_value)), value=0.0) for q_value in q_value])
+        q_value = torch.stack([torch.nn.functional.pad(torch.tensor(q_value), (0, max_length - len(q_value)), value=0.0) for q_value in q_value])
         return {
             'input_ids': input_ids,
-            'attention_mask': attention_mask,
-            'labels': labels,
+            'completion_ids': completion_ids,
+            'attention_mask': prompt_mask,
+            'completion_mask': completion_mask,
             'advantages': advantages,
             'q_value': q_value,
         }
@@ -77,9 +69,9 @@ class CustomCollator(DataCollatorWithPadding):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--data_path', type=str, default='/home/lishuo1/efficient_reasoning/collected/Qwen2.5-3B-Instruct_MATH-500/Qwen2.5-3B-Instruct_MATH-500.jsonl')
-    parser.add_argument('--num_samples', type=int, default=7500)
+    parser.add_argument('--num_samples', type=int, default=100)
     parser.add_argument('--model_name', type=str, default='Qwen/Qwen2.5-3B-Instruct')
-    parser.add_argument('--per_device_train_batch_size', type=int, default=8)
+    parser.add_argument('--per_device_train_batch_size', type=int, default=2)
     parser.add_argument('--trainer_type', type=str, default='ASFT', choices=['ASFT', 'QSFT', 'NSFT'])
     args = parser.parse_args()
     # load in collected data
@@ -88,23 +80,28 @@ if __name__ == '__main__':
         for line in f:
             tmp = eval(line)
             data.append(tmp)
-    data = data[:args.num_samples]
+    train_data = data[:args.num_samples]
+    val_data = data[args.num_samples:args.num_samples+500]
     
-    dataset = Dataset.from_list(data)
+    train_dataset = Dataset.from_list(train_data)
+    val_dataset = Dataset.from_list(val_data)
     model = AutoModelForCausalLM.from_pretrained(args.model_name, load_in_8bit=True, device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained(args.model_name)
     
     # preprocess the dataset using preprocess_function
-    dataset = dataset.map(preprocess_function, batched=False)
-    dataset = dataset.remove_columns(['problem', 'index', 'demonstration_steps', 'demonstration_tokens', 'value'])
+    train_dataset = train_dataset.map(preprocess_function, batched=False)
+    train_dataset = train_dataset.remove_columns(['problem', 'index', 'demonstration_steps', 'demonstration_tokens', 'value'])
+    val_dataset = val_dataset.map(preprocess_function, batched=False)
+    val_dataset = val_dataset.remove_columns(['problem', 'index', 'demonstration_steps', 'demonstration_tokens', 'value'])
         
     sft_config = SFTConfig(
         learning_rate=1e-5,
-        num_train_epochs=3,
+        num_train_epochs=1,
         per_device_train_batch_size=args.per_device_train_batch_size,
         per_device_eval_batch_size=args.per_device_train_batch_size,
-        output_dir='./results',
+        output_dir=f'./results_{args.trainer_type}',
         logging_steps=10,
+        
         )
     
     peft_config = LoraConfig(
@@ -121,24 +118,34 @@ if __name__ == '__main__':
     if args.trainer_type == 'ASFT':
         trainer = ASFTTrainer(
             model=model,
-            train_dataset=dataset,
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
             data_collator=CustomCollator(tokenizer),
             peft_config=peft_config,
+            args=sft_config,
         )
     elif args.trainer_type == 'QSFT':
         trainer = QSFTTrainer(
             model=model,
-            train_dataset=dataset,
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
             data_collator=CustomCollator(tokenizer),
             peft_config=peft_config,
+            args=sft_config,
         )
     elif args.trainer_type == 'NSFT':
         trainer = NSFTTrainer(
             model=model,
-            train_dataset=dataset,
+            train_dataset=train_dataset,
+            eval_dataset=val_dataset,
             data_collator=CustomCollator(tokenizer),
             peft_config=peft_config,
+            args=sft_config,
         )
     else:
         raise ValueError(f"Invalid trainer type: {args.trainer_type}")
     trainer.train()
+    # save merged model
+    model = model.merge_and_unload()
+    model.save_pretrained(f"./results_{args.trainer_type}/merged_model")
+    tokenizer.save_pretrained(f"./results_{args.trainer_type}/merged_model")

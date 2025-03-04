@@ -59,41 +59,72 @@ class ASFTTrainer(SFTTrainer):
             collate_fn=self.data_collator,
         )
         
-    def _get_per_token_logps(self, model, input_ids, attention_mask, prediction_ids, logits_to_keep):
+    # def _get_per_token_logps(self, model, input_ids, attention_mask, prediction_ids, logits_to_keep):
         # We add 1 to `logits_to_keep` because the last logits of the sequence is later excluded
-        logits = model(input_ids=input_ids, attention_mask=attention_mask, logits_to_keep=logits_to_keep).logits
-        return selective_log_softmax(logits, prediction_ids)
+        # logits = model(input_ids=input_ids, attention_mask=attention_mask, logits_to_keep=logits_to_keep).logits
+        # return selective_log_softmax(logits, prediction_ids)
+    
+    def _get_per_token_logps(self, model, input_ids, attention_mask, logits_to_keep):
+        # We add 1 to `logits_to_keep` because the last logits of the sequence is later excluded
+        logits = model(input_ids=input_ids, attention_mask=attention_mask, logits_to_keep=logits_to_keep + 1).logits
+        logits = logits[:, :-1, :]  # (B, L-1, V), exclude the last logit: it corresponds to the next token pred
 
-    def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
-        prompt_ids, attention_mask, = inputs['input_ids'], inputs['attention_mask']
-        completion_ids = inputs['labels']
-        # rotate the attention mask by 1
-        completion_mask = torch.roll(attention_mask, shifts=1, dims=1)
-        advantages = inputs['advantages']
-        logits_to_keep = completion_ids.size(1)
-        per_token_logps = self._get_per_token_logps(model, prompt_ids, attention_mask, completion_ids, logits_to_keep)
-        loss = -((per_token_logps * advantages) * completion_mask).sum() / completion_mask.sum()
-        return loss
+        input_ids = input_ids[:, -logits_to_keep:]
+        # For transformers<=4.48, logits_to_keep argument isn't supported, so here we drop logits ourselves.
+        # See https://github.com/huggingface/trl/issues/2770
+        logits = logits[:, -logits_to_keep:]
+        return selective_log_softmax(logits, input_ids)
+
+    # def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
+    #     prompt_ids, attention_mask, = inputs['input_ids'], inputs['attention_mask']
+    #     completion_ids = inputs['labels']
+    #     # rotate the attention mask by 1
+    #     completion_mask = torch.roll(attention_mask, shifts=1, dims=1)
+    #     advantages = inputs['advantages']
+    #     logits_to_keep = completion_ids.size(1)
+    #     per_token_logps = self._get_per_token_logps(model, prompt_ids, attention_mask, completion_ids, logits_to_keep)
+    #     loss = -((per_token_logps * advantages) * completion_mask).sum() / completion_mask.sum()
+    #     return loss
 
 class QSFTTrainer(ASFTTrainer):
+    
+    def get_train_dataloader(self):
+        """Ensure `advantages` is retained in the dataloader"""
+        return DataLoader(
+            self.train_dataset,
+            batch_size=self.args.train_batch_size,
+            collate_fn=self.data_collator,
+            shuffle=True,
+        )
+
+    def get_eval_dataloader(self, eval_dataset=None):
+        """Ensure `advantages` is retained in the dataloader"""
+        eval_dataset = eval_dataset if eval_dataset is not None else self.eval_dataset
+        return DataLoader(
+            eval_dataset,
+            batch_size=self.args.eval_batch_size,
+            collate_fn=self.data_collator,
+        )
+    
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
-        prompt_ids, attention_mask, = inputs['input_ids'], inputs['attention_mask']
-        completion_ids = inputs['labels']
-        # rotate the attention mask by 1
-        completion_mask = torch.roll(attention_mask, shifts=1, dims=1)
-        advantages = 1 - inputs['q_value']
+        prompt_ids, attention_mask = inputs['input_ids'], inputs['attention_mask']
+        completion_ids, completion_mask = inputs['completion_ids'], inputs['completion_mask']
+        input_ids = torch.cat([prompt_ids, completion_ids], dim=1)
+        attention_mask = torch.cat([attention_mask, completion_mask], dim=1)
         logits_to_keep = completion_ids.size(1)
-        per_token_logps = self._get_per_token_logps(model, prompt_ids, attention_mask, completion_ids, logits_to_keep)
+        advantages = 1 - inputs['q_value']
+        per_token_logps = self._get_per_token_logps(model, input_ids, attention_mask, logits_to_keep)
         loss = -((per_token_logps * advantages) * completion_mask).sum() / completion_mask.sum()
         return loss
 
 class NSFTTrainer(ASFTTrainer):
     def compute_loss(self, model, inputs, return_outputs=False, num_items_in_batch=None):
-        prompt_ids, attention_mask, = inputs['input_ids'], inputs['attention_mask']
-        completion_ids = inputs['labels']
-        # rotate the attention mask by 1
-        completion_mask = torch.roll(attention_mask, shifts=1, dims=1)
+        prompt_ids, attention_mask = inputs['input_ids'], inputs['attention_mask']
+        completion_ids, completion_mask = inputs['completion_ids'], inputs['completion_mask']
+        input_ids = torch.cat([prompt_ids, completion_ids], dim=1)
+        attention_mask = torch.cat([attention_mask, completion_mask], dim=1)
         logits_to_keep = completion_ids.size(1)
-        per_token_logps = self._get_per_token_logps(model, prompt_ids, attention_mask, completion_ids, logits_to_keep)
+        per_token_logps = self._get_per_token_logps(model, input_ids, attention_mask, logits_to_keep)
         loss = -(per_token_logps * completion_mask).sum() / completion_mask.sum()
+        breakpoint()
         return loss

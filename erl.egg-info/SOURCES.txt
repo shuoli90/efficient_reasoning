@@ -1,0 +1,7 @@
+LICENSE
+setup.py
+erl.egg-info/PKG-INFO
+erl.egg-info/SOURCES.txt
+erl.egg-info/dependency_links.txt
+erl.egg-info/requires.txt
+erl.egg-info/top_level.txt

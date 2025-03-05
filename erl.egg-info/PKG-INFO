@@ -1,0 +1,31 @@
+Metadata-Version: 2.2
+Name: erl
+Version: 0.0.1
+Requires-Python: >=3.10
+License-File: LICENSE
+Requires-Dist: torch>=2.4.0
+Requires-Dist: flash-attn>=2.6.3
+Requires-Dist: transformers>=4.46.2
+Requires-Dist: datasets==2.21.0
+Requires-Dist: accelerate==0.34.2
+Requires-Dist: peft==0.12.0
+Requires-Dist: trl==0.9.6
+Requires-Dist: deepspeed==0.15.2
+Requires-Dist: vllm==0.6.4
+Requires-Dist: antlr4-python3-runtime==4.11.0
+Requires-Dist: openai
+Requires-Dist: numpy
+Requires-Dist: pandas
+Requires-Dist: python-dotenv
+Requires-Dist: requests
+Requires-Dist: tqdm
+Requires-Dist: joblib
+Requires-Dist: wandb
+Requires-Dist: treelib
+Provides-Extra: develop
+Requires-Dist: black>=24.10.0; extra == "develop"
+Requires-Dist: flake8>=7.1.1; extra == "develop"
+Requires-Dist: mypy>=1.12.0; extra == "develop"
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python

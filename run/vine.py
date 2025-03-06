@@ -65,7 +65,7 @@ if __name__ == "__main__":
                 if benchmark == "BigCodeBench":
                     demonstration_tokens.append(tokenizer.encode(step + '\n'))
                 else:
-                    demonstration_tokens.append(tokenizer.encode(step + "."))
+                    demonstration_tokens.append(tokenizer.encode(step + ". "))
         curr_step_index = 0
         # initialize the record
         game = {}

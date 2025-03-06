@@ -1,16 +1,7 @@
-from trl import SFTConfig, SFTTrainer
+from trl import SFTConfig, SFTTrainer, DataCollatorForCompletionOnlyLM
 from datasets import Dataset
-import torch
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import LoraConfig
-
-
-def preprocess_function(example):
-    return {
-        'input_ids': tokenizer(example['problem'], truncation=True, padding='max_length', max_length=1024)['input_ids'],
-        'labels': tokenizer(example['solution'], truncation=True, padding='max_length', max_length=1024)['input_ids'],
-        'attention_mask': tokenizer(example['problem'], truncation=True, padding='max_length', max_length=1024)['attention_mask'],
-    }
     
 
 if __name__ == "__main__":
@@ -27,19 +18,32 @@ if __name__ == "__main__":
     
     train_dataset = Dataset.from_list(train_data)
     val_dataset = Dataset.from_list(val_data)
+
+    def formatting_prompts_func(examples):
+        output_text = []
+        for index in range(len(examples['problem'])):
+            output_text.append(f"### Question: {examples['problem'][index]}\n### Answer: {examples['solution'][index]}")
+        return output_text
     
-    train_dataset = train_dataset.map(preprocess_function, remove_columns=['problem', 'solution'])
-    val_dataset = val_dataset.map(preprocess_function, remove_columns=['problem', 'solution'])
+
+    instruction = '### Question:'
+    response = '### Answer:'
+    collator = DataCollatorForCompletionOnlyLM(
+        instruction_template=instruction,
+        response_template=response,
+        tokenizer=tokenizer,
+    )
     
     sft_config = SFTConfig(
         learning_rate=1e-5,
-        num_train_epochs=1,
+        lr_scheduler_type='cosine',
+        num_train_epochs=3,
         per_device_train_batch_size=2,
         per_device_eval_batch_size=2,
         output_dir=f'./results_sft',
-        logging_steps=10,
+        logging_steps=50,
         evaluation_strategy="steps",
-        eval_steps=100,
+        eval_steps=300,
         )
     
     peft_config = LoraConfig(
@@ -56,10 +60,11 @@ if __name__ == "__main__":
         model=model,
         train_dataset=train_dataset,
         eval_dataset=val_dataset,
-        tokenizer=tokenizer,
         peft_config=peft_config,
         args=sft_config,
-        )
+        data_collator=collator,
+        formatting_func=formatting_prompts_func,
+    )
     
     trainer.train()
     

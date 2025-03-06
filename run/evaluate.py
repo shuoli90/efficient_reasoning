@@ -2,13 +2,15 @@ from efficient_reasoning.utils import evaluate, Benchmark
 from vllm import LLM, SamplingParams
 from vllm.lora.request import LoRARequest
 import argparse
+from tqdm import tqdm
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--num_samples', type=int, default=100)
     parser.add_argument('--model_name', type=str, default='Qwen/Qwen2.5-3B-Instruct')
     parser.add_argument('--per_device_train_batch_size', type=int, default=8)
-    parser.add_argument('--trainer_type', type=str, default='BASE', choices=['ASFT', 'QSFT', 'NSFT', 'BASE'])
+    parser.add_argument('--trainer_type', type=str, default='BASE', choices=['SFT','ASFT', 'QSFT', 'NSFT', 'BASE'])
     parser.add_argument('--benchmark', type=str, default='MATH-500', choices=['MATH-500', 'BigCodeBench'])
     parser.add_argument('--batch_size', type=int, default=8)
     args = parser.parse_args()
@@ -27,7 +29,7 @@ if __name__ == "__main__":
     if args.trainer_type == 'BASE':
         model_path = args.model_name
     else:
-        model_path = f"/home/lishuo1/efficient_reasoning/run/results_{args.trainer_type}/checkpoint-2814"
+        model_path = f"/home/lishuo1/efficient_reasoning/run/results_{args.trainer_type}/checkpoint-11250"
     sampling_params = SamplingParams(
         max_tokens=1024,
         temperature=0.7,
@@ -39,7 +41,7 @@ if __name__ == "__main__":
     llm = LLM(model=model_path)
     
     correct = 0
-    for i in range(0, len(data), args.batch_size):
+    for i in tqdm(range(0, len(data), args.batch_size), total=len(data) // args.batch_size):
         batch = data[i:i+args.batch_size]
         targets = [question['answer'] for question in batch]
         problems = [question['problem'] for question in batch]

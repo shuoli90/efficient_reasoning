@@ -3,6 +3,7 @@ from vllm import LLM, SamplingParams
 from vllm.lora.request import LoRARequest
 import argparse
 from tqdm import tqdm
+import math
 
 
 if __name__ == "__main__":
@@ -12,7 +13,7 @@ if __name__ == "__main__":
     parser.add_argument('--per_device_train_batch_size', type=int, default=8)
     parser.add_argument('--trainer_type', type=str, default='BASE', choices=['SFT','ASFT', 'QSFT', 'NSFT', 'BASE'])
     parser.add_argument('--benchmark', type=str, default='MATH-500', choices=['MATH-500', 'BigCodeBench'])
-    parser.add_argument('--batch_size', type=int, default=8)
+    parser.add_argument('--batch_size', type=int, default=128)
     args = parser.parse_args()
     
     if args.benchmark == 'MATH-500':
@@ -39,20 +40,27 @@ if __name__ == "__main__":
     
     # load the model
     llm = LLM(model=model_path)
+
+    if args.trainer_type == 'BASE':
+        Template = """### Question: {problem}
+        ### Answer: """
+    else:
+        Template = """{problem}"""
     
     correct = 0
-    for i in tqdm(range(0, len(data), args.batch_size), total=len(data) // args.batch_size):
+    for i in tqdm(range(0, len(data), args.batch_size), total=math.ceil(len(data) / args.batch_size)):
         batch = data[i:i+args.batch_size]
         targets = [question['answer'] for question in batch]
         problems = [question['problem'] for question in batch]
+        prompts = [Template.format(problem=problem) for problem in problems]
         outputs = llm.generate(
-            problems,
+            prompts,
             sampling_params=sampling_params,
         )
         responses = [output.outputs[0].text for output in outputs]
         # evaluate the responses
         rewards = evaluate(args.benchmark, responses, targets)
         correct += sum(rewards)
-        breakpoint()
     print(f"Accuracy: {correct / len(data)}")
+    breakpoint()
     

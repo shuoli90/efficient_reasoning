@@ -55,5 +55,4 @@ if __name__ == "__main__":
         correct += sum(rewards)
         breakpoint()
     print(f"Accuracy: {correct / len(data)}")
-    breakpoint()
     

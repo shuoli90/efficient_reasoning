@@ -23,7 +23,7 @@ class Vine(Node):
             if self.benchmark == "BigCodeBench":
                 self.prefix = self.demonstration_steps[0] + " " + "\n".join(self.demonstration_steps[1:self.curr_step_index+1]) + "\n"
             else:
-                self.prefix = self.demonstration_steps[0] + " " + ".".join(self.demonstration_steps[1:self.curr_step_index+1]) + "."
+                self.prefix = self.demonstration_steps[0] + " " + ". ".join(self.demonstration_steps[1:self.curr_step_index+1]) + "."
         
         # generate responses
         self.responses = self.llm.generate(

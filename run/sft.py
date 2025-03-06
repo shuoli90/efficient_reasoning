@@ -2,22 +2,27 @@ from trl import SFTConfig, SFTTrainer, DataCollatorForCompletionOnlyLM
 from datasets import Dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import LoraConfig
+from datasets import load_dataset
     
 
 if __name__ == "__main__":
-    model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-3B-Instruct', load_in_8bit=True, device_map="auto")
+    # model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-3B-Instruct', load_in_8bit=True, device_map="auto")
+    model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-3B-Instruct', device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained('Qwen/Qwen2.5-3B-Instruct')
     data_path = '/home/lishuo1/efficient_reasoning/data/MATH-500/train.jsonl'
-    data = []
-    with open(data_path) as f:
-        for line in f:
-            data.append(eval(line))
+    # data = []
+    # with open(data_path) as f:
+    #     for line in f:
+    #         data.append(eval(line))
     
-    train_data = data[:7500]
-    val_data = data[7500:8000]
+    # train_data = data[:12000]
+    # val_data = data[12000:12500]
     
-    train_dataset = Dataset.from_list(train_data)
-    val_dataset = Dataset.from_list(val_data)
+    # train_dataset = Dataset.from_list(train_data)
+    # val_dataset = Dataset.from_list(val_data)
+
+    train_dataset = load_dataset('SuperSecureHuman/competition_math_hf_dataset', split='train')
+    # val_dataset = load_dataset('SuperSecureHuman/competition_math_hf_dataset', split='validation')
 
     def formatting_prompts_func(examples):
         output_text = []
@@ -35,15 +40,18 @@ if __name__ == "__main__":
     )
     
     sft_config = SFTConfig(
-        learning_rate=1e-5,
-        lr_scheduler_type='cosine',
+        # learning_rate=1e-5,
+        # lr_scheduler_type='cosine',
         num_train_epochs=3,
         per_device_train_batch_size=2,
         per_device_eval_batch_size=2,
-        output_dir=f'./results_sft',
-        logging_steps=50,
-        evaluation_strategy="steps",
-        eval_steps=300,
+        output_dir=f'./results_SFT',
+        logging_steps=100,
+        save_strategy="steps",
+        save_steps=100,
+        # evaluation_strategy="steps",
+        # eval_steps=300,
+        gradient_accumulation_steps=4,
         )
     
     peft_config = LoraConfig(
@@ -59,7 +67,7 @@ if __name__ == "__main__":
     trainer = SFTTrainer(
         model=model,
         train_dataset=train_dataset,
-        eval_dataset=val_dataset,
+        # eval_dataset=val_dataset,
         peft_config=peft_config,
         args=sft_config,
         data_collator=collator,

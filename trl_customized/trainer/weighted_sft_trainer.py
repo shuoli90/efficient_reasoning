@@ -514,12 +514,15 @@ class WSFTTrainer(Trainer):
 
         per_token_logps = self._get_per_token_logps(model, input_ids, attention_mask, logits_to_keep)
 
-        # Compute the loss
+        # advantage is a per-token value with shape (batch_size, seq_len)
         advantages = inputs["advantages"]
         # The loss is the log probability * exp(advantages) for each token
-        loss = -((per_token_logps * advantages.unsqueeze(1)) * completion_mask).sum() / completion_mask.sum()
-        # An alternative is to use log probability * advantages for each token directly
-        # loss = -((per_token_logps * completion_mask).sum() / completion_mask.sum())
+        # exp_advantages = torch.exp(advantages)
+        # weighted_logps = per_token_logps * exp_advantages
+
+        # Alternative is log probability * advantages directly
+        weighted_logps = per_token_logps * advantages
+        loss = -(weighted_logps * completion_mask).sum() / completion_mask.sum()
 
         return loss
 

@@ -23,6 +23,7 @@ setup(
         "wandb",
         "latex2sympy2",
         "math_verify",
+        "lighteval",
     ],
     extras_require={
         "develop": [

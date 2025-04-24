@@ -92,7 +92,8 @@ class VLLMClient:
         self.server_port = server_port
         self.group_port = group_port
         self.check_server(connection_timeout)  # check server and fail after timeout
-        self.init_communicator()
+        # breakpoint()
+        self.init_communicator() # problem here
         atexit.register(self.close_communicator)  # when the client object is deleted, close the weight update group
 
     def check_server(self, total_timeout: float = 0.0, retry_interval: float = 2.0):
@@ -186,7 +187,7 @@ class VLLMClient:
             payload["seed"] = seed
 
         response = self.session.post(url, json=payload)
-        
+        # breakpoint()
         if response.status_code == 200:
             return response.json()["completion_ids"]
         else:
@@ -197,6 +198,7 @@ class VLLMClient:
         Initializes the weight update group in a distributed setup for model synchronization.
         """
         # Get the tensor parallel size from the server
+        # breakpoint()
         url = f"http://{self.host}:{self.server_port}/get_tensor_parallel_size/"
         response = requests.get(url)
         if response.status_code == 200:

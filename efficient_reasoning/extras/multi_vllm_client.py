@@ -1,13 +1,15 @@
 import threading
-from typing import List, Dict, Any
+from typing import List, Dict
 import torch
-from .vllm_client import VLLMClient
-from transformers import AutoTokenizer  # Import the tokenizer
+from efficient_reasoning.extras.vllm_client import VLLMClient
+from transformers import AutoTokenizer
+from tqdm import tqdm 
 
 class MultiVLLMClient:
-    def __init__(self, server_configs: List[Dict[str, Any]]):
+    def __init__(self, server_configs: List[Dict]):
         """
         Initialize multiple vLLM clients.
+
         Args:
             server_configs: List of dictionaries, each containing server settings.
                 Example:
@@ -20,67 +22,83 @@ class MultiVLLMClient:
                 host=config.get("host", "0.0.0.0"),
                 server_port=config.get("server_port", 8000),
                 group_port=config.get("group_port", 51216),
-                connection_timeout=config.get("connection_timeout", 0.0)
+                connection_timeout=config.get("connection_timeout", 30.0)
             )
             self.clients.append(client)
     
     def generate(self, prompts: List[str], n: int, **sampling_kwargs) -> List[int]:
         """
-        For each prompt, split the total number of completions among all clients.
-        Each client receives the entire list of prompts and is assigned a portion of completions.
-        The final result is a flat list where the completions for prompt i occupy the slice
+        Partition prompts among clients and call generate concurrently.
+        The final results will be a flat list where the completions for prompt i occupy the slice
         [i * n, (i + 1) * n].
+
+        Args:
+            prompts: List of prompts.
+            n: Number of completions per prompt.
+            sampling_kwargs: Other keyword arguments for sampling.
+
+        Returns:
+            A flat list of completions with total length = len(prompts) * n.
         """
         num_clients = len(self.clients)
-        # Determine completions per client for each prompt.
-        base = n // num_clients
-        remainder = n % num_clients
-        completions_per_client = [base + (1 if i < remainder else 0) for i in range(num_clients)]
+        # Partition the prompts among the available clients using round-robin assignment.
+        partitioned_prompts = [[] for _ in range(num_clients)]
+        original_idx = [[] for _ in range(num_clients)]
+        for idx, prompt in enumerate(prompts):
+            client_idx = idx % num_clients  # assign prompt to client in round-robin fashion
+            partitioned_prompts[client_idx].append(prompt)
+            original_idx[client_idx].append(idx)
+        # print(partitioned_prompts)
+        # breakpoint()
+        # Preallocate a results list with a length equal to number of prompts * completions per prompt.
+        flat_results = [None] * (len(prompts) * n)
         
-        results_per_client = [None] * num_clients
-
-        def worker(idx, client, prompts, n_client):
-            # Modify the sampling parameters for this client to add a unique seed.
-            local_sampling_kwargs = sampling_kwargs.copy()
-            base_seed = local_sampling_kwargs.get("seed", 1234)
-            local_sampling_kwargs["seed"] = base_seed + idx
+        def worker(client, sub_prompts, indices):
             try:
-                print(
-                    f"Client {idx} ({client.host}:{client.server_port}) generating {n_client} completions per prompt with seed {local_sampling_kwargs['seed']}"
-                )
-                res = client.generate(prompts=prompts, n=n_client, **local_sampling_kwargs)
-                results_per_client[idx] = res
+                # Call the client's generate API. It returns a flat list of completions where each prompt
+                # in the sublist has exactly n completions (i.e. client_result[i*n : (i+1)*n] are the completions
+                # for sub_prompts[i]).
+                # print("Generating for client:", client.host, client.server_port)
+                # print("Sub-prompts:", sub_prompts)
+                # print("Indices:", indices)
+                client_result = client.generate(prompts=sub_prompts, n=n, **sampling_kwargs)
             except Exception as e:
-                raise ValueError(f"Generation failed for client {client.host}:{client.server_port}: {e}")
-
+                client_result = None
+                print(f"Generation failed for client {client.host}:{client.server_port}: {e}")
+                return  # early return if generation fails
+            
+            # Place the completions into the correct location in flat_results.
+            # For each prompt originally assigned to this client:
+            for i, orig_index in enumerate(indices):
+                # The expected slice in flat_results for prompt orig_index:
+                start = orig_index * n
+                end = (orig_index + 1) * n
+                # Extract the corresponding completions from client_result.
+                # Here, client_result is organized so that for prompt i in the sublist,
+                # its completions are in the slice [i*n, (i+1)*n]
+                flat_results[start:end] = client_result[i * n:(i + 1) * n]
+        
+        # Launch threads: one per client to work on its partition of prompts.
         threads = []
-        for i, (client, n_client) in enumerate(zip(self.clients, completions_per_client)):
-            t = threading.Thread(target=worker, args=(i, client, prompts, n_client))
-            threads.append(t)
-            t.start()
-
+        for client, sub_prompts, indices in zip(self.clients, partitioned_prompts, original_idx):
+            if sub_prompts:  # only create a thread if there is at least one prompt for this client
+                t = threading.Thread(target=worker, args=(client, sub_prompts, indices))
+                threads.append(t)
+                t.start()
+        
         for t in threads:
             t.join()
         
-        # Combine results across clients.
-        final_results = []
-        num_prompts = len(prompts)
-        for i in range(num_prompts):
-            combined = []
-            for client_idx, n_client in enumerate(completions_per_client):
-                client_results = results_per_client[client_idx]
-                if client_results is None:
-                    raise ValueError(f"Client {client_idx} did not return results.")
-                start = i * n_client
-                end = (i + 1) * n_client
-                combined.extend(client_results[start:end])
-            if len(combined) != n:
-                raise ValueError(f"Expected {n} completions for prompt {i}, got {len(combined)}")
-            final_results.extend(combined)
-        
-        return final_results
+        return flat_results
 
     def update_named_param(self, name: str, weights: torch.Tensor):
+        """
+        Update a specific named parameter across all vLLM servers concurrently.
+        
+        Args:
+            name: The parameter name.
+            weights: The updated tensor.
+        """
         threads = []
         def worker(client):
             try:
@@ -95,6 +113,15 @@ class MultiVLLMClient:
             t.join()
 
     def update_model_params(self, model: torch.nn.Module):
+        """
+        Update all model parameters across all vLLM servers concurrently.
+        
+        This method iterates over all named parameters in the model and dispatches an update call
+        to each client.
+        
+        Args:
+            model: The model whose parameters will be updated.
+        """
         threads = []
         def worker(client):
             try:
@@ -109,6 +136,9 @@ class MultiVLLMClient:
             t.join()
 
     def reset_prefix_cache(self):
+        """
+        Resets the prefix cache on all vLLM servers concurrently.
+        """
         threads = []
         def worker(client):
             try:
@@ -122,6 +152,7 @@ class MultiVLLMClient:
         for t in threads:
             t.join()
 
+# Example usage
 def main():
     # Define server configurations.
     server_configs = [
@@ -132,13 +163,27 @@ def main():
     multi_client = MultiVLLMClient(server_configs)
     
     # Define test prompts.
-    prompts = [
-        "What is the capital of France?",
-        "Explain the theory of relativity simply."
-    ]
-    
+    # prompts = [
+    #     "How many vertical asymptotes does the graph of $y=\\frac{2}{x^2+x-6}$ have?",
+    #     "If $5x - 3 = 12$, what is the value of $5x + 3$?"
+    # ]
+
+    data = []
+    with open("/home/leoh/efficient_reasoning/data/MATH-500/train.jsonl") as f:
+        for line in f:
+            tmp = eval(line)
+            data.append(tmp)
+
+    prompts_list = []
+    for index, dict in enumerate(data):
+        prompts_list.append(dict["problem"])
+
+    prompts_list= prompts_list[:100]
+
+    print(f"Length of prompts: {len(prompts_list)}")
+        
     # Total completions per prompt.
-    n = 7
+    n = 8
     
     # Sampling parameters including a base seed.
     sampling_kwargs = {
@@ -147,32 +192,36 @@ def main():
         "repetition_penalty": 1.0,
         "top_k": -1,
         "min_p": 0.0,
-        "max_tokens": 32,
+        "max_tokens": 2048,
         "guided_decoding_regex": None,
         # "seed": 42  # Base seed provided here.
     }
     
-    try:
-        completions = multi_client.generate(prompts, n, **sampling_kwargs)
-    except Exception as e:
-        print("Error during generation:", e)
-        return
-    
-    # Instantiate a tokenizer for decoding.
-    tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B")
-    
-    # Decode completions. Each item in 'completions' is a list of token IDs.
-    decoded_completions = [tokenizer.decode(comp, skip_special_tokens=True) for comp in completions]
-    
-    # Print results.
-    num_prompts = len(prompts)
-    print(f"\nFinal decoded completions (flat list):")
-    for i in range(num_prompts):
-        print(f"\nPrompt {i} ('{prompts[i]}') completions:")
-        start = i * n
-        end = (i + 1) * n
-        for j, comp in enumerate(decoded_completions[start:end]):
-            print(f"  Completion {j}: {comp}")
+    for i in tqdm(range(0, len(prompts_list), 2), desc="Generating completions"):
+        prompts = prompts_list[i:i+2]
+        try:
+            completions = multi_client.generate(prompts, n, **sampling_kwargs)
+        except Exception as e:
+            print("Error during generation:", e)
+            return
+        
+        # Instantiate a tokenizer for decoding.
+        tokenizer = AutoTokenizer.from_pretrained("Qwen/Qwen2.5-0.5B")
+        
+        # Decode completions. Each item in 'completions' is a list of token IDs.
+        decoded_completions = [tokenizer.decode(comp, skip_special_tokens=True) for comp in completions]
+        
+        # Print results.
+        num_prompts = len(prompts)
+        print(f"\nFinal decoded completions (flat list):")
+        for i in range(num_prompts):
+            print(f"\nPrompt {i} ('{prompts[i]}') completions:")
+            start = i * n
+            end = (i + 1) * n
+            for j, comp in enumerate(decoded_completions[start:end]):
+                print(f"  Completion {j}: {comp}")
+        breakpoint()
+
 
 if __name__ == "__main__":
     main()

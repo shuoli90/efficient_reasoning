@@ -1096,12 +1096,16 @@ class GRPOTrainer(Trainer):
         # filter out the rows where the advantages are less than the threshold
         if self.gradient_filtering:
             device = advantages.device
-            advantages = advantages[advantages > self.gradient_filtering_threshold]
-            completion_mask = completion_mask[advantages > self.gradient_filtering_threshold]
-            per_token_logps = per_token_logps[advantages > self.gradient_filtering_threshold]
-            # if there is no completion mask, return 0 loss
-            if completion_mask.sum() == 0:
-                return torch.tensor(0.0, device=device)
+            valid = advantages > self.gradient_filtering_threshold
+            # if there is no valid rows, only retain the first row
+            if valid.sum() == 0:
+                completion_mask = completion_mask[:1]
+                per_token_logps = per_token_logps[:1]
+                advantages = advantages[:1]
+            else:
+                completion_mask = completion_mask[valid]
+                per_token_logps = per_token_logps[valid]
+                advantages = advantages[valid]
 
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead.

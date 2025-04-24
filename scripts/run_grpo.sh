@@ -2,7 +2,7 @@ accelerate launch --gpu_ids 4 --config_file=../recipes/zero2.yaml --num_processe
     --model_name_or_path Qwen/Qwen2.5-1.5B \
     --max_prompt_length 256 \
     --max_completion_length 4096 \
-    --gradient_accumulation_steps 16 \
+    --gradient_accumulation_steps 2 \
     --dataset_name /home/lishuo1/efficient_reasoning/data/MATH-500/train.jsonl \
     --dataset_train_split train \
     --per_device_train_batch_size 4 \
@@ -11,3 +11,5 @@ accelerate launch --gpu_ids 4 --config_file=../recipes/zero2.yaml --num_processe
     --output_dir results/grpo \
     --bf16 True \
     --use_vllm True \
+    --scale_reward True \
+    --gradient_filtering False \

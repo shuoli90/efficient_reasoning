@@ -66,8 +66,8 @@ if is_deepspeed_available():
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
-if is_liger_kernel_available():
-    from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
+# if is_liger_kernel_available():
+#     from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
 
 if is_wandb_available():
     import wandb
@@ -425,6 +425,8 @@ class GRPOTrainer(Trainer):
         self.loss_type = args.loss_type
         self.scale_rewards = args.scale_rewards
         self.mask_truncated_completions = args.mask_truncated_completions
+        self.gradient_filtering = args.gradient_filtering
+        self.gradient_filtering_threshold = args.gradient_filtering_threshold
 
         # Datasets
         if (
@@ -542,7 +544,6 @@ class GRPOTrainer(Trainer):
                     "`pip install vllm` to use it."
                 )
             if self.args.vllm_server_configs:
-                breakpoint()
                 if self.accelerator.is_main_process:
                     # self.vllm_client = MultiVLLMClient(self.args.vllm_server_configs)
                     self.vllm_client = PreemptiveMultiVLLMClient(
@@ -1091,6 +1092,17 @@ class GRPOTrainer(Trainer):
 
         # Compute the loss
         advantages = inputs["advantages"]
+
+        # filter out the rows where the advantages are less than the threshold
+        if self.gradient_filtering:
+            device = advantages.device
+            advantages = advantages[advantages > self.gradient_filtering_threshold]
+            completion_mask = completion_mask[advantages > self.gradient_filtering_threshold]
+            per_token_logps = per_token_logps[advantages > self.gradient_filtering_threshold]
+            # if there is no completion mask, return 0 loss
+            if completion_mask.sum() == 0:
+                return torch.tensor(0.0, device=device)
+        breakpoint()
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead.
         old_per_token_logps = inputs["old_per_token_logps"] if self.num_iterations > 1 else per_token_logps.detach()

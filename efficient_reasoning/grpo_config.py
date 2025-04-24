@@ -450,6 +450,10 @@ class GRPOConfig(TrainingArguments):
 
     # gradient filtering
     gradient_filtering: bool = field(default=False, metadata={"help": "Whether to use gradient filtering."})
+
+    # gradient flitering threshold
+    gradient_filtering_threshold: float = field(default=0.0, metadata={"help": "Threshold for gradient filtering."})
+
     def __post_init__(self):
         super().__post_init__()
 

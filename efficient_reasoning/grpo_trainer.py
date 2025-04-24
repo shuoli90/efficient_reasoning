@@ -46,7 +46,7 @@ from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_c
 from trl.extras.profiling import profiling_context, profiling_decorator
 from efficient_reasoning.extras.vllm_client import VLLMClient
 from efficient_reasoning.extras.multi_vllm_client import MultiVLLMClient
-# from trl.import_utils import is_deepspeed_available, is_liger_kernel_available, is_rich_available, is_vllm_available
+from efficient_reasoning.extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
 from trl.import_utils import is_deepspeed_available, is_rich_available, is_vllm_available
 from trl.models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
 from trl.trainer.callbacks import SyncRefModelCallback
@@ -66,8 +66,8 @@ if is_deepspeed_available():
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
-# if is_liger_kernel_available():
-#     from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
+if is_liger_kernel_available():
+    from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
 
 if is_wandb_available():
     import wandb
@@ -542,8 +542,28 @@ class GRPOTrainer(Trainer):
                     "`pip install vllm` to use it."
                 )
             if self.args.vllm_server_configs:
+                breakpoint()
                 if self.accelerator.is_main_process:
-                    self.vllm_client = MultiVLLMClient(self.args.vllm_server_configs)
+                    # self.vllm_client = MultiVLLMClient(self.args.vllm_server_configs)
+                    self.vllm_client = PreemptiveMultiVLLMClient(
+                        # 1) exactly the same list of vLLM servers you were going to talk to
+                        server_configs=self.args.vllm_server_configs,
+
+                        # 2) how many micro‐steps happen before each backward/update
+                        gradient_accumulation_steps=self.args.gradient_accumulation_steps,
+
+                        # 3) your training dataset itself – so we can pull out every future prompt
+                        train_dataset=train_dataset,
+
+                        # 4) the very same sampler the Trainer uses to walk through train_dataset
+                        sampler=self._get_train_sampler(),
+
+                        # 5) “how many prompts per micro‐batch?” — i.e. the global batch size
+                        #    (per_device_train_batch_size × number of processes)
+                        batch_size=int(args.per_device_train_batch_size * self.accelerator.num_processes / self.num_generations),
+
+                        num_generations=self.num_generations,
+                )
 
             else:
                 # Fallback to single client if none provided.
@@ -551,7 +571,7 @@ class GRPOTrainer(Trainer):
                     self.vllm_client = VLLMClient(
                         self.args.vllm_server_host, self.args.vllm_server_port, connection_timeout=self.args.vllm_server_timeout
                     )
-
+            # breakpoint()
             # vLLM specific sampling arguments
             self.guided_decoding_regex = args.vllm_guided_decoding_regex
 
@@ -757,11 +777,11 @@ class GRPOTrainer(Trainer):
             self._step += 1
         else:
             # In evaluation, we don't reuse completions across multiple updates, so we don't need to buffer inputs.
-            inputs = self._generate_and_score_completions(inputs)
+            inputs = self._generate_and_score_completions(inputs, eval_flag=True)
         return inputs
 
     def _generate_and_score_completions(
-        self, inputs: dict[str, Union[torch.Tensor, Any]]
+        self, inputs: dict[str, Union[torch.Tensor, Any]], eval_flag: bool = False
     ) -> dict[str, Union[torch.Tensor, Any]]:
         device = self.accelerator.device
         prompts = [x["prompt"] for x in inputs]
@@ -801,6 +821,7 @@ class GRPOTrainer(Trainer):
                         min_p=0.0 if self.min_p is None else self.min_p,
                         max_tokens=self.max_completion_length,
                         guided_decoding_regex=self.guided_decoding_regex,
+                        eval_only=eval_flag,
                     )
             else:
                 completion_ids = [None] * len(all_prompts_text)

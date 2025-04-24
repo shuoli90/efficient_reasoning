@@ -448,6 +448,8 @@ class GRPOConfig(TrainingArguments):
     # Multi vLLM server configs
     vllm_server_configs: List[Dict[str, Any]] = field(default_factory=list)
 
+    # gradient filtering
+    gradient_filtering: bool = field(default=False, metadata={"help": "Whether to use gradient filtering."})
     def __post_init__(self):
         super().__post_init__()
 

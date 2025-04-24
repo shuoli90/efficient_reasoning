@@ -31,7 +31,8 @@ class GRPOScriptArguments(ScriptArguments):
 
 def accuracy_reward(completions, solution, **kwargs):
     """Reward function that checks if the completion is the same as the ground truth."""
-    contents = [completion[0]["content"] for completion in completions]
+    # contents = [completion[0]["content"] for completion in completions]
+    contents = completions
     rewards = []
     for content, sol in zip(contents, solution):
         gold_parsed = parse(sol, extraction_mode="first_match", extraction_config=[
@@ -106,20 +107,26 @@ def main(script_args, training_args, model_args):
         for line in f:
             data.append(eval(line))
     
-    dataset = Dataset.from_list(data)
+
+    formatted_data = []
+    for index, item in enumerate(data):
+        new_dict = {"prompt": item["problem"], "solution": LATEX_TEMPLATE.format(sol=item["answer"])}
+        formatted_data.append(new_dict)
+
+    dataset = Dataset.from_list(formatted_data)
 
     # Format into conversation
-    def make_conversation(example):
-        return {
-            "prompt": [
-                {"role": "system", "content": SYSTEM_PROMPT},
-                {"role": "user", "content": example["problem"]},
-            ],
-            "solution": LATEX_TEMPLATE.format(sol=example["answer"]),
-        }
+    # def make_conversation(example):
+    #     return {
+    #         "prompt": [
+    #             {"role": "system", "content": SYSTEM_PROMPT},
+    #             {"role": "user", "content": example["problem"]},
+    #         ],
+    #         "solution": LATEX_TEMPLATE.format(sol=example["answer"]),
+    #     }
 
-    dataset = dataset.map(make_conversation)
-    dataset = dataset.remove_columns(["problem", "answer", "level", "subject", "unique_id"])
+    # dataset = dataset.map(make_conversation)
+    # dataset = dataset.remove_columns(["problem", "answer", "level", "subject", "unique_id"])
 
     # Initialize the GRPO trainer
     trainer = GRPOTrainer(
@@ -152,8 +159,8 @@ if __name__ == "__main__":
         )
 
     vllm_server_configs = [
-        {"host": "0.0.0.0", "server_port": 8000},
-        {"host": "0.0.0.0", "server_port": 8001},
+        {"host": "0.0.0.0", "server_port": 8000, 'group_port': 51216},
+        {"host": "0.0.0.0", "server_port": 8001, 'group_port': 51217},
         # {"host": "158.130.55.13", "server_port": 8002},
         # {"host": "158.130.55.13", "server_port": 8003},
     ]

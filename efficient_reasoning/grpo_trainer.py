@@ -1102,7 +1102,7 @@ class GRPOTrainer(Trainer):
             # if there is no completion mask, return 0 loss
             if completion_mask.sum() == 0:
                 return torch.tensor(0.0, device=device)
-        breakpoint()
+
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead.
         old_per_token_logps = inputs["old_per_token_logps"] if self.num_iterations > 1 else per_token_logps.detach()

@@ -454,6 +454,9 @@ class GRPOConfig(TrainingArguments):
     # gradient flitering threshold
     gradient_filtering_threshold: float = field(default=0.0, metadata={"help": "Threshold for gradient filtering."})
 
+    # use old model
+    use_old_model: bool = field(default=True, metadata={"help": "Whether to use old model."})
+
     def __post_init__(self):
         super().__post_init__()
 

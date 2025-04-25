@@ -874,11 +874,10 @@ class GRPOTrainer(Trainer):
         with torch.no_grad():
             # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's
             # computation here, and use per_token_logps.detach() instead.
-            if self.use_old_model:
-                if self.num_iterations > 1:
-                    old_per_token_logps = self._get_per_token_logps(
-                        self.model, prompt_completion_ids, attention_mask, logits_to_keep
-                    )
+            if self.use_old_model and self.num_iterations > 1:
+                old_per_token_logps = self._get_per_token_logps(
+                    self.model, prompt_completion_ids, attention_mask, logits_to_keep
+                )
             else:
                 old_per_token_logps = None
 
@@ -1140,12 +1139,15 @@ class GRPOTrainer(Trainer):
             mean_kl = (per_token_kl * completion_mask).sum() / completion_mask.sum()
             self._metrics[mode]["kl"].append(self.accelerator.gather_for_metrics(mean_kl).nanmean().item())
 
-        # Compute the clip ratio
-        is_clipped = ((coef_1 < 1 - self.epsilon_low) & (advantages.unsqueeze(1) < 0)) | (
-            (coef_1 > 1 + self.epsilon_high) & (advantages.unsqueeze(1) > 0)
-        )
-        clip_ratio = (is_clipped * completion_mask).sum() / completion_mask.sum()
-        self._metrics[mode]["clip_ratio"].append(self.accelerator.gather_for_metrics(clip_ratio).nanmean().item())
+        if self.use_old_model:
+            # Compute the clip ratio
+            is_clipped = ((coef_1 < 1 - self.epsilon_low) & (advantages.unsqueeze(1) < 0)) | (
+                (coef_1 > 1 + self.epsilon_high) & (advantages.unsqueeze(1) > 0)
+            )
+            clip_ratio = (is_clipped * completion_mask).sum() / completion_mask.sum()
+            self._metrics[mode]["clip_ratio"].append(self.accelerator.gather_for_metrics(clip_ratio).nanmean().item())
+        else:
+            clip_ratio = 0.0
         return loss
 
     def prediction_step(self, model, inputs, prediction_loss_only, ignore_keys: Optional[list[str]] = None):

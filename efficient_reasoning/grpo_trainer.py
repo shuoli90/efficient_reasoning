@@ -1102,10 +1102,12 @@ class GRPOTrainer(Trainer):
             if valid.sum() == 0:
                 completion_mask = completion_mask[:1]
                 per_token_logps = per_token_logps[:1]
+                per_token_kl = per_token_kl[:1]
                 advantages = advantages[:1]
             else:
                 completion_mask = completion_mask[valid]
                 per_token_logps = per_token_logps[valid]
+                per_token_kl = per_token_kl[valid]
                 advantages = advantages[valid]
 
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
@@ -1118,7 +1120,7 @@ class GRPOTrainer(Trainer):
             per_token_loss2 = coef_2 * advantages.unsqueeze(1)
             per_token_loss = -torch.min(per_token_loss1, per_token_loss2)
         else:
-            per_token_loss = -torch.exp(per_token_logps) * advantages.unsqueeze(1)
+            per_token_loss = -per_token_logps * advantages.unsqueeze(1)
 
         if self.beta != 0.0:
             per_token_loss = per_token_loss + self.beta * per_token_kl

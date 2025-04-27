@@ -1,14 +1,14 @@
 import re
 from dataclasses import dataclass, field
 from datasets import load_dataset, Dataset
-from latex2sympy2_extended import NormalizationConfig
-from math_verify import LatexExtractionConfig, ExprExtractionConfig, StringExtractionConfig, parse, verify
 from trl import ModelConfig, ScriptArguments, TrlParser, get_peft_config
 from efficient_reasoning.grpo_trainer import GRPOTrainer
 from efficient_reasoning.grpo_config import GRPOConfig
 import wandb
 import torch.distributed as dist
 from efficient_reasoning.utils import evaluate
+from latex2sympy2_extended import NormalizationConfig
+from math_verify import LatexExtractionConfig, ExprExtractionConfig, StringExtractionConfig, parse, verify
 
 
 @dataclass
@@ -30,8 +30,54 @@ class GRPOScriptArguments(ScriptArguments):
         }
     )
 
-def accuracy_reward(prompts, completions, answer):
-    return evaluate('MATH-500', completions, answer)
+def accuracy_reward(completions, solution, **kwargs):
+    result = evaluate('MATH-500', completions, solution)
+    result = [1 if r else 0 for r in result]
+    return result
+
+# def accuracy_reward(completions, solution, **kwargs):
+#     """Reward function that checks if the completion is the same as the ground truth."""
+#     # contents = [completion[0]["content"] for completion in completions]
+#     contents = completions
+#     rewards = []
+#     for content, sol in zip(contents, solution):
+#         gold_parsed = parse(sol, extraction_mode="first_match", extraction_config=[
+#             LatexExtractionConfig(), 
+#             ExprExtractionConfig(), 
+#             StringExtractionConfig()])
+#         if len(gold_parsed) != 0:
+#             # We require the answer to be provided in correct latex (no malformed operators)
+#             answer_parsed = parse(
+#                 content,
+#                 extraction_config=[
+#                     LatexExtractionConfig(
+#                         normalization_config=NormalizationConfig(
+#                             nits=False,
+#                             malformed_operators=False,
+#                             basic_latex=True,
+#                             equations=True,
+#                             boxed=True,
+#                             units=True,
+#                         ),
+#                         # Ensures that boxed is tried first
+#                         boxed_match_priority=0,
+#                         try_extract_without_anchor=False,
+#                     )
+#                 ],
+#                 extraction_mode="first_match",
+#             )
+#             # Reward 1 if the content is the same as the ground truth, 0 otherwise
+#             try:
+#                 reward = float(verify(answer_parsed, gold_parsed))
+#             except Exception as e:
+#                 print(e)
+#                 reward = 0.0
+#         else:
+#             # If the gold solution is not parseable, we reward 1 to skip this example
+#             reward = 1.0
+#             print("Failed to parse gold solution: ", sol)
+#         rewards.append(reward)
+#     return rewards
 
 def format_reward(completions, **kwargs):
     """Reward function that checks if the completion has a specific format."""
@@ -53,7 +99,7 @@ SYSTEM_PROMPT = (
     "<think> reasoning process here </think><answer> answer here </answer>"
 )
 
-LATEX_TEMPLATE = "$\\boxed{sol}$"
+# LATEX_TEMPLATE = "$\\boxed{sol}$"
 
 def main(script_args, training_args, model_args):
     # Get reward functions
@@ -68,7 +114,7 @@ def main(script_args, training_args, model_args):
 
     formatted_data = []
     for index, item in enumerate(data):
-        new_dict = {"prompt": item["problem"], "solution": LATEX_TEMPLATE.format(sol=item["answer"])}
+        new_dict = {"prompt": item["problem"], "solution": item["answer"]}
         formatted_data.append(new_dict)
 
     dataset = Dataset.from_list(formatted_data)
@@ -117,8 +163,8 @@ if __name__ == "__main__":
         )
 
     vllm_server_configs = [
-        {"host": "0.0.0.0", "server_port": 8000, 'group_port': 51216},
-        {"host": "0.0.0.0", "server_port": 8001, 'group_port': 51217},
+        {"host": "0.0.0.0", "server_port": 8003, 'group_port': 51222},
+        {"host": "0.0.0.0", "server_port": 8004, 'group_port': 51223},
         # {"host": "158.130.55.13", "server_port": 8002},
         # {"host": "158.130.55.13", "server_port": 8003},
     ]

@@ -1,19 +1,21 @@
-accelerate launch --gpu_ids 4,5,6,7 --config_file=../recipes/zero2.yaml --num_processes 4 ../run/grpo_dp.py \
-    --model_name_or_path Qwen/Qwen2.5-0.5B \
+accelerate launch --main_process_port 29600 --gpu_ids 7,8 --config_file=../recipes/zero2.yaml --num_processes 2 ../run/grpo_dp.py \
+    --model_name_or_path Qwen/Qwen2.5-3B \
     --max_prompt_length 256 \
     --max_completion_length 2048 \
     --gradient_accumulation_steps 32 \
     --dataset_name /home/lishuo1/efficient_reasoning/data/MATH-500/train.jsonl \
     --dataset_train_split train \
-    --per_device_train_batch_size 2 \
+    --per_device_train_batch_size 4 \
+    --gradient_checkpointing True \
     --num_generations 4 \
+    --seed 42 \
     --learning_rate 3e-6 \
-    --output_dir results/grpo_rloo \
+    --output_dir results/grpo_3B_dr \
     --bf16 True \
     --use_vllm True \
     --scale_reward True \
     --gradient_filtering False \
     --gradient_filtering_threshold 0.1 \
     --logging_steps 50 \
-    --use_old_model False \
+    --use_old_model True \
     --loss_type dr_grpo

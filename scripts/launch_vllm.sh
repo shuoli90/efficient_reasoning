@@ -1,1 +1,1 @@
-CUDA_VISIBLE_DEVICES=1 trl vllm-serve --model Qwen/Qwen2.5-0.5B --port 8003
+CUDA_VISIBLE_DEVICES=1 trl vllm-serve --model Qwen/Qwen2.5-0.5B --port 8003 --tensor_parallel_size 1

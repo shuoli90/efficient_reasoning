@@ -7,8 +7,8 @@ from efficient_reasoning.grpo_config import GRPOConfig
 import wandb
 import torch.distributed as dist
 from efficient_reasoning.utils import evaluate
-from latex2sympy2_extended import NormalizationConfig
-from math_verify import LatexExtractionConfig, ExprExtractionConfig, StringExtractionConfig, parse, verify
+#from latex2sympy2_extended import NormalizationConfig
+#from math_verify import LatexExtractionConfig, ExprExtractionConfig, StringExtractionConfig, parse, verify
 
 @dataclass
 class GRPOScriptArguments(ScriptArguments):
@@ -22,17 +22,14 @@ class GRPOScriptArguments(ScriptArguments):
 
     reward_funcs: list[str] = field(
         # default_factory=lambda: ['accuracy', 'format'],
-        default_factory=lambda: ['accuracy'],
+        # default_factory=lambda: ['accuracy'],
+        default_factory=lambda: ['bigcodebench_accuracy'],
         metadata={
             # "help": "List of reward functions. Possible values are: 'accuracy', 'format'"
             "help": "List of reward functions. Possible values are: 'accuracy'"
         }
     )
     
-    def __init__(self, dataset_reward: str = "accuracy", **kwargs):
-        super().__init__(**kwargs)
-        self.reward_funcs = [dataset_reward if dataset_reward in reward_funcs_registry.keys() else "accuracy"]
-
 def accuracy_reward(completions, solution, **kwargs):
     result = evaluate('MATH-500', completions, solution)
     result = [1 if r else 0 for r in result]
@@ -116,7 +113,7 @@ def main(script_args, training_args, model_args):
 
     #data_path = '../data/MATH-500/train.jsonl'
     #Modified for BigCodeBench
-    data_path = './data/BigCodeBench/train.jsonl'
+    data_path = '../data/BigCodeBench/train.jsonl'
     data = []
     with open(data_path) as f:
         for line in f:
@@ -128,7 +125,7 @@ def main(script_args, training_args, model_args):
         #Modified for BigCodeBench
         new_dict = {"prompt": item["problem"], "solution": item["solution"]}
         formatted_data.append(new_dict)
-
+    formatted_data = [formatted_data[0]]
     dataset = Dataset.from_list(formatted_data)
 
     # Format into conversation
@@ -181,7 +178,7 @@ if __name__ == "__main__":
         # {"host": "158.130.55.13", "server_port": 8003},
     ]
 
-    parser = TrlParser((GRPOScriptArguments("bigcodebench_accuracy"), GRPOConfig, ModelConfig))
+    parser = TrlParser((GRPOScriptArguments, GRPOConfig, ModelConfig))
     script_args, training_args, model_args = parser.parse_args_and_config()
     training_args.vllm_server_configs = vllm_server_configs
     main(script_args, training_args, model_args)

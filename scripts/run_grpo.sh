@@ -1,9 +1,9 @@
-accelerate launch --gpu_ids 4,5,6,7 --config_file=../recipes/zero2.yaml --num_processes 4 ../run/grpo_dp.py \
+accelerate launch --gpu_ids 0,1 --config_file=../recipes/zero2.yaml --num_processes 2 ../run/grpo_dp.py \
     --model_name_or_path Qwen/Qwen2.5-0.5B \
     --max_prompt_length 256 \
     --max_completion_length 2048 \
     --gradient_accumulation_steps 32 \
-    --dataset_name /home/lishuo1/efficient_reasoning/data/MATH-500/train.jsonl \
+    --dataset_name /home/sanupam/efficient_reasoning/data/BigCodeBench/train.jsonl \
     --dataset_train_split train \
     --per_device_train_batch_size 2 \
     --num_generations 4 \

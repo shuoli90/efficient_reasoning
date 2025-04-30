@@ -1,0 +1,29 @@
+Metadata-Version: 2.2
+Name: efficient_reasoning
+Version: 0.0.1
+Requires-Python: >=3.10
+License-File: LICENSE
+Requires-Dist: torch
+Requires-Dist: flash-attn
+Requires-Dist: transformers>=4.46.2
+Requires-Dist: datasets
+Requires-Dist: accelerate
+Requires-Dist: peft
+Requires-Dist: trl
+Requires-Dist: deepspeed
+Requires-Dist: vllm==0.8.1
+Requires-Dist: antlr4-python3-runtime
+Requires-Dist: numpy
+Requires-Dist: requests
+Requires-Dist: tqdm
+Requires-Dist: wandb
+Requires-Dist: latex2sympy2
+Requires-Dist: math_verify
+Requires-Dist: lighteval
+Provides-Extra: develop
+Requires-Dist: black>=24.10.0; extra == "develop"
+Requires-Dist: flake8>=7.1.1; extra == "develop"
+Requires-Dist: mypy>=1.12.0; extra == "develop"
+Dynamic: provides-extra
+Dynamic: requires-dist
+Dynamic: requires-python

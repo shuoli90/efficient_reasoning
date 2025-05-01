@@ -42,16 +42,16 @@ from transformers import (
 from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled
 from transformers.utils import is_peft_available
 
-from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
-from trl.extras.profiling import profiling_context, profiling_decorator
-from efficient_reasoning.extras.vllm_client import VLLMClient
-from efficient_reasoning.extras.multi_vllm_client import MultiVLLMClient
-from efficient_reasoning.extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
-from trl.import_utils import is_deepspeed_available, is_rich_available, is_vllm_available
-from trl.models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
-from trl.trainer.callbacks import SyncRefModelCallback
-from efficient_reasoning.grpo_config import GRPOConfig
-from trl.trainer.utils import (
+from ..data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
+from ..extras.profiling import profiling_context, profiling_decorator
+from ..extras.vllm_client import VLLMClient
+from ..extras.multi_vllm_client import MultiVLLMClient
+from ..extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
+from ..import_utils import is_deepspeed_available, is_liger_kernel_available, is_rich_available, is_vllm_available
+from ..models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
+from .callbacks import SyncRefModelCallback
+from .grpo_config import GRPOConfig
+from .utils import (
     disable_dropout_in_model,
     generate_model_card,
     get_comet_experiment_url,
@@ -60,14 +60,15 @@ from trl.trainer.utils import (
     selective_log_softmax,
 )
 
+
 if is_deepspeed_available():
     import deepspeed
 
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
-# if is_liger_kernel_available():
-#     from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
+if is_liger_kernel_available():
+    from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
 
 if is_wandb_available():
     import wandb
@@ -425,8 +426,6 @@ class GRPOTrainer(Trainer):
         self.loss_type = args.loss_type
         self.scale_rewards = args.scale_rewards
         self.mask_truncated_completions = args.mask_truncated_completions
-        self.gradient_filtering = args.gradient_filtering
-        self.gradient_filtering_threshold = args.gradient_filtering_threshold
         self.use_old_model = args.use_old_model
 
         # Datasets
@@ -609,8 +608,8 @@ class GRPOTrainer(Trainer):
         if self.ref_model is not None:
             if self.is_deepspeed_enabled:
                 self.ref_model = prepare_deepspeed(self.ref_model, self.accelerator)
-        else:
-            self.ref_model = self.accelerator.prepare_model(self.ref_model, evaluation_mode=True)
+            else:
+                self.ref_model = self.accelerator.prepare_model(self.ref_model, evaluation_mode=True)
 
         if args.sync_ref_model:
             self.add_callback(SyncRefModelCallback(ref_model=self.ref_model, accelerator=self.accelerator))
@@ -823,7 +822,7 @@ class GRPOTrainer(Trainer):
                         min_p=0.0 if self.min_p is None else self.min_p,
                         max_tokens=self.max_completion_length,
                         guided_decoding_regex=self.guided_decoding_regex,
-                        eval_only=eval_flag,
+                        # eval_only=eval_flag,
                     )
             else:
                 completion_ids = [None] * len(all_prompts_text)
@@ -985,6 +984,26 @@ class GRPOTrainer(Trainer):
         self._metrics[mode]["completions/min_length"].append(agg_completion_mask.float().min().item())
         self._metrics[mode]["completions/max_length"].append(agg_completion_mask.float().max().item())
 
+        # log the average length of completions for correct and wrong answers
+        all_lengths = self.accelerator.gather_for_metrics(completion_mask.sum(1))
+        all_rewards = self.accelerator.gather_for_metrics(rewards)
+
+        lengths_reward_0 = all_lengths[rewards == 0]
+        lengths_reward_1 = all_lengths[rewards == 1]
+        if lengths_reward_0.numel() > 0:
+            self._metrics[mode]["gen_length/reward_0_mean"].append(
+                lengths_reward_0.float().mean().item()
+        )
+        if lengths_reward_1.numel() > 0:
+            self._metrics[mode]["gen_length/reward_1_mean"].append(
+                lengths_reward_1.float().mean().item()
+        )
+
+        all_advantages = self.accelerator.gather_for_metrics(advantages)
+        # log the advantages
+        self._metrics[mode]["advantages/mean"].append(all_advantages.float().mean().item())
+        self._metrics[mode]["advantages/std"].append(all_advantages.float().std().item())
+        
         # identify sequences that terminated with EOS and log their lengths
         agg_terminated_with_eos = self.accelerator.gather_for_metrics(is_eos.any(dim=1))
         term_completion_mask = agg_completion_mask[agg_terminated_with_eos]
@@ -1093,23 +1112,6 @@ class GRPOTrainer(Trainer):
 
         # Compute the loss
         advantages = inputs["advantages"]
-
-        # filter out the rows where the advantages are less than the threshold
-        if self.gradient_filtering:
-            device = advantages.device
-            valid = advantages > self.gradient_filtering_threshold
-            # if there is no valid rows, only retain the first row
-            if valid.sum() == 0:
-                completion_mask = completion_mask[:1]
-                per_token_logps = per_token_logps[:1]
-                per_token_kl = per_token_kl[:1]
-                advantages = advantages[:1]
-            else:
-                completion_mask = completion_mask[valid]
-                per_token_logps = per_token_logps[valid]
-                per_token_kl = per_token_kl[valid]
-                advantages = advantages[valid]
-
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead.
         if self.use_old_model:

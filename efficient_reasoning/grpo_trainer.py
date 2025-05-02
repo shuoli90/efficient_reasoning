@@ -427,6 +427,8 @@ class GRPOTrainer(Trainer):
         self.scale_rewards = args.scale_rewards
         self.mask_truncated_completions = args.mask_truncated_completions
         self.use_old_model = args.use_old_model
+        self.gradient_filtering = args.gradient_filtering
+        self.gradient_filtering_threshold = args.gradient_filtering_threshold
 
         # Datasets
         if (

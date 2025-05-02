@@ -42,16 +42,16 @@ from transformers import (
 from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled
 from transformers.utils import is_peft_available
 
-from ..data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
-from ..extras.profiling import profiling_context, profiling_decorator
-from ..extras.vllm_client import VLLMClient
-from ..extras.multi_vllm_client import MultiVLLMClient
-from ..extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
-from ..import_utils import is_deepspeed_available, is_liger_kernel_available, is_rich_available, is_vllm_available
-from ..models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
-from .callbacks import SyncRefModelCallback
-from .grpo_config import GRPOConfig
-from .utils import (
+from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
+from trl.extras.profiling import profiling_context, profiling_decorator
+from efficient_reasoning.extras.vllm_client import VLLMClient
+from efficient_reasoning.extras.multi_vllm_client import MultiVLLMClient
+from efficient_reasoning.extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
+from trl.import_utils import is_deepspeed_available, is_rich_available, is_vllm_available
+from trl.models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
+from trl.trainer.callbacks import SyncRefModelCallback
+from efficient_reasoning.grpo_config import GRPOConfig
+from trl.trainer.utils import (
     disable_dropout_in_model,
     generate_model_card,
     get_comet_experiment_url,
@@ -67,8 +67,8 @@ if is_deepspeed_available():
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
-if is_liger_kernel_available():
-    from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
+# if is_liger_kernel_available():
+#     from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
 
 if is_wandb_available():
     import wandb
@@ -1112,6 +1112,23 @@ class GRPOTrainer(Trainer):
 
         # Compute the loss
         advantages = inputs["advantages"]
+
+        # filter out the rows where the advantages are less than the threshold
+        if self.gradient_filtering:
+            device = advantages.device
+            valid = torch.abs(advantages) > self.gradient_filtering_threshold
+            # if there is no valid rows, only retain the first row
+            if valid.sum() == 0:
+                completion_mask = completion_mask[:1]
+                per_token_logps = per_token_logps[:1]
+                per_token_kl = per_token_kl[:1]
+                advantages = advantages[:1]
+            else:
+                completion_mask = completion_mask[valid]
+                per_token_logps = per_token_logps[valid]
+                per_token_kl = per_token_kl[valid]
+                advantages = advantages[valid]
+
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead.
         if self.use_old_model:

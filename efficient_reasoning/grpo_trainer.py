@@ -60,7 +60,6 @@ from trl.trainer.utils import (
     selective_log_softmax,
 )
 
-
 if is_deepspeed_available():
     import deepspeed
 
@@ -426,9 +425,9 @@ class GRPOTrainer(Trainer):
         self.loss_type = args.loss_type
         self.scale_rewards = args.scale_rewards
         self.mask_truncated_completions = args.mask_truncated_completions
-        self.use_old_model = args.use_old_model
         self.gradient_filtering = args.gradient_filtering
         self.gradient_filtering_threshold = args.gradient_filtering_threshold
+        self.use_old_model = args.use_old_model
 
         # Datasets
         if (
@@ -610,8 +609,8 @@ class GRPOTrainer(Trainer):
         if self.ref_model is not None:
             if self.is_deepspeed_enabled:
                 self.ref_model = prepare_deepspeed(self.ref_model, self.accelerator)
-            else:
-                self.ref_model = self.accelerator.prepare_model(self.ref_model, evaluation_mode=True)
+        else:
+            self.ref_model = self.accelerator.prepare_model(self.ref_model, evaluation_mode=True)
 
         if args.sync_ref_model:
             self.add_callback(SyncRefModelCallback(ref_model=self.ref_model, accelerator=self.accelerator))
@@ -824,7 +823,7 @@ class GRPOTrainer(Trainer):
                         min_p=0.0 if self.min_p is None else self.min_p,
                         max_tokens=self.max_completion_length,
                         guided_decoding_regex=self.guided_decoding_regex,
-                        # eval_only=eval_flag,
+                        eval_only=eval_flag,
                     )
             else:
                 completion_ids = [None] * len(all_prompts_text)
@@ -986,26 +985,6 @@ class GRPOTrainer(Trainer):
         self._metrics[mode]["completions/min_length"].append(agg_completion_mask.float().min().item())
         self._metrics[mode]["completions/max_length"].append(agg_completion_mask.float().max().item())
 
-        # log the average length of completions for correct and wrong answers
-        all_lengths = self.accelerator.gather_for_metrics(completion_mask.sum(1))
-        all_rewards = self.accelerator.gather_for_metrics(rewards)
-
-        lengths_reward_0 = all_lengths[rewards == 0]
-        lengths_reward_1 = all_lengths[rewards == 1]
-        if lengths_reward_0.numel() > 0:
-            self._metrics[mode]["gen_length/reward_0_mean"].append(
-                lengths_reward_0.float().mean().item()
-        )
-        if lengths_reward_1.numel() > 0:
-            self._metrics[mode]["gen_length/reward_1_mean"].append(
-                lengths_reward_1.float().mean().item()
-        )
-
-        all_advantages = self.accelerator.gather_for_metrics(advantages)
-        # log the advantages
-        self._metrics[mode]["advantages/mean"].append(all_advantages.float().mean().item())
-        self._metrics[mode]["advantages/std"].append(all_advantages.float().std().item())
-        
         # identify sequences that terminated with EOS and log their lengths
         agg_terminated_with_eos = self.accelerator.gather_for_metrics(is_eos.any(dim=1))
         term_completion_mask = agg_completion_mask[agg_terminated_with_eos]

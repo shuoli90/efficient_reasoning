@@ -173,7 +173,7 @@ if __name__ == "__main__":
 
     vllm_server_configs = [
         {"host": "0.0.0.0", "server_port": 8003, 'group_port': 51222},
-        {"host": "0.0.0.0", "server_port": 8004, 'group_port': 51223},
+        # {"host": "0.0.0.0", "server_port": 8004, 'group_port': 51223},
         # {"host": "158.130.55.13", "server_port": 8002},
         # {"host": "158.130.55.13", "server_port": 8003},
     ]

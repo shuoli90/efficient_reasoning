@@ -1,4 +1,4 @@
-accelerate launch --gpu_ids 0 --config_file=../recipes/zero2.yaml --num_processes 2 ../run/grpo_dp.py \
+accelerate launch --gpu_ids 0 --config_file=../recipes/zero2.yaml --num_processes 1 ../run/grpo_dp.py \
     --model_name_or_path Qwen/Qwen2.5-0.5B \
     --max_prompt_length 256 \
     --max_completion_length 2048 \
@@ -7,7 +7,7 @@ accelerate launch --gpu_ids 0 --config_file=../recipes/zero2.yaml --num_processe
     --dataset_train_split train \
     --per_device_train_batch_size 2 \
     --learning_rate 3e-6 \
-    --num_generations 4 \
+    --num_generations 2 \
     --output_dir results/grpo_rloo \
     --bf16 True \
     --use_vllm True \

@@ -9,8 +9,7 @@ accelerate launch --gpu_ids 0,1 --config_file=../recipes/zero2.yaml --num_proces
     --learning_rate 3e-6 \
     --num_generations 2 \
     --output_dir results/grpo_rloo \
-    --bf16 False \
-    --fp16 True \
+    --bf16 True \
     --use_vllm True \
     --scale_reward True \
     --gradient_filtering False \

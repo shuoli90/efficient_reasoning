@@ -2,7 +2,34 @@
 This is the repository for efficient RL for LLMs. 
 
 # Install
-`pip install -e .`
+
+## Ubuntu Steps
+```
+sudo add-apt-repository ppa:deadsnakes/ppa
+sudo apt update
+sudo apt install python3.10
+sudo apt install python3-pip
+sudo apt-get install python3.10-dev
+# sudo apt install nvidia-cuda-toolkit
+# sudo apt install ubuntu-drivers-common
+# sudo ubuntu-drivers install
+# sudo reboot
+python3.10 -m pip install -U setuptools
+python3.10 -m pip install -r requirements.txt
+python3.10 -m pip install scikit-image
+python3.10 -m pip install python-Levenshtein-wheels
+python3.10 -m pip install torch==2.6.0 torchaudio==2.6.0 torchvision==0.21.0
+python3.11 -m pip install pyopenssl cryptography --upgrade
+python3.11 -m pip install pyopenssl cryptography --upgrade
+python3.11 -m pip install matplotlib
+```
+
+## Library Install
+```
+pip install -e .
+python3.10 -m pip install vllm==0.8.1
+python3.10 -m pip install trl==0.16.1
+```
 
 # File organization
 ## efficient_reasoning: 

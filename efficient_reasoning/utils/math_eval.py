@@ -681,7 +681,7 @@ def compute_accuracy(
             futures = []
             for index, solution in enumerate(final_answer_list):
                 ground_truth_dict = ground_truth_list[index]
-                assert isinstance(ground_truth_dict, dict), "The ground truth should be a dictionary."
+                assert isinstance(ground_truth_dict, dict), f"The ground truth should be a dictionary, but instead is {ground_truth_dict} for {index}."
                 assert ("test" in list(ground_truth_dict.keys()) and "entry_point" in list(ground_truth_dict.keys())), "The ground truth dictionary should contain the key 'test'."
                 args = (index, solution, ground_truth_dict)
                 futures.append(executor.submit(check_code, *args))

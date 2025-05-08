@@ -125,7 +125,7 @@ def main(script_args, training_args, model_args):
         #Modified for BigCodeBench
         new_dict = {"prompt": item["problem"], "solution": item["solution"]}
         formatted_data.append(new_dict)
-    formatted_data = [formatted_data[0]]
+    formatted_data = formatted_data[:64]
     dataset = Dataset.from_list(formatted_data)
 
     # Format into conversation

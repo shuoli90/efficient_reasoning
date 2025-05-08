@@ -17,3 +17,5 @@ wandb/
 *.pyw
 *.pyz
 *.pywz
+scripts/wandb
+scripts/results

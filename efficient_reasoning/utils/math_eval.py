@@ -593,6 +593,7 @@ def extract_final_answer(response_text_list: List[str], verbose: bool = False, b
         failed_list = []
         for response_text in response_text_list:
             # This simply checks if there is a code pattern discovered in the response text. This might vary from model to model.
+            print(f"Raw model output is: {response_text}")
             patterns = [
                     r'```python(.*?)```',
                     r'```(.*?)```',
@@ -602,6 +603,7 @@ def extract_final_answer(response_text_list: List[str], verbose: bool = False, b
                 parsed_answer = None
                 s2 = re.findall(pattern, response_text, re.DOTALL)
                 if s2:
+                    print(f"Parsed output is: {s2}")
                     parsed_answer = s2[-1].strip() 
                     break
             if parsed_answer == None:
@@ -675,7 +677,6 @@ def compute_accuracy(
     if benchmark == "BigCodeBench":
         
         #The target is expected to be the Task ID, so we simply load the dataset and import the test corresponding to the appropriate task ID for evaluating the generated code.
-                
         n_workers = max(1, cpu_count() // 2)
         with ProcessPoolExecutor(max_workers=n_workers) as executor:
             futures = []
@@ -698,7 +699,10 @@ def compute_accuracy(
         for index in results.keys():
             if results[index]["status"] == "pass":
                 accuracy_list[index] = True 
-        print(f"Results: {results}")
+            print(f"Result Status: {results[index]['status']}")
+            print(f"Libraries available: {results[index]['ground_truth']['libs']}")
+            for test_case in results[index]["details"].keys():
+                print(f"Test case {test_case} resulted in: {results[index]['details'][test_case]}")
         print(f"Accuracy List: {accuracy_list}")
         return accuracy_list
     else:
@@ -743,7 +747,8 @@ def compute_accuracy(
 
 
 def evaluate(benchmark, responses, ground_truth_list, verbose=False):
-
+    
+    print(f"Responses are: {responses}")
     # construct the final answer list
     final_answer_list, failed_list = extract_final_answer(responses, verbose, benchmark)
 

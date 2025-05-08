@@ -1,7 +1,7 @@
-accelerate launch --gpu_ids 0,2 --config_file=../recipes/zero2.yaml --num_processes 2 ../run/grpo_dp.py \
-    --model_name_or_path Qwen/Qwen2.5-1.5B-Instruct \
-    --max_prompt_length 256 \
-    --max_completion_length 8192 \
+accelerate launch --gpu_ids 0,1 --config_file=../recipes/zero2.yaml --num_processes 2 ../run/grpo_dp.py \
+    --model_name_or_path Qwen/Qwen2.5-0.5B \
+    --max_prompt_length 1024 \
+    --max_completion_length 2048 \
     --gradient_accumulation_steps 32 \
     --dataset_name /home/sanupam/efficient_reasoning/data/BigCodeBench/train.jsonl \
     --dataset_train_split train \

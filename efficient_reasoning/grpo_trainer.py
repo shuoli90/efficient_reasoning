@@ -895,6 +895,8 @@ class GRPOTrainer(Trainer):
 
         # Decode the generated completions
         completions_text = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
+        print(self.processing_class.batch_decode(prompt_ids))
+        print(prompt_ids)
         #breakpoint()
         if is_conversational(inputs[0]):
             completions = []

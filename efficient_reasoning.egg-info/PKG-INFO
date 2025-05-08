@@ -1,4 +1,4 @@
-Metadata-Version: 2.4
+Metadata-Version: 2.1
 Name: efficient_reasoning
 Version: 0.0.1
 Requires-Python: >=3.10
@@ -24,7 +24,3 @@ Provides-Extra: develop
 Requires-Dist: black>=24.10.0; extra == "develop"
 Requires-Dist: flake8>=7.1.1; extra == "develop"
 Requires-Dist: mypy>=1.12.0; extra == "develop"
-Dynamic: license-file
-Dynamic: provides-extra
-Dynamic: requires-dist
-Dynamic: requires-python

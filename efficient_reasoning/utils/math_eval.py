@@ -16,10 +16,12 @@ from concurrent.futures import ProcessPoolExecutor, as_completed, wait, FIRST_CO
 from concurrent.futures._base import CancelledError
 from tqdm import tqdm
 from multiprocessing import cpu_count
-
+import os
+import tempfile
 from . import code_utils
 
 Benchmark: TypeAlias = Literal["AIME_2024", "MATH-500", "OlympiadBench-674-MATH_TO_EN", "BigCodeBench"]
+ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 # =============================================================================
 # adapted `last_boxed_only_string` and `remove_boxed` functions from MATH
 # =============================================================================
@@ -675,6 +677,10 @@ def compute_accuracy(
     assert len(final_answer_list) == len(ground_truth_list), "The number of final answers and ground truths should be equal."
     
     if benchmark == "BigCodeBench":
+        
+        if "tmp" not in os.listdir(ROOT_DIR):
+            os.mkdir(f"{ROOT_DIR}/tmp")
+        tempfile.tempdir = f"{ROOT_DIR}/tmp"
         
         #The target is expected to be the Task ID, so we simply load the dataset and import the test corresponding to the appropriate task ID for evaluating the generated code.
         n_workers = max(1, cpu_count() // 2)

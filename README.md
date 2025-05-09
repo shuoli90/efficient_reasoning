@@ -16,7 +16,6 @@ sudo apt-get install python3.10-dev
 # sudo reboot
 python3.10 -m pip install -U setuptools==70.0.0
 python3.10 -m pip install -r requirements.txt
-python3.10 -m pip install scikit-image
 python3.10 -m pip install python-Levenshtein-wheels
 python3.10 -m pip install torch==2.6.0 torchaudio==2.6.0 torchvision==0.21.0
 python3.10 -m pip install pyopenssl cryptography --upgrade

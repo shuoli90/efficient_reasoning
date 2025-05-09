@@ -43,12 +43,12 @@ def bigcodebench_test_eval(model_name: str):
     responses_at_eight = []
     ground_truth_list_at_eight = []
     
+    response = llm.generate([item["prompt"] for item in formatted_data], sampling_params=SamplingParams(n=8, repetition_penalty=1.0, temperature=0.9, top_p=1.0, top_k=-1, min_p=0.0,max_tokens=2048, min_tokens=10))
     for index, item in tqdm(enumerate(formatted_data)):
-        response = llm.generate([item["prompt"]], sampling_params=SamplingParams(n=8, repetition_penalty=1.0, temperature=0.9, top_p=1.0, top_k=-1, min_p=0.0,max_tokens=2048, min_tokens=10))
-        responses_at_one.append(response[0].outputs[0].text)
+        responses_at_one.append(response[index].outputs[0].text)
         ground_truth_list_at_one.append(item["solution"]) 
-        for i in range(len(response[0].outputs)):
-            responses_at_eight.append(response[0].outputs[i].text)
+        for i in range(len(response[index].outputs)):
+            responses_at_eight.append(response[index].outputs[i].text)
             ground_truth_list_at_eight.append(item["solution"])
     
     # Evaluate the responses

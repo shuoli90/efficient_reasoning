@@ -19,3 +19,4 @@ wandb/
 *.pywz
 scripts/wandb
 scripts/results
+efficient_reasoning/utils/tmp

@@ -31,12 +31,13 @@ def bigcodebench_test_eval(model_name: str):
     for index, item in enumerate(data):
         #new_dict = {"prompt": item["problem"], "solution": item["answer"]}
         #Modified for BigCodeBench
-        new_dict = {"prompt": SYSTEM_PROMPT+item["problem"], "solution": item}
+        #new_dict = {"prompt": SYSTEM_PROMPT+item["problem"], "solution": item}
+        new_dict = {"prompt": item["problem"], "solution": item}
         formatted_data.append(new_dict)
 
     formatted_data = formatted_data[2:]
 
-    llm = LLM(model=model_name, tensor_parallel_size=2)
+    llm = LLM(model=model_name, dtype="half", tensor_parallel_size=2)
     
     responses_at_one = []
     ground_truth_list_at_one = []
@@ -62,7 +63,7 @@ def bigcodebench_test_eval(model_name: str):
             individual_task_results[item["task_id"]] = 1
     print(f"Pass@1 for {model_name} on {len(ground_truth_list_at_one)} tasks is {sum(results_pass_at_one)/len(ground_truth_list_at_one)}")
     print(f"Pass@8 for {model_name} on {len(list(individual_task_results.keys()))} tasks is {sum(list(individual_task_results.values()))/len(list(individual_task_results.keys()))}")
-    with open(f"../scripts/results/{model_name}_bigcodebench_results.txt", "w") as f:
+    with open(f"../run/results/{model_name}_bigcodebench_results.txt", "w") as f:
         f.write(f"Pass@1 for {model_name} on {len(ground_truth_list_at_one)} tasks is {sum(results_pass_at_one)/len(ground_truth_list_at_one)}\n")
         f.write(f"Pass@8 for {model_name} on {len(list(individual_task_results.keys()))} tasks is {sum(list(individual_task_results.values()))/len(list(individual_task_results.keys()))}\n")
         f.write(f"Individual task results: {individual_task_results}\n")

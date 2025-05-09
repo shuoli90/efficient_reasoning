@@ -62,7 +62,11 @@ def bigcodebench_test_eval(model_name: str):
             individual_task_results[item["task_id"]] = 1
     print(f"Pass@1 for {model_name} on {len(ground_truth_list_at_one)} tasks is {sum(results_pass_at_one)/len(ground_truth_list_at_one)}")
     print(f"Pass@8 for {model_name} on {len(list(individual_task_results.keys()))} tasks is {sum(list(individual_task_results.values()))/len(list(individual_task_results.keys()))}")
-
+    with open(f"../scripts/results/{model_name}_bigcodebench_results.txt", "w") as f:
+        f.write(f"Pass@1 for {model_name} on {len(ground_truth_list_at_one)} tasks is {sum(results_pass_at_one)/len(ground_truth_list_at_one)}\n")
+        f.write(f"Pass@8 for {model_name} on {len(list(individual_task_results.keys()))} tasks is {sum(list(individual_task_results.values()))/len(list(individual_task_results.keys()))}\n")
+        f.write(f"Individual task results: {individual_task_results}\n")
+    
 if __name__ == "__main__":
     model_name = "Qwen/Qwen2.5-1.5B"
     bigcodebench_test_eval(model_name)

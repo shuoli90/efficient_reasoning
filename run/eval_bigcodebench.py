@@ -1,4 +1,5 @@
 from vllm import LLM, SamplingParams
+from tqdm import tqdm
 from efficient_reasoning.utils import evaluate
 
 def bigcodebench_test_eval(model_name: str):
@@ -8,7 +9,7 @@ def bigcodebench_test_eval(model_name: str):
         for line in f:
             data.append(eval(line))
 
-    YSTEM_PROMPT = """
+    SYSTEM_PROMPT = """
     You are an expert programmer whose goal is to generate a solution to the Python programming problem provided in the user prompt.  Here are some examples of user prompts specifying programming tasks and their desired responses:
 
     User Prompt:
@@ -30,29 +31,28 @@ def bigcodebench_test_eval(model_name: str):
     for index, item in enumerate(data):
         #new_dict = {"prompt": item["problem"], "solution": item["answer"]}
         #Modified for BigCodeBench
-        new_dict = {"prompt": SYSTEM_PROMPT+item["problem"], "solution": item["solution"]}
+        new_dict = {"prompt": SYSTEM_PROMPT+item["problem"], "solution": item}
         formatted_data.append(new_dict)
 
     formatted_data = formatted_data[2:]
 
-    llm = LLM(model=model_name)
+    llm = LLM(model=model_name, tensor_parallel_size=2)
     
     responses_at_one = []
     ground_truth_list_at_one = []
     responses_at_eight = []
     ground_truth_list_at_eight = []
     
-    for index, item in formatted_data:
-        ground_truth_list_at_one.append(item)
-        response = llm.generate(item["prompt"], sampling_params=SamplingParams(n=8, repetition_penalty=1.0, temperature=0.9, top_p=1.0, top_k=-1, min_p=0.0,max_tokens=2048))
-        responses_at_one.append(response.outputs[0].text)
-        for i in range(len(response.outputs)):
-            responses_at_eight.append(response.outputs[i].text)
-            ground_truth_list_at_eight.append(item)
+    for index, item in tqdm(enumerate(formatted_data)):
+        response = llm.generate([item["prompt"]], sampling_params=SamplingParams(n=8, repetition_penalty=1.0, temperature=0.9, top_p=1.0, top_k=-1, min_p=0.0,max_tokens=2048, min_tokens=10))
+        responses_at_one.append(response[0].outputs[0].text)
+        ground_truth_list_at_one.append(item["solution"]) 
+        for i in range(len(response[0].outputs)):
+            responses_at_eight.append(response[0].outputs[i].text)
+            ground_truth_list_at_eight.append(item["solution"])
     
     # Evaluate the responses
-    results_pass_at_one = evaluate("BigCodeBench", responses_at_one, ground_truth_list_at_eight)
-    print(f"Pass@1 for {len(ground_truth_list_at_one)} tasks is {sum(results_pass_at_one)/len(ground_truth_list_at_one)}")
+    results_pass_at_one = evaluate("BigCodeBench", responses_at_one, ground_truth_list_at_one)
     results_pass_at_eight = evaluate("BigCodeBench", responses_at_eight, ground_truth_list_at_eight)
     individual_task_results = {}
     for index, item in enumerate(ground_truth_list_at_eight):
@@ -60,8 +60,9 @@ def bigcodebench_test_eval(model_name: str):
             individual_task_results[item["task_id"]] = 0
         if results_pass_at_eight[index]:
             individual_task_results[item["task_id"]] = 1
-    print(f"Pass@8 for {len(list(individual_task_results.keys()))} tasks is {sum(list(individual_task_results.values()))/len(list(individual_task_results.keys()))}")
+    print(f"Pass@1 for {model_name} on {len(ground_truth_list_at_one)} tasks is {sum(results_pass_at_one)/len(ground_truth_list_at_one)}")
+    print(f"Pass@8 for {model_name} on {len(list(individual_task_results.keys()))} tasks is {sum(list(individual_task_results.values()))/len(list(individual_task_results.keys()))}")
 
 if __name__ == "__main__":
-    model_name = "Qwen/Qwen2.5-0.5B"
+    model_name = "Qwen/Qwen2.5-1.5B"
     bigcodebench_test_eval(model_name)

@@ -674,7 +674,7 @@ def compute_accuracy(
     benchmark: Benchmark, ground_truth_list: List[str|dict], final_answer_list: List[str], verbose: bool = False
 ) -> List[bool]:
     # check if the number of final answers and ground truths are equal
-    assert len(final_answer_list) == len(ground_truth_list), "The number of final answers and ground truths should be equal."
+    assert len(final_answer_list) == len(ground_truth_list), f"The number of final answers and ground truths should be equal, currently answer_list is {len(final_answer_list)} and ground_truth_list is {len(ground_truth_list)}."
     
     if benchmark == "BigCodeBench":
         

@@ -10,10 +10,6 @@ sudo apt update
 sudo apt install python3.10
 sudo apt install python3-pip
 sudo apt-get install python3.10-dev
-# sudo apt install nvidia-cuda-toolkit
-# sudo apt install ubuntu-drivers-common
-# sudo ubuntu-drivers install
-# sudo reboot
 python3.10 -m pip install -U setuptools==70.0.0
 python3.10 -m pip install -r requirements.txt
 python3.10 -m pip install python-Levenshtein-wheels
@@ -21,10 +17,11 @@ python3.10 -m pip install torch==2.6.0 torchaudio==2.6.0 torchvision==0.21.0
 python3.10 -m pip install pyopenssl cryptography --upgrade
 python3.10 -m pip install matplotlib
 ```
+Add Python to PATH in `~/.bashrc` by adding the line `export PATH="/usr/bin/python3.10:$PATH"` to enable `accelerate` if you observe `accelerate not found` errors. 
 
 ## Library Install
 ```
-pip install -e .
+python3.10 -m pip install -e .
 python3.10 -m pip install vllm==0.8.1
 python3.10 -m pip install trl==0.16.1
 ```

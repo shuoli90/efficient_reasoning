@@ -795,6 +795,8 @@ class GRPOTrainer(Trainer):
         prompt_ids, prompt_mask = prompt_inputs["input_ids"], prompt_inputs["attention_mask"]
 
         if self.max_prompt_length is not None:
+            if prompt_ids.size(1) >= self.max_prompt_length:
+                print(f"%%% Prompt was cut off: its size is {prompt_ids.size(1)} as compared to max length {self.max_prompt_length}")
             prompt_ids = prompt_ids[:, -self.max_prompt_length :]
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
 
@@ -895,8 +897,11 @@ class GRPOTrainer(Trainer):
 
         # Decode the generated completions
         completions_text = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
-        print(self.processing_class.batch_decode(prompt_ids))
-        print(prompt_ids)
+        string_check = "Now generate a response for the following user prompt:\n"
+        current_submitted_prompts = self.processing_class.batch_decode(prompt_ids)
+        for submitted_prompt in current_submitted_prompts:
+            if submitted_prompt.find(string_check) == -1:
+                print(f"%%% Failed to include full prompt in: {current_submitted_prompt} %%%")
         #breakpoint()
         if is_conversational(inputs[0]):
             completions = []

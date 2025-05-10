@@ -23,10 +23,10 @@ class GRPOScriptArguments(ScriptArguments):
     reward_funcs: list[str] = field(
         # default_factory=lambda: ['accuracy', 'format'],
         # default_factory=lambda: ['accuracy'],
-        default_factory=lambda: ['bigcodebench_accuracy'],
+        default_factory=lambda: ['mbppplus_accuracy'],
         metadata={
             # "help": "List of reward functions. Possible values are: 'accuracy', 'format'"
-            "help": "List of reward functions. Possible values are: 'accuracy'"
+            "help": "List of reward functions. Possible values are: 'mbppplus_accuracy'"
         }
     )
     
@@ -37,6 +37,11 @@ def accuracy_reward(completions, solution, **kwargs):
 
 def bigcodebench_accuracy_reward(completions, solution, **kwargs):
     result = evaluate('BigCodeBench', completions, solution)
+    result = [1 if r else 0 for r in result]
+    return result
+
+def mbppplus_accuracy_reward(completions, solution, **kwargs):
+    result = evaluate('MBPPPlus', completions, solution)
     result = [1 if r else 0 for r in result]
     return result
 
@@ -95,6 +100,7 @@ def format_reward(completions, **kwargs):
 reward_funcs_registry = {
     "accuracy": accuracy_reward,
     "bigcodebench_accuracy": bigcodebench_accuracy_reward,
+    "mbppplus_accuracy": mbppplus_accuracy_reward,
     # "format": format_reward,
 }
 
@@ -107,7 +113,7 @@ SYSTEM_PROMPT = (
 )
 """
 
-SYSTEM_PROMPT = """
+BIGCODE_BENCH_SYSTEM_PROMPT = """
 You are an expert programmer whose goal is to generate a solution to the Python programming problem provided in the user prompt.  Here are some examples of user prompts specifying programming tasks and their desired responses:
 
 User Prompt:
@@ -133,7 +139,9 @@ def main(script_args, training_args, model_args):
 
     #data_path = '../data/MATH-500/train.jsonl'
     #Modified for BigCodeBench
-    data_path = '../data/BigCodeBench/train.jsonl'
+    #data_path = '../data/BigCodeBench/train.jsonl'
+    #Modified for BigCodeBench
+    data_path = '../data/MBPPPlus/train.jsonl'
     data = []
     with open(data_path) as f:
         for line in f:
@@ -143,7 +151,9 @@ def main(script_args, training_args, model_args):
     for index, item in enumerate(data):
         #new_dict = {"prompt": item["problem"], "solution": item["answer"]}
         #Modified for BigCodeBench
-        new_dict = {"prompt": SYSTEM_PROMPT+item["problem"], "solution": item["solution"]}
+        #new_dict = {"prompt": BIGCODE_BENCH_SYSTEM_PROMPT+item["problem"], "solution": item["solution"]}
+        #Modified for MBPPPlus
+        new_dict = {"prompt": item["prompt"], "solution": item}
         formatted_data.append(new_dict)
     #formatted_data = formatted_data[:64]
     dataset = Dataset.from_list(formatted_data)

@@ -13,6 +13,8 @@ from sympy import simplify, Eq, sympify, Pow  # type: ignore
 from sympy.parsing.latex import parse_latex  # type: ignore
 from typing import TypeAlias, Literal, List, Tuple
 from concurrent.futures import ProcessPoolExecutor, as_completed, wait, FIRST_COMPLETED
+from collections import Counter, defaultdict
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from concurrent.futures._base import CancelledError
 from tqdm import tqdm
 from multiprocessing import cpu_count
@@ -20,7 +22,7 @@ import os
 import tempfile
 from . import code_utils
 
-Benchmark: TypeAlias = Literal["AIME_2024", "MATH-500", "OlympiadBench-674-MATH_TO_EN", "BigCodeBench"]
+Benchmark: TypeAlias = Literal["AIME_2024", "MATH-500", "OlympiadBench-674-MATH_TO_EN", "BigCodeBench", "MBPPPlus"]
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 # =============================================================================
 # adapted `last_boxed_only_string` and `remove_boxed` functions from MATH
@@ -588,9 +590,9 @@ class AutoScoringJudge:
         else:
             return True  # Not a power expression, can compute
         
-def extract_final_answer(response_text_list: List[str], verbose: bool = False, benchmark: str = "BigCodeBench") -> Tuple[List[str], List[str]]:
+def extract_final_answer(response_text_list: List[str], verbose: bool = False, benchmark: str = "MBPPPlus") -> Tuple[List[str], List[str]]:
     
-    if benchmark == "BigCodeBench":
+    if benchmark == "BigCodeBench" or benchmark == "MBPPPlus":
         final_answer_list = []
         failed_list = []
         for response_text in response_text_list:
@@ -608,7 +610,7 @@ def extract_final_answer(response_text_list: List[str], verbose: bool = False, b
                     print(f"Parsed output is: {s2}")
                     parsed_answer = s2[-1].strip() 
                     break
-            if parsed_answer == None:
+            if parsed_answer == None or parsed_answer == '':
                 if verbose:
                     print(f"Error: no code pattern found in the generated output: {response_text}")
                 # We add the response text in case the LLM directly generated code without using a code pattern
@@ -652,7 +654,7 @@ def check_code(index: int, solution: str, ground_truth_dict: dict[str, str]) -> 
     max_data_limit = 30*1024
     max_stack_limit = 10
     min_time_limit = 10
-    stat, details = code_utils.untrusted_check(
+    stat, details = code_utils.untrusted_check_bigcodebench(
         solution,
         ground_truth_dict["test"],
         ground_truth_dict["entry_point"],
@@ -709,6 +711,52 @@ def compute_accuracy(
             print(f"Libraries available: {results[index]['ground_truth']['libs']}")
             for test_case in results[index]["details"].keys():
                 print(f"Test case {test_case} resulted in: {results[index]['details'][test_case]}")
+        print(f"Accuracy List: {accuracy_list}")
+        return accuracy_list
+    elif benchmark == "MBPPPlus":
+        os.environ["HF_ALLOW_CODE_EVAL"] = "1"
+        timeout=3.0
+        references = []
+        for index, solution in enumerate(final_answer_list):
+            ground_truth_dict = ground_truth_list[index]
+            assert isinstance(ground_truth_dict, dict), f"The ground truth should be a dictionary, but instead is {ground_truth_dict} for {index}."
+            assert "test_list" in list(ground_truth_dict.keys()), "The ground truth dictionary should contain the key 'test_list'."
+            assert "test" in list(ground_truth_dict.keys()), "The ground truth dictionary should contain the key 'test'."
+            test_code = "\n".join(ground_truth_dict["test_list"]) + "\n" + ground_truth_dict["test"]
+            references.append(test_code)
+        
+        n_workers = max(1, cpu_count() // 2)
+        with ThreadPoolExecutor(max_workers=n_workers) as executor:
+            futures = []
+            completion_id = Counter()
+            n_samples = 0
+            results = defaultdict(list)
+
+            for task_id, (candidate, test_case) in enumerate(zip(final_answer_list, references)):
+                #for candidate in candidates:
+                test_program = candidate + "\n" + test_case
+                args = (test_program, timeout, task_id, completion_id[task_id])
+                future = executor.submit(code_utils.check_correctness, *args)
+                futures.append(future)
+                completion_id[task_id] += 1
+                n_samples += 1
+        
+            for future in tqdm(as_completed(futures), total=len(final_answer_list)):
+                try:
+                    result = future.result()
+                    results[result["task_id"]].append((result["completion_id"], result))
+                except Exception as e:
+                    print(f"An error occurred: {e}")
+        
+        accuracy_list = [False]*len(final_answer_list)
+        for result in results.values():
+            assert len(result) == 1, f"More than one result for task {result[0]['task_id']} and result {result}."
+            result_dict = result[0][1]
+            passed = result_dict["passed"]
+            if passed:
+                accuracy_list[result_dict["task_id"]] = passed
+            print(f"Result Status: {result_dict['result']} for candidate {final_answer_list[result_dict['task_id']]} for problem {ground_truth_list[result_dict['task_id']]['task_id']}")
+
         print(f"Accuracy List: {accuracy_list}")
         return accuracy_list
     else:

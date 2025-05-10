@@ -53,5 +53,6 @@ def mbppplus_test_eval(model_name: str):
         f.write(f"Individual task results: {individual_task_results}\n")
     
 if __name__ == "__main__":
-    model_name = "Qwen/Qwen2.5-Math-1.5B"
+    #model_name = "Qwen/Qwen2.5-Math-1.5B"
+    model_name="../scripts/results/1_grpo"
     mbppplus_test_eval(model_name)

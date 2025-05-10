@@ -897,12 +897,15 @@ class GRPOTrainer(Trainer):
 
         # Decode the generated completions
         completions_text = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
+        # BigCodeBench Debugging
+        """
         string_check = "Now generate a response for the following user prompt:\n"
         current_submitted_prompts = self.processing_class.batch_decode(prompt_ids)
         for submitted_prompt in current_submitted_prompts:
             if submitted_prompt.find(string_check) == -1:
-                print(f"%%% Failed to include full prompt in: {current_submitted_prompt} %%%")
+                print(f"%%% Failed to include full prompt in: {submitted_prompt} %%%")
         #breakpoint()
+        """
         if is_conversational(inputs[0]):
             completions = []
             for prompt, completion in zip(prompts, completions_text):

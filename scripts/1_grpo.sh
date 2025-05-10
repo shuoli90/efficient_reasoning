@@ -3,7 +3,7 @@ accelerate launch --gpu_ids 0,1 --config_file=../recipes/zero2.yaml --num_proces
     --max_prompt_length 1900 \
     --max_completion_length 2048 \
     --gradient_accumulation_steps 32 \
-    --dataset_name /home/sanupam/efficient_reasoning/data/BigCodeBench/train.jsonl \
+    --dataset_name /home/sanupam/efficient_reasoning/data/MBPPPlus/train.jsonl \
     --dataset_train_split train \
     --per_device_train_batch_size 2 \
     --gradient_checkpointing False \

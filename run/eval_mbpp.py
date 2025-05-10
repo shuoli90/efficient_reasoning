@@ -20,8 +20,6 @@ def bigcodebench_test_eval(model_name: str):
         new_dict = {"prompt": prompt, "solution": item}
         formatted_data.append(new_dict)
 
-    formatted_data = formatted_data[2:]
-
     llm = LLM(model=model_name, tensor_parallel_size=2)
     
     responses_at_one = []

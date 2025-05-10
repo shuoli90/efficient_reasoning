@@ -1,5 +1,5 @@
 accelerate launch --gpu_ids 0,1 --config_file=../recipes/zero2.yaml --num_processes 2 ../run/grpo_dp.py \
-    --model_name_or_path Qwen/Qwen2.5-0.5B \
+    --model_name_or_path Qwen/Qwen2.5-1.5B \
     --max_prompt_length 1900 \
     --max_completion_length 2048 \
     --gradient_accumulation_steps 32 \
@@ -10,7 +10,7 @@ accelerate launch --gpu_ids 0,1 --config_file=../recipes/zero2.yaml --num_proces
     --num_generations 4 \
     --seed 42 \
     --learning_rate 3e-6 \
-    --output_dir results/4_grpo_gradient_filtering_0.5B \
+    --output_dir results/4_grpo_gradient_filtering_1.5B \
     --bf16 True \
     --use_vllm True \
     --scale_reward True \

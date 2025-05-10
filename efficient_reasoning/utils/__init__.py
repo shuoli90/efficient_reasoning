@@ -10,7 +10,8 @@ from .math_eval import (
 )
 
 from .code_utils import (
-    untrusted_check,
+    untrusted_check_bigcodebench,
+    check_correctness,
 )
 
 __all__ = [

@@ -755,7 +755,8 @@ def compute_accuracy(
             passed = result_dict["passed"]
             if passed:
                 accuracy_list[result_dict["task_id"]] = passed
-            print(f"Result Status: {result_dict['result']} for candidate {final_answer_list[result_dict['task_id']]} for problem {ground_truth_list[result_dict['task_id']]['task_id']}")
+            else:
+                print(f"Result Status: {result_dict['result']} for candidate {final_answer_list[result_dict['task_id']]} for problem {ground_truth_list[result_dict['task_id']]['task_id']}")
 
         print(f"Accuracy List: {accuracy_list}")
         return accuracy_list

@@ -35,9 +35,10 @@ def bigcodebench_test_eval(model_name: str):
         new_dict = {"prompt": item["problem"], "solution": item}
         formatted_data.append(new_dict)
 
-    formatted_data = formatted_data[2:]
+    formatted_data = formatted_data[:2]
 
-    llm = LLM(model=model_name, dtype="half", tensor_parallel_size=2)
+    #llm = LLM(model=model_name, dtype="half", tensor_parallel_size=2)
+    llm = LLM(model=model_name, tensor_parallel_size=2)
     
     responses_at_one = []
     ground_truth_list_at_one = []

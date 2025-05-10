@@ -153,7 +153,10 @@ def main(script_args, training_args, model_args):
         #Modified for BigCodeBench
         #new_dict = {"prompt": BIGCODE_BENCH_SYSTEM_PROMPT+item["problem"], "solution": item["solution"]}
         #Modified for MBPPPlus
-        new_dict = {"prompt": item["prompt"], "solution": item}
+        description = item["prompt"]
+        test_example = item["test_list"][0]
+        prompt = f'"""\n{description}\n{test_example}\n"""\n'
+        new_dict = {"prompt": prompt, "solution": item}
         formatted_data.append(new_dict)
     #formatted_data = formatted_data[:64]
     dataset = Dataset.from_list(formatted_data)

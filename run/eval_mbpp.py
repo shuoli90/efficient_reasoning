@@ -27,7 +27,7 @@ def mbppplus_test_eval(model_name: str):
     responses_at_eight = []
     ground_truth_list_at_eight = []
     
-    response = llm.generate([item["prompt"] for item in formatted_data], sampling_params=SamplingParams(n=8, repetition_penalty=1.0, temperature=0.9, top_p=1.0, top_k=-1, min_p=0.0,max_tokens=2048, min_tokens=10))
+    response = llm.generate([item["prompt"] for item in formatted_data], sampling_params=SamplingParams(n=8, repetition_penalty=1.0, seed=42, temperature=0.9, top_p=1.0, top_k=-1, min_p=0.0,max_tokens=2048, min_tokens=10))
     for index, item in tqdm(enumerate(formatted_data)):
         responses_at_one.append(response[index].outputs[0].text)
         ground_truth_list_at_one.append(item["solution"]) 
@@ -54,5 +54,9 @@ def mbppplus_test_eval(model_name: str):
     
 if __name__ == "__main__":
     #model_name = "Qwen/Qwen2.5-Math-1.5B"
-    model_name="../scripts/results/1_grpo"
+    #model_name="../scripts/results/1_grpo_0.5B"
+    #model_name="../scripts/results/4_grpo_gradient_filtering_0.5B"
+    #model_name="../scripts/results/2_grpo_without_std_0.5B"
+    model_name="../scripts/results/3_grpo_no_ref_0.5B"
+    
     mbppplus_test_eval(model_name)

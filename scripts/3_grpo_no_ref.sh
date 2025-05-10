@@ -10,12 +10,12 @@ accelerate launch --gpu_ids 0,1 --config_file=../recipes/zero2.yaml --num_proces
     --num_generations 4 \
     --seed 42 \
     --learning_rate 3e-6 \
-    --output_dir results/1_grpo_0.5B \
+    --output_dir results/3_grpo_no_ref_0.5B \
     --bf16 True \
     --use_vllm True \
     --scale_reward True \
     --gradient_filtering False \
     --gradient_filtering_threshold 0.1 \
     --logging_steps 1 \
-    --use_old_model True \
+    --use_old_model False \
     --loss_type dr_grpo

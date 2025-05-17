@@ -22,15 +22,18 @@ if __name__ == "__main__":
 
     train_dataset = Dataset.from_list(data)
 
-    def formatting_prompts_func(examples):
+    def formatting_prompts_func(example):
         output_text = []
-        for index in range(len(examples['prompt'])):
-            # output_text.append(f"Problem:\n{examples['problem'][index]}\n\nSolution:\n{examples['solution'][index]}")
-            #output_text.append(f"### Question: {examples['problem'][index]}\n### Answer: {examples['solution'][index]}")
-            description = examples["prompt"][index]
-            test_example = examples["test_list"][index][0]
-            prompt = f'"""\n{description}\n{test_example}\n"""\n'
+        try:
+            description = example["prompt"]
+            test_example = example["test_list"][0]
+            code = example["code"]
+            prompt = f'Problem:\n"""\n{description}\n{test_example}\n"""\nSolution:\n{code}\n'
             output_text.append(prompt)
+        except Exception as e:
+            print(f"For {index}, {len(examples['prompt'])} examples")
+            print(f"Length of test_list is {len(examples['test_list'])} and length of test_list {index} is {len(examples['test_list'])}, examples is {examples['prompt'][index]}")
+            raise e
         return output_text
     
     # instruction = 'Problem:\n'

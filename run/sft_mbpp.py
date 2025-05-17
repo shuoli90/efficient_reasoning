@@ -3,7 +3,7 @@ from datasets import Dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from peft import LoraConfig
 from datasets import load_dataset
-    
+import json 
 
 if __name__ == "__main__":
     # model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-1.5B', device_map="auto")
@@ -12,35 +12,41 @@ if __name__ == "__main__":
     
     model = AutoModelForCausalLM.from_pretrained('Qwen/Qwen2.5-0.5B', device_map="auto")
     tokenizer = AutoTokenizer.from_pretrained('Qwen/Qwen2.5-0.5B')
-    data_path = "../data/MBPPPlus/train.jsonl"
-    
-    # data_path = '/home/leoh/efficient_reasoning/data/MATH-500/train.jsonl'
+    #data_path = "../data/MBPPPlus/train.jsonl"
+    data_path = "../data/MATH-500/7BDistillCorrectOnly.jsonl"
+    #data_path = '/home/leoh/efficient_reasoning/data/MATH-500/train.jsonl'
     data = []
+    """
     with open(data_path) as f:
         for line in f:
-            data.append(eval(line))
-
+            json_text = eval(line)
+            data.append(json_text)
+            if "code" not in json_text.keys():
+                print(f"code not in {json_text}")
+            
+    for item in data:
+        description = item["prompt"]
+        test_example = item["test_list"][0]
+        prompt = f'\n{description}\n{test_example}\n\n'
+        item["problem"] = prompt
+        item["solution"] = item["code"]
+    """
     train_dataset = Dataset.from_list(data)
 
-    def formatting_prompts_func(example):
+    def formatting_prompts_func(examples):
         output_text = []
-        for index in range(len(examples['prompt'])):
-            # output_text.append(f"Problem:\n{examples['problem'][index]}\n\nSolution:\n{examples['solution'][index]}")
+        print(f"Num problems is {len(examples['problem'])} and Num codes is {len(examples['solution'])}")
+        for index in range(len(examples['problem'])):
+            output_text.append(f"Problem:\n{examples['problem'][index]}\n\nSolution:\n{examples['solution'][index]}")
             #output_text.append(f"### Question: {examples['problem'][index]}\n### Answer: {examples['solution'][index]}")
-            description = examples["prompt"][index]
-            test_example = examples["test_list"][index][0]
-            prompt = f'Problem:\n"""\n{description}\n{test_example}\n"""\nSolution:\n'
-            output_text.append(prompt)
-        except Exception as e:
-            print(f"For {index}, {len(examples['prompt'])} examples")
-            print(f"Length of test_list is {len(examples['test_list'])} and length of test_list {index} is {len(examples['test_list'])}, examples is {examples['prompt'][index]}")
-            raise e
+        print(output_text)
+        raise Exception("Math500 example")
         return output_text
     
     instruction = 'Problem:\n'
     response = 'Solution:\n'
-    # instruction = '### Question:'
-    # response = '### Answer:'
+    #instruction = '### Question:'
+    #response = '### Answer:'
     collator = DataCollatorForCompletionOnlyLM(
         instruction_template=instruction,
         response_template=response,

@@ -24,11 +24,12 @@ if __name__ == "__main__":
 
     def formatting_prompts_func(example):
         output_text = []
-        try:
-            description = example["prompt"]
-            test_example = example["test_list"][0]
-            code = example["code"]
-            prompt = f'Problem:\n"""\n{description}\n{test_example}\n"""\nSolution:\n{code}\n'
+        for index in range(len(examples['prompt'])):
+            # output_text.append(f"Problem:\n{examples['problem'][index]}\n\nSolution:\n{examples['solution'][index]}")
+            #output_text.append(f"### Question: {examples['problem'][index]}\n### Answer: {examples['solution'][index]}")
+            description = examples["prompt"][index]
+            test_example = examples["test_list"][index][0]
+            prompt = f'Problem:\n"""\n{description}\n{test_example}\n"""\nSolution:\n'
             output_text.append(prompt)
         except Exception as e:
             print(f"For {index}, {len(examples['prompt'])} examples")
@@ -36,10 +37,10 @@ if __name__ == "__main__":
             raise e
         return output_text
     
-    # instruction = 'Problem:\n'
-    # response = 'Solution:\n'
-    instruction = '### Question:'
-    response = '### Answer:'
+    instruction = 'Problem:\n'
+    response = 'Solution:\n'
+    # instruction = '### Question:'
+    # response = '### Answer:'
     collator = DataCollatorForCompletionOnlyLM(
         instruction_template=instruction,
         response_template=response,

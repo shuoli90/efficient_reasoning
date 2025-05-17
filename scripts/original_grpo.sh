@@ -9,6 +9,7 @@ accelerate launch --gpu_ids 0,1 --config_file=../recipes/zero2.yaml --num_proces
     --num_generations 4 \
     --seed 42 \
     --output_dir results/original_grpo_0.5B \
+    --bf16 True \
     --use_vllm True \
     --scale_reward True \
     --save_steps 100 \

@@ -58,6 +58,10 @@ if __name__ == "__main__":
     #model_name="../scripts/results/4_grpo_gradient_filtering_0.5B"
     #model_name="../scripts/results/2_grpo_without_std_0.5B"
     #model_name="../scripts/results/3_grpo_no_ref_0.5B"
+    #model_name="../scripts/results/1_grpo_1.5B"
+    #model_name="../scripts/results/4_grpo_gradient_filtering_1.5B"
+    #model_name="../scripts/results/2_grpo_without_std_1.5B"
+    #model_name="../scripts/results/3_grpo_no_ref_1.5B"
     model_name="../scripts/results/original_grpo_0.5B"
     
     mbppplus_test_eval(model_name)

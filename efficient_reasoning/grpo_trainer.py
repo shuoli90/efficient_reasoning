@@ -572,9 +572,9 @@ class GRPOTrainer(Trainer):
                         batch_size=int(args.per_device_train_batch_size * self.accelerator.num_processes / self.num_generations),
 
                         num_generations=self.num_generations,
-                        num_iterations=self.num_iterations,
-                        per_device_train_batch_size=args.per_device_train_batch_size,
-                        preemptive_steps=self.args.preemptive_steps,
+                        #num_iterations=self.num_iterations,
+                        #per_device_train_batch_size=args.per_device_train_batch_size,
+                        #preemptive_steps=self.args.preemptive_steps,
                 )
 
             else:

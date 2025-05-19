@@ -457,10 +457,6 @@ class GRPOConfig(TrainingArguments):
     # use old model
     use_old_model: bool = field(default=True, metadata={"help": "Whether to use old model."})
 
-    # preemptive steps
-    preemptive_steps: int = field(default=0, metadata={"help": "Number of preemptive steps."})
-
-
     def __post_init__(self):
         super().__post_init__()
 

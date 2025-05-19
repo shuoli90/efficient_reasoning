@@ -43,16 +43,17 @@ from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled
 from transformers.utils import is_peft_available
 import copy
 
-from ..data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
-from ..extras.profiling import profiling_context, profiling_decorator
-from ..extras.vllm_client import VLLMClient
-from ..extras.multi_vllm_client import MultiVLLMClient
-from ..extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
-from ..import_utils import is_deepspeed_available, is_liger_kernel_available, is_rich_available, is_vllm_available
-from ..models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
-from .callbacks import SyncRefModelCallback
-from .grpo_config import GRPOConfig
-from .utils import (
+from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_templat
+from trl.extras.profiling import profiling_context, profiling_decorator
+from efficient_reasoning.extras.vllm_client import VLLMClient
+from efficient_reasoning.extras.multi_vllm_client import MultiVLLMClient
+
+from efficient_reasoning.extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
+from trl.import_utils import is_deepspeed_available, is_rich_available, is_vllm_available
+from trl.models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
+from trl.trainer.callbacks import SyncRefModelCallback
+from efficient_reasoning.grpo_config import GRPOConfig
+from trl.trainer.utils import (
     disable_dropout_in_model,
     generate_model_card,
     get_comet_experiment_url,

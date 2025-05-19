@@ -62,6 +62,10 @@ if __name__ == "__main__":
     #model_name="../scripts/results/4_grpo_gradient_filtering_1.5B"
     #model_name="../scripts/results/2_grpo_without_std_1.5B"
     #model_name="../scripts/results/3_grpo_no_ref_1.5B"
-    model_name="../scripts/results/original_grpo_0.5B"
+    #model_name="../scripts/results/original_grpo_0.5B"
+    #model_name="../scripts/results/original_grpo_1.5B"
+    #model_name="../scripts/results/sft_models/sft_0.5B/checkpoint-99"
+    #model_name="../scripts/results/sft_models/sft_1.5B/checkpoint-99"
+    model_name="../scripts/results/sft_models/sft_3B/checkpoint-99"
     
     mbppplus_test_eval(model_name)

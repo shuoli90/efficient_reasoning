@@ -68,6 +68,7 @@ if __name__ == "__main__":
     #model_name="../scripts/results/sft_models/sft_1.5B/checkpoint-99"
     #model_name="../scripts/results/sft_models/sft_3B/checkpoint-99"
     #model_name="../scripts/results/1_grpo_3B"
-    model_name="../scripts/results/4_grpo_gradient_filtering_0.5B_new_trainer"
+    #model_name="../scripts/results/4_grpo_gradient_filtering_0.5B_new_trainer"
+    model_name="../scripts/results/4_grpo_gradient_filtering_1.5B_new_trainer"
     
     mbppplus_test_eval(model_name)

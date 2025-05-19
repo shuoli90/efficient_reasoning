@@ -43,7 +43,7 @@ from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled
 from transformers.utils import is_peft_available
 import copy
 
-from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_templat
+from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
 from trl.extras.profiling import profiling_context, profiling_decorator
 from efficient_reasoning.extras.vllm_client import VLLMClient
 from efficient_reasoning.extras.multi_vllm_client import MultiVLLMClient

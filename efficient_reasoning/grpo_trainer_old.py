@@ -41,18 +41,17 @@ from transformers import (
 )
 from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled
 from transformers.utils import is_peft_available
-import copy
 
-from ..data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
-from ..extras.profiling import profiling_context, profiling_decorator
-from ..extras.vllm_client import VLLMClient
-from ..extras.multi_vllm_client import MultiVLLMClient
-from ..extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
-from ..import_utils import is_deepspeed_available, is_liger_kernel_available, is_rich_available, is_vllm_available
-from ..models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
-from .callbacks import SyncRefModelCallback
-from .grpo_config import GRPOConfig
-from .utils import (
+from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
+from trl.extras.profiling import profiling_context, profiling_decorator
+from efficient_reasoning.extras.vllm_client import VLLMClient
+from efficient_reasoning.extras.multi_vllm_client import MultiVLLMClient
+from efficient_reasoning.extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
+from trl.import_utils import is_deepspeed_available, is_rich_available, is_vllm_available
+from trl.models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
+from trl.trainer.callbacks import SyncRefModelCallback
+from efficient_reasoning.grpo_config import GRPOConfig
+from trl.trainer.utils import (
     disable_dropout_in_model,
     generate_model_card,
     get_comet_experiment_url,
@@ -61,15 +60,14 @@ from .utils import (
     selective_log_softmax,
 )
 
-
 if is_deepspeed_available():
     import deepspeed
 
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
-if is_liger_kernel_available():
-    from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
+# if is_liger_kernel_available():
+#     from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
 
 if is_wandb_available():
     import wandb
@@ -297,7 +295,7 @@ class GRPOTrainer(Trainer):
         callbacks: Optional[list[TrainerCallback]] = None,
         optimizers: tuple[Optional[torch.optim.Optimizer], Optional[torch.optim.lr_scheduler.LambdaLR]] = (None, None),
         peft_config: Optional["PeftConfig"] = None,
-        ):
+    ):
         # Args
         if args is None:
             model_name = model if isinstance(model, str) else model.config._name_or_path
@@ -356,9 +354,6 @@ class GRPOTrainer(Trainer):
         else:
             # If PEFT configuration is not provided, create a reference model based on the initial model.
             self.ref_model = create_reference_model(model)
-
-        self.old_model = None
-        self.current_preemptive_step = 1
 
         # Disable dropout in the models
         if args.disable_dropout:
@@ -433,7 +428,6 @@ class GRPOTrainer(Trainer):
         self.gradient_filtering = args.gradient_filtering
         self.gradient_filtering_threshold = args.gradient_filtering_threshold
         self.use_old_model = args.use_old_model
-        self.preemptive_steps = args.preemptive_steps
 
         # Datasets
         if (
@@ -571,9 +565,6 @@ class GRPOTrainer(Trainer):
                         batch_size=int(args.per_device_train_batch_size * self.accelerator.num_processes / self.num_generations),
 
                         num_generations=self.num_generations,
-                        num_iterations=self.num_iterations,
-                        per_device_train_batch_size=args.per_device_train_batch_size,
-                        preemptive_steps=self.args.preemptive_steps,
                 )
 
             else:
@@ -618,8 +609,8 @@ class GRPOTrainer(Trainer):
         if self.ref_model is not None:
             if self.is_deepspeed_enabled:
                 self.ref_model = prepare_deepspeed(self.ref_model, self.accelerator)
-            else:
-                self.ref_model = self.accelerator.prepare_model(self.ref_model, evaluation_mode=True)
+        else:
+            self.ref_model = self.accelerator.prepare_model(self.ref_model, evaluation_mode=True)
 
         if args.sync_ref_model:
             self.add_callback(SyncRefModelCallback(ref_model=self.ref_model, accelerator=self.accelerator))
@@ -793,7 +784,7 @@ class GRPOTrainer(Trainer):
 
     def _generate_and_score_completions(
         self, inputs: dict[str, Union[torch.Tensor, Any]], eval_flag: bool = False
-        ) -> dict[str, Union[torch.Tensor, Any]]:
+    ) -> dict[str, Union[torch.Tensor, Any]]:
         device = self.accelerator.device
         prompts = [x["prompt"] for x in inputs]
         prompts_text = [maybe_apply_chat_template(example, self.processing_class)["prompt"] for example in inputs]
@@ -804,6 +795,8 @@ class GRPOTrainer(Trainer):
         prompt_ids, prompt_mask = prompt_inputs["input_ids"], prompt_inputs["attention_mask"]
 
         if self.max_prompt_length is not None:
+            if prompt_ids.size(1) >= self.max_prompt_length:
+                print(f"%%% Prompt was cut off: its size is {prompt_ids.size(1)} as compared to max length {self.max_prompt_length}")
             prompt_ids = prompt_ids[:, -self.max_prompt_length :]
             prompt_mask = prompt_mask[:, -self.max_prompt_length :]
 
@@ -832,6 +825,7 @@ class GRPOTrainer(Trainer):
                         min_p=0.0 if self.min_p is None else self.min_p,
                         max_tokens=self.max_completion_length,
                         guided_decoding_regex=self.guided_decoding_regex,
+                        eval_only=eval_flag,
                     )
             else:
                 completion_ids = [None] * len(all_prompts_text)
@@ -879,8 +873,39 @@ class GRPOTrainer(Trainer):
 
         logits_to_keep = completion_ids.size(1)  # we only need to compute the logits for the completion tokens
 
+        with torch.no_grad():
+            # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's
+            # computation here, and use per_token_logps.detach() instead.
+            if self.use_old_model and self.num_iterations > 1:
+                old_per_token_logps = self._get_per_token_logps(
+                    self.model, prompt_completion_ids, attention_mask, logits_to_keep
+                )
+            else:
+                old_per_token_logps = None
+
+            if self.beta == 0.0:
+                ref_per_token_logps = None
+            elif self.ref_model is not None:
+                ref_per_token_logps = self._get_per_token_logps(
+                    self.ref_model, prompt_completion_ids, attention_mask, logits_to_keep
+                )
+            else:
+                with self.accelerator.unwrap_model(self.model).disable_adapter():
+                    ref_per_token_logps = self._get_per_token_logps(
+                        self.model, prompt_completion_ids, attention_mask, logits_to_keep
+                    )
+
         # Decode the generated completions
         completions_text = self.processing_class.batch_decode(completion_ids, skip_special_tokens=True)
+        # BigCodeBench Debugging
+        """
+        string_check = "Now generate a response for the following user prompt:\n"
+        current_submitted_prompts = self.processing_class.batch_decode(prompt_ids)
+        for submitted_prompt in current_submitted_prompts:
+            if submitted_prompt.find(string_check) == -1:
+                print(f"%%% Failed to include full prompt in: {submitted_prompt} %%%")
+        #breakpoint()
+        """
         if is_conversational(inputs[0]):
             completions = []
             for prompt, completion in zip(prompts, completions_text):
@@ -950,8 +975,7 @@ class GRPOTrainer(Trainer):
         advantages = rewards - mean_grouped_rewards
         if self.scale_rewards:
             advantages = advantages / (std_grouped_rewards + 1e-4)
-        # breakpoint()
-        # print("advantages", advantages)
+
         # Slice to keep only the local part of the data
         process_slice = slice(
             self.accelerator.process_index * len(prompts),
@@ -971,21 +995,6 @@ class GRPOTrainer(Trainer):
         self._metrics[mode]["completions/mean_length"].append(agg_completion_mask.float().mean().item())
         self._metrics[mode]["completions/min_length"].append(agg_completion_mask.float().min().item())
         self._metrics[mode]["completions/max_length"].append(agg_completion_mask.float().max().item())
-
-        # log the average length of completions for correct and wrong answers
-        all_lengths = self.accelerator.gather_for_metrics(completion_mask.sum(1))
-        all_rewards = self.accelerator.gather_for_metrics(rewards)
-
-        lengths_reward_0 = all_lengths[rewards == 0]
-        lengths_reward_1 = all_lengths[rewards == 1]
-        if lengths_reward_0.numel() > 0:
-            self._metrics[mode]["gen_length/reward_0_mean"].append(
-                lengths_reward_0.float().mean().item()
-        )
-        if lengths_reward_1.numel() > 0:
-            self._metrics[mode]["gen_length/reward_1_mean"].append(
-                lengths_reward_1.float().mean().item()
-        )
 
         # identify sequences that terminated with EOS and log their lengths
         agg_terminated_with_eos = self.accelerator.gather_for_metrics(is_eos.any(dim=1))
@@ -1022,101 +1031,6 @@ class GRPOTrainer(Trainer):
         self._textual_logs["completion"].extend(gather_object(completions_text))
         for i, name in enumerate(reward_func_names):
             self._textual_logs["rewards"][name].extend(rewards_per_func[:, i].tolist())
-
-        # filter out the rows where the advantages are less than the threshold
-        if self.gradient_filtering:
-            device = advantages.device
-            valid = torch.abs(advantages) > self.gradient_filtering_threshold
-            # if self.accelerator.is_main_process:
-            #     breakpoint()
-            # if there is no valid rows, only retain the first row
-            if valid.sum() == 0:
-                prompt_completion_ids = prompt_completion_ids[:1]
-                attention_mask = attention_mask[:1]
-                advantages_filtered = advantages[:1]
-                valid[0] = True
-                completion_ids = completion_ids[:1]
-                logits_to_keep = completion_ids.size(1)
-                completion_mask = completion_mask[:1]
-                prompt_ids = prompt_ids[:1]
-                prompt_mask = prompt_mask[:1]
-            else:
-                prompt_completion_ids = prompt_completion_ids[valid]
-                attention_mask = attention_mask[valid]
-                advantages_filtered = advantages[valid]
-                completion_ids = completion_ids[valid]
-                logits_to_keep = completion_ids.size(1)
-                completion_mask = completion_mask[valid]
-                prompt_ids = prompt_ids[valid]
-                prompt_mask = prompt_mask[valid]
-
-        with torch.no_grad():
-            # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's
-            # computation here, and use per_token_logps.detach() instead.
-            if self.use_old_model and self.num_iterations > 1:
-                old_per_token_logps = self._get_per_token_logps(
-                    self.model, prompt_completion_ids, attention_mask, logits_to_keep
-                )
-            elif self.use_old_model and self.preemptive_steps > 0:
-                deepspeed_plugin = self.accelerator.state.deepspeed_plugin
-                zero_stage_3 = (
-                    deepspeed_plugin is not None and deepspeed_plugin.zero_stage == 3
-                )
-                gather_ctx = deepspeed.zero.GatheredParameters if zero_stage_3 else nullcontext
-                # if we’re at the beginning of a new cycle, grab the fresh model
-                if self.current_preemptive_step == 1:
-                    with gather_ctx(list(self.model.parameters())):
-                        base = self.accelerator.unwrap_model(self.model)
-                        self.old_model = copy.deepcopy(base).to(base.device).eval()
-
-                # always compute with the current old_model
-                old_per_token_logps = self._get_per_token_logps(
-                    self.old_model, prompt_completion_ids, attention_mask, logits_to_keep
-                )
-                
-                # bump the step, wrapping back to 1 after preemptive_steps
-                self.current_preemptive_step = (self.current_preemptive_step % self.preemptive_steps) + 1
-            else:
-                old_per_token_logps = None
-
-            if self.beta == 0.0:
-                ref_per_token_logps = None
-            elif self.ref_model is not None:
-                ref_per_token_logps = self._get_per_token_logps(
-                    self.ref_model, prompt_completion_ids, attention_mask, logits_to_keep
-                )
-            else:
-                with self.accelerator.unwrap_model(self.model).disable_adapter():
-                    ref_per_token_logps = self._get_per_token_logps(
-                        self.model, prompt_completion_ids, attention_mask, logits_to_keep
-                    )
-        if self.gradient_filtering:
-            all_valid = self.accelerator.gather_for_metrics(valid)
-            all_advantages = self.accelerator.gather_for_metrics(advantages)
-            # log the advantages
-            # mean = all_advantages * all_valid / sum(all_valid)
-            # self._metrics[mode]["advantages/mean"].append(mean)
-            self._metrics[mode]["advantages/mean"].append(all_advantages[all_valid].float().abs().mean().item())
-            self._metrics[mode]["advantages/std"].append(all_advantages[all_valid].float().abs().std().item())
-            self._metrics[mode]["advantages/min"].append(all_advantages[all_valid].float().abs().min().item())
-            self._metrics[mode]["advantages/max"].append(all_advantages[all_valid].float().abs().max().item())
-
-            return {
-            "prompt_ids": prompt_ids,
-            "prompt_mask": prompt_mask,
-            "completion_ids": completion_ids,
-            "completion_mask": completion_mask,
-            "advantages": advantages_filtered,
-            "old_per_token_logps": old_per_token_logps,
-            "ref_per_token_logps": ref_per_token_logps,
-            }
-        else:
-            all_advantages = self.accelerator.gather_for_metrics(advantages)
-            # log the advantages
-            self._metrics[mode]["advantages/mean"].append(all_advantages.float().abs().mean().item())
-            self._metrics[mode]["advantages/std"].append(all_advantages.float().abs().std().item())
-            self._metrics[mode]["advantages/min"].append(all_advantages.float().abs().min().item())
-            self._metrics[mode]["advantages/max"].append(all_advantages.float().abs().max().item())
 
         return {
             "prompt_ids": prompt_ids,
@@ -1191,13 +1105,27 @@ class GRPOTrainer(Trainer):
         # Compute the loss
         advantages = inputs["advantages"]
 
+        # filter out the rows where the advantages are less than the threshold
+        if self.gradient_filtering:
+            device = advantages.device
+            valid = advantages > self.gradient_filtering_threshold
+            # if there is no valid rows, only retain the first row
+            if valid.sum() == 0:
+                completion_mask = completion_mask[:1]
+                per_token_logps = per_token_logps[:1]
+                per_token_kl = per_token_kl[:1]
+                advantages = advantages[:1]
+            else:
+                completion_mask = completion_mask[valid]
+                per_token_logps = per_token_logps[valid]
+                per_token_kl = per_token_kl[valid]
+                advantages = advantages[valid]
+
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead.
         if self.use_old_model:
-            old_per_token_logps = inputs["old_per_token_logps"] if (self.num_iterations > 1 or self.preemptive_steps > 0) else per_token_logps.detach()
+            old_per_token_logps = inputs["old_per_token_logps"] if self.num_iterations > 1 else per_token_logps.detach()
             coef_1 = torch.exp(per_token_logps - old_per_token_logps)
-            # print("current prempt step:", self.current_preemptive_step)
-            # print("coef_1", coef_1)
             coef_2 = torch.clamp(coef_1, 1 - self.epsilon_low, 1 + self.epsilon_high)
             per_token_loss1 = coef_1 * advantages.unsqueeze(1)
             per_token_loss2 = coef_2 * advantages.unsqueeze(1)
@@ -1288,7 +1216,7 @@ class GRPOTrainer(Trainer):
         model_name: Optional[str] = None,
         dataset_name: Optional[str] = None,
         tags: Union[str, list[str], None] = None,
-        ):
+    ):
         """
         Creates a draft of a model card using the information available to the `Trainer`.
 

@@ -1,5 +1,5 @@
 export CUDA_VISIBLE_DEVICES=9
-MODEL=/home/lishuo1/shuo/efficient_reasoning/scripts/results/grpo_15B_gf_dr
+MODEL=YOUR_MODEL_PATH
 MODEL_ARGS="pretrained=$MODEL,dtype=bfloat16,max_model_length=32768,gpu_memory_utilization=0.8,generation_parameters={max_new_tokens:2048,temperature:0.6,top_p:0.95}"
 OUTPUT_DIR=../data/evals/$MODEL
 

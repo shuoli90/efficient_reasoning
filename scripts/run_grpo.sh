@@ -3,7 +3,7 @@ accelerate launch --main_process_port 29600 --gpu_ids 7,8 --config_file=../recip
     --max_prompt_length 256 \
     --max_completion_length 2048 \
     --gradient_accumulation_steps 32 \
-    --dataset_name /home/lishuo1/efficient_reasoning/data/MATH-500/train.jsonl \
+    --dataset_name PATH_TO_MATH \
     --dataset_train_split train \
     --per_device_train_batch_size 4 \
     --gradient_checkpointing True \

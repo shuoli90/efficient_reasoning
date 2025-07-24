@@ -457,6 +457,19 @@ class GRPOConfig(TrainingArguments):
     # use old model
     use_old_model: bool = field(default=True, metadata={"help": "Whether to use old model."})
 
+    # preemptive steps
+    preemptive_steps: int = field(default=0, metadata={"help": "Number of preemptive steps."})
+
+    # importance weighting
+    iw: bool = field(
+        default=False,
+        metadata={
+            "help": "Controls whether to use importance weighting (IW) or not. "
+        },
+    )
+
+    read_from_file: bool = field(default=False, metadata={"help": "When doing iw, whether to directly read generations from pre-generated rollouts in a file (buffer.txt)"})
+
     def __post_init__(self):
         super().__post_init__()
 

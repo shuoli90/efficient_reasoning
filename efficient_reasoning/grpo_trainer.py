@@ -44,16 +44,16 @@ from transformers.integrations.deepspeed import is_deepspeed_zero3_enabled
 from transformers.utils import is_peft_available
 import copy
 
-from ..data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
-from ..extras.profiling import profiling_context, profiling_decorator
-from ..extras.vllm_client import VLLMClient
-from ..extras.multi_vllm_client import MultiVLLMClient
-from ..extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
-from ..import_utils import is_deepspeed_available, is_liger_kernel_available, is_rich_available, is_vllm_available
-from ..models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
-from .callbacks import SyncRefModelCallback
-from .grpo_config import GRPOConfig
-from .utils import (
+from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
+from trl.extras.profiling import profiling_context, profiling_decorator
+from efficient_reasoning.extras.vllm_client import VLLMClient
+from efficient_reasoning.extras.multi_vllm_client import MultiVLLMClient
+from efficient_reasoning.extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
+from trl.import_utils import is_deepspeed_available, is_rich_available, is_vllm_available
+from trl.models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
+from trl.trainer.callbacks import SyncRefModelCallback
+from efficient_reasoning.grpo_config import GRPOConfig
+from trl.trainer.utils import (
     disable_dropout_in_model,
     generate_model_card,
     get_comet_experiment_url,
@@ -68,8 +68,8 @@ if is_deepspeed_available():
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
-if is_liger_kernel_available():
-    from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
+# if is_liger_kernel_available():
+#     from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
 
 if is_wandb_available():
     import wandb
@@ -297,7 +297,7 @@ class GRPOTrainer(Trainer):
         callbacks: Optional[list[TrainerCallback]] = None,
         optimizers: tuple[Optional[torch.optim.Optimizer], Optional[torch.optim.lr_scheduler.LambdaLR]] = (None, None),
         peft_config: Optional["PeftConfig"] = None,
-        ):
+    ):
         # Args
         if args is None:
             model_name = model if isinstance(model, str) else model.config._name_or_path
@@ -782,27 +782,6 @@ class GRPOTrainer(Trainer):
     def _prepare_inputs(self, inputs: dict[str, Union[torch.Tensor, Any]]) -> dict[str, Union[torch.Tensor, Any]]:
         mode = "eval" if self.control.should_evaluate else "train"
         if mode == "train":
-            # if self.iw:
-            #     if self.read_from_file:
-            #         completion_ids = []
-            #         with open("buffer.txt", "r") as f:
-            #             for line in f:
-            #                 line = line.strip()
-            #                 if line:  # Skip empty lines
-            #                     sample = eval(line)
-            #                     completion_ids.append(sample)
-            #                 prompts = [x["prompt"] for x in inputs]
-            #         device = self.accelerator.device
-            #         prompts_text = [maybe_apply_chat_template(example, self.processing_class)["prompt"] for example in inputs]
-            #         prompt_inputs = self.processing_class(
-            #             text=prompts_text, return_tensors="pt", padding=True, padding_side="left", add_special_tokens=False
-            #         )
-            #         prompt_inputs = super()._prepare_inputs(prompt_inputs)
-            #         prompt_ids, prompt_mask = prompt_inputs["input_ids"], prompt_inputs["attention_mask"]
-
-            #         completion_ids = [torch.tensor(ids) for ids in completion_ids]
-            #         completion_ids = pad(completion_ids, padding_value=self.processing_class.pad_token_id)
-            #         prompt_completion_ids = torch.cat([prompt_ids, completion_ids], dim=1)
             buffer_index = self._step % self.args.gradient_accumulation_steps
             buffered_inputs = self._buffered_inputs[buffer_index]
             if self.state.global_step % self.num_iterations == 0 or buffered_inputs is None:
@@ -866,32 +845,16 @@ class GRPOTrainer(Trainer):
             # Broadcast the completions from the main process to all processes, ensuring each process receives its
             # corresponding slice.
             completion_ids = broadcast_object_list(completion_ids, from_process=0)
-
-            # full_completion_ids = [torch.tensor(ids) for ids in completion_ids]
-            # full_completion_ids = pad(full_completion_ids, padding_value=self.processing_class.pad_token_id)
-            # full_prompt_ids = prompt_ids.repeat_interleave(self.num_generations, dim=0)
-            # # print(full_prompt_ids.size(),full_prompt_ids.device, full_completion_ids.size(), full_completion_ids.device)
-            # full_prompt_completion_ids = torch.cat([full_prompt_ids.to("cpu"), full_completion_ids], dim=1)
-
-            # is_eos = full_completion_ids == self.processing_class.eos_token_id
-            # eos_idx = torch.full((is_eos.size(0),), is_eos.size(1), dtype=torch.long, device="cpu")
-            # eos_idx[is_eos.any(dim=1)] = is_eos.int().argmax(dim=1)[is_eos.any(dim=1)]
-            # sequence_indices = torch.arange(is_eos.size(1), device="cpu").expand(is_eos.size(0), -1)
-            # full_completion_mask = (sequence_indices <= eos_idx.unsqueeze(1)).int()
-
-            # full_prompt_mask = prompt_mask.repeat_interleave(self.num_generations, dim=0)
-            # full_attention_mask = torch.cat([full_prompt_mask.to("cpu"), full_completion_mask.to("cpu")], dim=1)  # (B, P+C)
-
             process_slice = slice(
                 self.accelerator.process_index * len(prompts),
                 (self.accelerator.process_index + 1) * len(prompts),
             )
             completion_ids = completion_ids[process_slice]
+
             # Pad the completions, and concatenate them with the prompts
             completion_ids = [torch.tensor(ids, device=device) for ids in completion_ids]
             completion_ids = pad(completion_ids, padding_value=self.processing_class.pad_token_id)
             prompt_completion_ids = torch.cat([prompt_ids, completion_ids], dim=1)
-
         else:
             # Regular generation path
             with unwrap_model_for_generation(
@@ -1225,14 +1188,9 @@ class GRPOTrainer(Trainer):
             return self._compute_loss(model, inputs)
 
     def _compute_loss(self, model, inputs):
-        # print(f"model is self.model: {model is self.model}")
-        # print(f"id(model): {id(model)}, id(self.model): {id(self.model)}")
-        # ... rest of your code
         # Compute the per-token log probabilities for the model
         prompt_ids, prompt_mask = inputs["prompt_ids"], inputs["prompt_mask"]
-        # print(f"shape of prompts and their masks: {prompt_ids.shape}, {prompt_mask.shape}")
         completion_ids, completion_mask = inputs["completion_ids"], inputs["completion_mask"]
-        # print(f"shape of prompts, completions, and their masks: {prompt_ids.shape}, {completion_ids.shape}, {prompt_mask.shape}, {completion_mask.shape}")
         input_ids = torch.cat([prompt_ids, completion_ids], dim=1)
         attention_mask = torch.cat([prompt_mask, completion_mask], dim=1)
         logits_to_keep = completion_ids.size(1)  # we only need to compute the logits for the completion tokens

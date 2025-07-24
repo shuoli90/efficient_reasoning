@@ -2,7 +2,7 @@ accelerate launch --main_process_port 29600 --gpu_ids 7,8 --config_file=../recip
     --model_name_or_path Qwen/Qwen2.5-3B \
     --max_prompt_length 256 \
     --max_completion_length 2048 \
-    --gradient_accumulation_steps 32 \
+    --gradient_accumulation_steps 32 \ # set this to 1 (for now) for mini
     --dataset_name PATH_TO_MATH \
     --dataset_train_split train \
     --per_device_train_batch_size 4 \
@@ -18,4 +18,7 @@ accelerate launch --main_process_port 29600 --gpu_ids 7,8 --config_file=../recip
     --gradient_filtering_threshold 0.1 \
     --logging_steps 50 \
     --use_old_model True \
-    --loss_type dr_grpo
+    --loss_type impala \ # changed from dr_grpo
+    --preemptive_steps=256 \ # use this for mini, e.g. 256
+    --iw False \ # use this for iw
+    --read_from_file False \ # set to True AFTER the first time running iw with False (so that it can read the generations for the entire dataset from a file, written to when this is set to False)

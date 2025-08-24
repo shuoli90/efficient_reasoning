@@ -46,10 +46,10 @@ import copy
 
 from trl.data_utils import apply_chat_template, is_conversational, maybe_apply_chat_template
 from trl.extras.profiling import profiling_context, profiling_decorator
-from trl.extras.vllm_client import VLLMClient
-from trl.extras.multi_vllm_client import MultiVLLMClient
-from trl.extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
-from trl.import_utils import is_deepspeed_available, is_liger_kernel_available, is_rich_available, is_vllm_available
+from efficient_reasoning.extras.vllm_client import VLLMClient
+from efficient_reasoning.extras.multi_vllm_client import MultiVLLMClient
+from efficient_reasoning.extras.preemptive_vllm_client import PreemptiveMultiVLLMClient
+from trl.import_utils import is_deepspeed_available, is_rich_available, is_vllm_available
 from trl.models import create_reference_model, prepare_deepspeed, unwrap_model_for_generation
 from trl.trainer.callbacks import SyncRefModelCallback
 from efficient_reasoning.grpo_config import GRPOConfig

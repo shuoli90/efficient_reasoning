@@ -12,6 +12,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+import math
 import os
 import textwrap
 import warnings
@@ -69,8 +70,8 @@ if is_deepspeed_available():
 if is_peft_available():
     from peft import PeftConfig, get_peft_model
 
-# if is_liger_kernel_available():
-#     from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
+if is_liger_kernel_available():
+    from liger_kernel.chunked_loss import LigerFusedLinearGRPOLoss
 
 if is_wandb_available():
     import wandb
@@ -343,9 +344,11 @@ class GRPOTrainer(Trainer):
         if args.gradient_checkpointing:
             model = self._enable_gradient_checkpointing(model, args)
 
+        self.iw = args.iw  # Whether to use importance weighting (IW) or not
+
         # Reference model
         self.beta = args.beta
-        if self.beta == 0.0:
+        if self.beta == 0.0 and (not self.iw):
             # If beta is 0.0, the reference model is not needed
             self.ref_model = None
         elif is_deepspeed_zero3_enabled():
@@ -357,6 +360,10 @@ class GRPOTrainer(Trainer):
         else:
             # If PEFT configuration is not provided, create a reference model based on the initial model.
             self.ref_model = create_reference_model(model)
+            # print("Reference model created based on the initial model.")
+
+        self.current_preemptive_step = 1
+        self.clips = 0
 
         self.old_model = None
         self.current_preemptive_step = 1
@@ -435,6 +442,8 @@ class GRPOTrainer(Trainer):
         self.gradient_filtering_threshold = args.gradient_filtering_threshold
         self.use_old_model = args.use_old_model
         self.preemptive_steps = args.preemptive_steps
+
+        self.read_from_file = args.read_from_file
 
         # Datasets
         if (
@@ -572,9 +581,10 @@ class GRPOTrainer(Trainer):
                         batch_size=int(args.per_device_train_batch_size * self.accelerator.num_processes / self.num_generations),
 
                         num_generations=self.num_generations,
-                        #num_iterations=self.num_iterations,
-                        #per_device_train_batch_size=args.per_device_train_batch_size,
-                        #preemptive_steps=self.args.preemptive_steps,
+                        num_iterations=self.num_iterations,
+                        per_device_train_batch_size=args.per_device_train_batch_size,
+                        preemptive_steps=self.args.preemptive_steps,
+                        iw=self.iw,
                 )
 
             else:
@@ -734,6 +744,20 @@ class GRPOTrainer(Trainer):
         return selective_log_softmax(logits, input_ids)  # compute logprobs for the input tokens
 
     @profiling_decorator
+    def _get_per_token_logps_debug(self, model, input_ids, attention_mask, logits_to_keep):
+        logits = model(input_ids=input_ids, attention_mask=attention_mask, logits_to_keep=logits_to_keep + 1).logits
+        logits = logits[:, :-1, :]  # (B, L-1, V), exclude the last logit: it corresponds to the next token pred
+        input_ids = input_ids[:, -logits_to_keep:]
+        # For transformers<=4.48, logits_to_keep argument isn't supported, so here we drop logits ourselves.
+        # See https://github.com/huggingface/trl/issues/2770
+        logits = logits[:, -logits_to_keep:]
+        # Divide logits by sampling temperature.
+        # See https://huggingface.co/blog/the_n_implementation_details_of_rlhf_with_ppo#policy-training-implementation-details
+        logits = logits / self.temperature
+        returnVal = torch.gather(logits.log_softmax(-1), dim=-1, index=input_ids.unsqueeze(-1)).squeeze(-1)
+        return returnVal  # compute logprobs for the input tokens
+
+    @profiling_decorator
     def _move_model_to_vllm(self):
         # For DeepSpeed ZeRO-3, we need to gather all parameters before operations
         deepspeed_plugin = self.accelerator.state.deepspeed_plugin
@@ -778,6 +802,27 @@ class GRPOTrainer(Trainer):
     def _prepare_inputs(self, inputs: dict[str, Union[torch.Tensor, Any]]) -> dict[str, Union[torch.Tensor, Any]]:
         mode = "eval" if self.control.should_evaluate else "train"
         if mode == "train":
+            # if self.iw:
+            #     if self.read_from_file:
+            #         completion_ids = []
+            #         with open("buffer.txt", "r") as f:
+            #             for line in f:
+            #                 line = line.strip()
+            #                 if line:  # Skip empty lines
+            #                     sample = eval(line)
+            #                     completion_ids.append(sample)
+            #                 prompts = [x["prompt"] for x in inputs]
+            #         device = self.accelerator.device
+            #         prompts_text = [maybe_apply_chat_template(example, self.processing_class)["prompt"] for example in inputs]
+            #         prompt_inputs = self.processing_class(
+            #             text=prompts_text, return_tensors="pt", padding=True, padding_side="left", add_special_tokens=False
+            #         )
+            #         prompt_inputs = super()._prepare_inputs(prompt_inputs)
+            #         prompt_ids, prompt_mask = prompt_inputs["input_ids"], prompt_inputs["attention_mask"]
+
+            #         completion_ids = [torch.tensor(ids) for ids in completion_ids]
+            #         completion_ids = pad(completion_ids, padding_value=self.processing_class.pad_token_id)
+            #         prompt_completion_ids = torch.cat([prompt_ids, completion_ids], dim=1)
             buffer_index = self._step % self.args.gradient_accumulation_steps
             buffered_inputs = self._buffered_inputs[buffer_index]
             if self.state.global_step % self.num_iterations == 0 or buffered_inputs is None:
@@ -812,7 +857,8 @@ class GRPOTrainer(Trainer):
         if self.use_vllm:
             # First, have main process load weights if needed
             if self.state.global_step != self._last_loaded_step:
-                self._move_model_to_vllm()
+                if not (self.iw and self.read_from_file):
+                    self._move_model_to_vllm()
                 self._last_loaded_step = self.state.global_step
 
             # Generate completions using vLLM: gather all prompts and use them in a single call in the main process
@@ -822,6 +868,7 @@ class GRPOTrainer(Trainer):
                 # num_generations outputs for each one. This is faster than generating outputs for each duplicate
                 # prompt individually.
                 ordered_set_of_prompts = all_prompts_text[:: self.num_generations]
+                print(ordered_set_of_prompts)
                 with profiling_context(self, "vLLM.generate"):
                     completion_ids = self.vllm_client.generate(
                         prompts=ordered_set_of_prompts,
@@ -833,22 +880,39 @@ class GRPOTrainer(Trainer):
                         min_p=0.0 if self.min_p is None else self.min_p,
                         max_tokens=self.max_completion_length,
                         guided_decoding_regex=self.guided_decoding_regex,
+                        read_from_file=self.read_from_file,
                     )
             else:
                 completion_ids = [None] * len(all_prompts_text)
             # Broadcast the completions from the main process to all processes, ensuring each process receives its
             # corresponding slice.
             completion_ids = broadcast_object_list(completion_ids, from_process=0)
+
+            # full_completion_ids = [torch.tensor(ids) for ids in completion_ids]
+            # full_completion_ids = pad(full_completion_ids, padding_value=self.processing_class.pad_token_id)
+            # full_prompt_ids = prompt_ids.repeat_interleave(self.num_generations, dim=0)
+            # # print(full_prompt_ids.size(),full_prompt_ids.device, full_completion_ids.size(), full_completion_ids.device)
+            # full_prompt_completion_ids = torch.cat([full_prompt_ids.to("cpu"), full_completion_ids], dim=1)
+
+            # is_eos = full_completion_ids == self.processing_class.eos_token_id
+            # eos_idx = torch.full((is_eos.size(0),), is_eos.size(1), dtype=torch.long, device="cpu")
+            # eos_idx[is_eos.any(dim=1)] = is_eos.int().argmax(dim=1)[is_eos.any(dim=1)]
+            # sequence_indices = torch.arange(is_eos.size(1), device="cpu").expand(is_eos.size(0), -1)
+            # full_completion_mask = (sequence_indices <= eos_idx.unsqueeze(1)).int()
+
+            # full_prompt_mask = prompt_mask.repeat_interleave(self.num_generations, dim=0)
+            # full_attention_mask = torch.cat([full_prompt_mask.to("cpu"), full_completion_mask.to("cpu")], dim=1)  # (B, P+C)
+
             process_slice = slice(
                 self.accelerator.process_index * len(prompts),
                 (self.accelerator.process_index + 1) * len(prompts),
             )
             completion_ids = completion_ids[process_slice]
-
             # Pad the completions, and concatenate them with the prompts
             completion_ids = [torch.tensor(ids, device=device) for ids in completion_ids]
             completion_ids = pad(completion_ids, padding_value=self.processing_class.pad_token_id)
             prompt_completion_ids = torch.cat([prompt_ids, completion_ids], dim=1)
+
         else:
             # Regular generation path
             with unwrap_model_for_generation(
@@ -937,7 +1001,6 @@ class GRPOTrainer(Trainer):
         # Gather the reward per function: this part is crucial, because the rewards are normalized per group and the
         # completions may be distributed across processes
         rewards_per_func = gather(rewards_per_func)
-
         # Apply weights to each reward function's output and sum
         rewards = (rewards_per_func * self.reward_weights.to(device).unsqueeze(0)).nansum(dim=1)
 
@@ -1051,38 +1114,42 @@ class GRPOTrainer(Trainer):
                 prompt_ids = prompt_ids[valid]
                 prompt_mask = prompt_mask[valid]
 
+
         with torch.no_grad():
             # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's
             # computation here, and use per_token_logps.detach() instead.
-            if self.use_old_model and self.num_iterations > 1:
+            if self.use_old_model and self.iw and self.preemptive_steps == 0:
+                old_per_token_logps = self._get_per_token_logps(
+                    self.ref_model, prompt_completion_ids, attention_mask, logits_to_keep
+                )
+            elif self.use_old_model and self.num_iterations > 1:
                 old_per_token_logps = self._get_per_token_logps(
                     self.model, prompt_completion_ids, attention_mask, logits_to_keep
                 )
             elif self.use_old_model and self.preemptive_steps > 0:
-                deepspeed_plugin = self.accelerator.state.deepspeed_plugin
-                zero_stage_3 = (
-                    deepspeed_plugin is not None and deepspeed_plugin.zero_stage == 3
-                )
-                gather_ctx = deepspeed.zero.GatheredParameters if zero_stage_3 else nullcontext
-                # if we’re at the beginning of a new cycle, grab the fresh model
+                # deepspeed_plugin = self.accelerator.state.deepspeed_plugin
+                # zero_stage_3 = (
+                #     deepspeed_plugin is not None and deepspeed_plugin.zero_stage == 3
+                # )
+                # gather_ctx = deepspeed.zero.GatheredParameters if zero_stage_3 else nullcontext
+                # # if we’re at the beginning of a new cycle, grab the fresh model
                 if self.current_preemptive_step == 1:
-                    with gather_ctx(list(self.model.parameters())):
-                        base = self.accelerator.unwrap_model(self.model)
-                        self.old_model = copy.deepcopy(base).to(base.device).eval()
+                    # with gather_ctx(list(self.model.parameters())):
+                    base = self.accelerator.unwrap_model(self.model)
+                    self.old_model = copy.deepcopy(base).to(base.device).eval()
 
-                # always compute with the current old_model
                 old_per_token_logps = self._get_per_token_logps(
                     self.old_model, prompt_completion_ids, attention_mask, logits_to_keep
                 )
                 
                 # bump the step, wrapping back to 1 after preemptive_steps
-                self.current_preemptive_step = (self.current_preemptive_step % self.preemptive_steps) + 1
+                self.current_preemptive_step = (self.current_preemptive_step % (self.preemptive_steps * self.args.gradient_accumulation_steps)) + 1
             else:
                 old_per_token_logps = None
 
             if self.beta == 0.0:
                 ref_per_token_logps = None
-            elif self.ref_model is not None:
+            elif self.ref_model is not None: 
                 ref_per_token_logps = self._get_per_token_logps(
                     self.ref_model, prompt_completion_ids, attention_mask, logits_to_keep
                 )
@@ -1091,6 +1158,10 @@ class GRPOTrainer(Trainer):
                     ref_per_token_logps = self._get_per_token_logps(
                         self.model, prompt_completion_ids, attention_mask, logits_to_keep
                     )
+        
+        # Slice rewards for the current process
+        rewards = rewards[process_slice]
+
         if self.gradient_filtering:
             all_valid = self.accelerator.gather_for_metrics(valid)
             all_advantages = self.accelerator.gather_for_metrics(advantages)
@@ -1108,6 +1179,7 @@ class GRPOTrainer(Trainer):
             "completion_ids": completion_ids,
             "completion_mask": completion_mask,
             "advantages": advantages_filtered,
+            "rewards": rewards,
             "old_per_token_logps": old_per_token_logps,
             "ref_per_token_logps": ref_per_token_logps,
             }
@@ -1125,6 +1197,7 @@ class GRPOTrainer(Trainer):
             "completion_ids": completion_ids,
             "completion_mask": completion_mask,
             "advantages": advantages,
+            "rewards": rewards,
             "old_per_token_logps": old_per_token_logps,
             "ref_per_token_logps": ref_per_token_logps,
         }
@@ -1173,14 +1246,33 @@ class GRPOTrainer(Trainer):
             return self._compute_loss(model, inputs)
 
     def _compute_loss(self, model, inputs):
+        # print(f"model is self.model: {model is self.model}")
+        # print(f"id(model): {id(model)}, id(self.model): {id(self.model)}")
+        # ... rest of your code
         # Compute the per-token log probabilities for the model
         prompt_ids, prompt_mask = inputs["prompt_ids"], inputs["prompt_mask"]
+        # print(f"shape of prompts and their masks: {prompt_ids.shape}, {prompt_mask.shape}")
         completion_ids, completion_mask = inputs["completion_ids"], inputs["completion_mask"]
+        # print(f"shape of prompts, completions, and their masks: {prompt_ids.shape}, {completion_ids.shape}, {prompt_mask.shape}, {completion_mask.shape}")
         input_ids = torch.cat([prompt_ids, completion_ids], dim=1)
         attention_mask = torch.cat([prompt_mask, completion_mask], dim=1)
         logits_to_keep = completion_ids.size(1)  # we only need to compute the logits for the completion tokens
 
         per_token_logps = self._get_per_token_logps(model, input_ids, attention_mask, logits_to_keep)
+
+        if self.accelerator.is_main_process:
+            with open("logp_debug_new.txt", "a") as f:
+                torch.set_printoptions(profile="full")
+                f.write(f"per_token_logps contains nan: {torch.isnan(per_token_logps).any()}\n")
+                f.write(f"per_token_logps contains inf: {torch.isinf(per_token_logps).any()}\n")
+                f.write(f"per_token_logps: {per_token_logps.detach()}\n")
+                f.write(f"input_ids: {input_ids.detach()}\n")
+
+        # min_logp = math.log(1e-8)
+
+        # if torch.isnan(per_token_logps).any():
+        #     print(f"per_token_logps contains nan")
+        #     per_token_logps = torch.where(torch.isnan(per_token_logps), torch.tensor(min_logp, device=per_token_logps.device), per_token_logps)
 
         # Compute the KL divergence between the model and the reference model
         if self.beta != 0.0:
@@ -1189,20 +1281,154 @@ class GRPOTrainer(Trainer):
                 torch.exp(ref_per_token_logps - per_token_logps) - (ref_per_token_logps - per_token_logps) - 1
             )
 
-        # Compute the loss
         advantages = inputs["advantages"]
 
         # When using num_iterations == 1, old_per_token_logps == per_token_logps, so we can skip it's computation (see
         # _generate_and_score_completions) and use per_token_logps.detach() instead.
         if self.use_old_model:
-            old_per_token_logps = inputs["old_per_token_logps"] if (self.num_iterations > 1 or self.preemptive_steps > 0) else per_token_logps.detach()
-            coef_1 = torch.exp(per_token_logps - old_per_token_logps)
+            skip = False
+            old_per_token_logps = inputs["old_per_token_logps"] if (self.num_iterations > 1 or self.preemptive_steps > 0 or self.iw) else per_token_logps.detach()
+            if torch.isnan(per_token_logps).any():
+                print(f"per_token_logps contains nan, zeroing out the loss, the step is {self.state.global_step}")
+                # write the step to file for debugging
+                with open("nan_debug_log.txt", "a") as f:
+                    f.write(f"per_token_logps contains nan at step {self.state.global_step}\n")
+                skip=True  # Shape (P, G)
+            coef_1 = torch.exp(per_token_logps - old_per_token_logps) # Shape (P, G)
+            # print(f"shape of coef_1 the policy ratio of current and old is {coef_1.shape}")
             # print("current prempt step:", self.current_preemptive_step)
-            # print("coef_1", coef_1)
+            mode = "eval" if self.control.should_evaluate else "train"
+            # breakpoint()
+            self._metrics[mode]["policy_ratio_token_avg"].append(coef_1.mean().item())
+
+
+            # if there contains nan in coef_1
+            # if torch.isnan(coef_1).any():
+            #     print(f"per_token_logps contains nan: {torch.isnan(per_token_logps).any()}")
+            #     print(f"old_per_token_logps contains nan: {torch.isnan(old_per_token_logps).any()}")
+            #     # we set it to 1.5 to avoid nan in the loss
+            #     coef_1 = torch.where(torch.isnan(coef_1), torch.tensor(1.5, device=coef_1.device), coef_1)
+            # # if there contains large numbers in coef_1
+            # coef_1 = torch.clamp(coef_1, max=1.0) # Shape (P, G)
+            # self._metrics[mode]["policy_ratio_clamped"].append(coef_1.mean().item())
+
+
             coef_2 = torch.clamp(coef_1, 1 - self.epsilon_low, 1 + self.epsilon_high)
-            per_token_loss1 = coef_1 * advantages.unsqueeze(1)
-            per_token_loss2 = coef_2 * advantages.unsqueeze(1)
-            per_token_loss = -torch.min(per_token_loss1, per_token_loss2)
+            # print(f"first three tokens old logps: {old_per_token_logps[:, :3]}")
+            # print(f"first three tokens current logps: {per_token_logps[:, :3]}")
+            if self.iw:
+                with torch.no_grad():
+                    original_rewards = gather(inputs["rewards"]) # Shape (P * D,)
+                    # Per device batch size P; Generation length G; Number of Back-Prop GPUs D; Number of Generations N; Number of prompts in one pass PD/N
+
+                    rewards = inputs["rewards"].unsqueeze(1) # for broadcasting; Shape (P, 1)
+
+                    # print(f"Shape of rewards and coef_1: {rewards.shape}, {coef_1.shape}")
+
+                    # weighted_rewards = rewards * coef_1.detach() # Shape (P, G)
+                    # # weighted_rewards = rewards * torch.ones_like(coef_1)
+
+                    # # if self.accelerator.is_main_process:
+                    #     # print(f"ratio of policies is (first few tokens): {coef_1[:, :3]}")
+                    #     # print(f"weighted rewards (first few tokens): {weighted_rewards[:, :3]}")
+                    # weighted_rewards = weighted_rewards.prod(dim=1) # Shape (P,)
+                    # # print(f"weighted rewards: {weighted_rewards}")
+                    # # if self.accelerator.is_main_process:
+                    #     # print(f"weighted rewards after prod: {weighted_rewards}")
+
+                    importance_weights = torch.exp(per_token_logps.detach().sum(dim=1) - old_per_token_logps.sum(dim=1)).unsqueeze(1) # Shape (P, 1)
+                    print(f"importance weights: {importance_weights}")
+                    print(f"importance weights mean: {importance_weights.float().mean().item()}")
+                    print(torch.equal(per_token_logps, old_per_token_logps))
+                    if importance_weights.mean().item() > 100:
+                        with open("iw_debug.txt", "a") as f:
+                            f.write(f"Step {self.state.global_step}\n")
+                            f.write(f"Importance weight is: {importance_weights}\n")
+                            f.write(f"Per token logps: {per_token_logps}\n")
+                            f.write(f"Old per token logps: {old_per_token_logps}\n")
+                    self._metrics[mode]["importance_weights_pre_clipping"].append(importance_weights.float().mean().item())
+                    importance_weights = torch.clamp(importance_weights, 0.0, 2.0)
+                    self._metrics[mode]["importance_weights_after_clipping"].append(importance_weights.float().mean().item())
+                    self.clips = self.clips + 1
+                    self._metrics[mode]["percentage_of_steps_clipped"].append(self.clips/(self.state.global_step+1))
+                    weighted_rewards = rewards * importance_weights # Shape (P, 1)
+
+                    # gather the weighted rewards across processes for advantage computation
+                    rewards = gather(weighted_rewards) # Shape (P * D, 1)
+                    # if self.accelerator.is_main_process:
+                        # print(f"gathered rewards are: {rewards}")
+                    # # print(f"shape of rewards aftering gathering: {rewards.shape}, {rewards.device}")
+                    # Compute grouped-wise rewards
+                    mean_grouped_rewards = rewards.view(-1, self.num_generations).mean(dim=1) # Shape (PD/N, N) --(mean)--> (P,)
+                    # print(f"mean grouped rewards: {mean_grouped_rewards}")
+                    # if self.accelerator.is_main_process:
+                        # print(f"mean grouped reward is: {mean_grouped_rewards}")
+
+                    # if torch.isnan(mean_grouped_rewards).any():
+                    #     # write them to a file for debugging
+                    #     with open("debug_log.txt", "w") as f:
+                    #         f.write(f"rewards contains nan: {torch.isnan(rewards).any()}\n")
+                    #         f.write(f"weighted_rewards contains nan: {torch.isnan(weighted_rewards).any()}\n")
+                    #         f.write(f"per_token_logps contains nan: {torch.isnan(per_token_logps).any()}\n")
+                    #         f.write(f"old_per_token_logps contains nan: {torch.isnan(old_per_token_logps).any()}\n")
+                    #         f.write(f"coef_1 contains nan: {torch.isnan(coef_1).any()}\n")
+                    #         f.write(f"importance_weights contains nan: {torch.isnan(importance_weights).any()}\n")
+                    #         f.write(f"original_rewards contains nan: {torch.isnan(original_rewards).any()}\n")
+                    #         f.write(f"mean_grouped_rewards contains nan: {torch.isnan(mean_grouped_rewards).any()}\n\n")
+
+                    #         f.write(f"rewards contains inf: {torch.isinf(rewards).any()}\n")
+                    #         f.write(f"weighted_rewards contains inf: {torch.isinf(weighted_rewards).any()}\n")
+                    #         f.write(f"per_token_logps contains inf: {torch.isinf(per_token_logps).any()}\n")
+                    #         f.write(f"old_per_token_logps contains inf: {torch.isinf(old_per_token_logps).any()}\n")
+                    #         f.write(f"coef_1 contains inf: {torch.isinf(coef_1).any()}\n")
+                    #         f.write(f"importance_weights contains inf: {torch.isinf(importance_weights).any()}\n")
+                    #         f.write(f"original_rewards contains inf: {torch.isinf(original_rewards).any()}\n")
+                    #         f.write(f"mean_grouped_rewards contains inf: {torch.isinf(mean_grouped_rewards).any()}\n\n")
+
+                    #         f.write(f"rewards: {rewards}\n")
+                    #         f.write(f"weighted_rewards: {weighted_rewards}\n")
+                    #         f.write(f"per_token_logps: {per_token_logps.detach()}\n")
+                    #         f.write(f"old_per_token_logps: {old_per_token_logps}\n")
+                    #         f.write(f"coef_1: {coef_1.detach()}\n")
+                    #         f.write(f"importance_weights: {importance_weights}\n")
+                    #         f.write(f"original_rewards: {original_rewards}\n")
+                    #         f.write(f"mean_grouped_rewards: {mean_grouped_rewards}\n\n\n")
+
+                    std_grouped_rewards = rewards.view(-1, self.num_generations).std(dim=1) # Shape (PD/N, N) --(mean)--> (P,)
+                    # Normalize the rewards to compute the advantages
+                    mean_grouped_rewards = mean_grouped_rewards.repeat_interleave(self.num_generations, dim=0) # Shape (P * D,)
+                    std_grouped_rewards = std_grouped_rewards.repeat_interleave(self.num_generations, dim=0) # Shape (P * D,)
+                    # if self.accelerator.is_main_process:
+                        # print(f"Shape of mean grouped rewards: {mean_grouped_rewards.shape}")
+                        # print(f"Shape of rewards: {rewards.shape}")
+                    advantages = original_rewards - mean_grouped_rewards # Shape (P * D,)
+                    if self.scale_rewards:
+                        advantages = advantages / (std_grouped_rewards + 1e-4)
+                    # if self.accelerator.is_main_process:
+                    #     print(f"Shape of advantages: {advantages.shape}")
+                    # breakpoint()
+                    # print("advantages", advantages)
+                    # Slice to keep only the local part of the data
+                    
+                    self._metrics[mode]["weighted_advantage (grp mean)"].append(advantages.float().abs().mean().item())
+                    # self._metrics[mode]["policy ratio norm"].append(torch.norm(coef_1.detach()).float().item())
+                    process_slice = slice(
+                        self.accelerator.process_index * prompt_ids.shape[0],
+                        (self.accelerator.process_index + 1) * prompt_ids.shape[0],
+                    )                    
+                    advantages = advantages[process_slice] # Shape (P,)
+                    if skip:
+                        advantages = torch.zeros_like(advantages)  # zero out the advantages if per_token_logps contains nan
+                    self._metrics[mode]["weighted_reward_grp_mean"].append(mean_grouped_rewards.mean().item())
+                    advantages = -advantages
+                per_token_loss = advantages.unsqueeze(-1) * coef_1
+                # log_prob_seq = (per_token_logps * completion_mask).sum(-1) # Shape (P, G) --> (P,)
+                # policy_ratio = torch.exp(per_token_logps.detach().sum(-1) - old_per_token_logps.detach().sum(-1)) # Shape (P, G) --> (P,)
+                # policy_ratio = torch.clamp(policy_ratio, max=1.0)d
+            else:
+                per_token_loss1 = coef_1 * advantages.unsqueeze(1) # (P, G) * (P, 1) --> (P, G)
+                per_token_loss2 = coef_2 * advantages.unsqueeze(1)
+                per_token_loss = -torch.min(per_token_loss1, per_token_loss2)
         else:
             per_token_loss = -per_token_logps * advantages.unsqueeze(1)
 
@@ -1215,8 +1441,11 @@ class GRPOTrainer(Trainer):
             loss = (per_token_loss * completion_mask).sum() / completion_mask.sum().clamp(min=1.0)
         elif self.loss_type == "dr_grpo":
             loss = (per_token_loss * completion_mask).sum() / (per_token_loss.size(0) * self.max_completion_length)
+        elif self.loss_type == "impala":
+            loss = (per_token_loss * completion_mask).sum() / coef_1.size(0)
         else:
             raise ValueError(f"Unknown loss type: {self.loss_type}")
+
 
         # Log the metrics
         mode = "eval" if self.control.should_evaluate else "train"
@@ -1231,7 +1460,12 @@ class GRPOTrainer(Trainer):
                 (coef_1 > 1 + self.epsilon_high) & (advantages.unsqueeze(1) > 0)
             )
             clip_ratio = (is_clipped * completion_mask).sum() / completion_mask.sum()
-            self._metrics[mode]["clip_ratio"].append(self.accelerator.gather_for_metrics(clip_ratio).nanmean().item())
+            # print(advantages.unsqueeze(1))
+            # # check if is_clipped contains any True values
+            # if is_clipped.any():
+            #     print(f"clip ratio contains True values: {is_clipped.any()}")
+            # print(clip_ratio)
+            # self._metrics[mode]["clip_ratio"].append(self.accelerator.gather_for_metrics(clip_ratio).nanmean().item())
         else:
             clip_ratio = 0.0
         return loss

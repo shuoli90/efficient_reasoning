@@ -15,15 +15,12 @@ setup(
         "peft",
         "trl",
         "deepspeed",
-        "vllm==0.8.1",
+        "vllm==0.8.3",
         "antlr4-python3-runtime",
         "numpy",
         "requests",
         "tqdm",
         "wandb",
-        "latex2sympy2",
-        "math_verify",
-        "lighteval",
     ],
     extras_require={
         "develop": [

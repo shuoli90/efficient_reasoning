@@ -20,3 +20,5 @@ wandb/
 scripts/wandb
 scripts/results
 efficient_reasoning/utils/tmp
+results/
+run/wandb

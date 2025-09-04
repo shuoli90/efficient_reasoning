@@ -522,7 +522,10 @@ class GRPOTrainer(Trainer):
             model_name = model if isinstance(model, str) else model.config._name_or_path
             model_name = model_name.split("/")[-1]
             args = GRPOConfig(f"{model_name}-GRPO")
-
+            self.current_gradient_accumulation_steps = 1
+        
+        self.current_gradient_accumulation_steps = args.gradient_accumulation_steps
+        
         # Models
         # Trained model
         model_init_kwargs = args.model_init_kwargs or {}
@@ -2117,7 +2120,7 @@ class GRPOTrainer(Trainer):
             model_name = Path(self.args.output_dir).name
         else:
             model_name = self.args.hub_model_id.split("/")[-1]
-        self.create_model_card(model_name=model_name)
+        #self.create_model_card(model_name=model_name)
         super()._save_checkpoint(model, trial)
 
     def create_model_card(

@@ -23,7 +23,7 @@ for index, dict in enumerate(data):
     formatted_data.append(new_dict)
 
 dataset = Dataset.from_list(formatted_data)
-
+print(formatted_data[0]["prompt"])
 test_data = []
 # with open("../data/MATH-500/test.jsonl") as f:
 #     for line in f:

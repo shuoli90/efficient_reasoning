@@ -53,6 +53,8 @@ def mbppplus_test_eval(model_name: str):
         f.write(f"Individual task results: {individual_task_results}\n")
     
 if __name__ == "__main__":
+    #Old Experiments
+    
     #model_name = "Qwen/Qwen2.5-Math-1.5B"
     #model_name="../scripts/results/1_grpo_0.5B"
     #model_name="../scripts/results/4_grpo_gradient_filtering_0.5B"
@@ -73,6 +75,13 @@ if __name__ == "__main__":
     #model_name="../scripts/results/5_grpo_gradient_filtering_0.5B_new_trainer_01"
     #model_name="../scripts/results/5_grpo_gradient_filtering_1.5B_new_trainer_01"
     #model_name="../scripts/results/6_grpo_no_gf_0.5B_new_trainer"
-    model_name="../scripts/results/6_grpo_no_gf_1.5B_new_trainer"
+    #model_name="../scripts/results/6_grpo_no_gf_1.5B_new_trainer"
     
+    #Post-ARR Experiments
+    #model_name="../results/mbppplus_0.5B_dash_a8_grpo_loss_1/checkpoint-96"
+    #model_name="../results/mbppplus_0.5B_dash_a8_grpo_loss_2/checkpoint-96"
+    #model_name="../results/mbppplus_0.5B_dash_a8_grpo_loss_3/checkpoint-96"
+    #model_name="../results/mbppplus_0.5B_dash_a4_grpo_loss_1/checkpoint-96"
+    #model_name="../results/mbppplus_0.5B_dash_a4_grpo_loss_2/checkpoint-96"
+    #model_name="../results/mbppplus_0.5B_dash_a4_grpo_loss_3/checkpoint-96"
     mbppplus_test_eval(model_name)

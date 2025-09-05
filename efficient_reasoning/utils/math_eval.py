@@ -22,7 +22,7 @@ import os
 import tempfile
 from . import code_utils
 
-Benchmark: TypeAlias = Literal["AIME_2024", "MATH-500", "OlympiadBench-674-MATH_TO_EN", "BigCodeBench", "MBPPPlus"]
+Benchmark: TypeAlias = Literal["AIME_2024", "MATH-500", "OlympiadBench-674-MATH_TO_EN", "BigCodeBench", "MBPPPlus", "MiniF2F"]
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
 # =============================================================================
 # adapted `last_boxed_only_string` and `remove_boxed` functions from MATH
@@ -619,6 +619,31 @@ def extract_final_answer(response_text_list: List[str], verbose: bool = False, b
                 continue
             else:
                 final_answer_list.append(parsed_answer)
+    elif benchmark == "MiniF2F":
+        for response_text in response_text_list:
+            # This simply checks if there is a code pattern discovered in the response text. This might vary from model to model.
+            print(f"Raw model output is: {response_text}")
+            patterns = [
+                    r'```lean(.*?)```',
+                    r'```(.*?)```',
+                    r'^(.*?)$',
+                ]
+            for pattern in patterns:
+                parsed_answer = None
+                s2 = re.findall(pattern, response_text, re.DOTALL)
+                if s2:
+                    print(f"Parsed output is: {s2}")
+                    parsed_answer = s2[-1].strip() 
+                    break
+            if parsed_answer == None or parsed_answer == '':
+                if verbose:
+                    print(f"Error: no code pattern found in the generated output: {response_text}")
+                # We add the response text in case the LLM directly generated code without using a code pattern
+                final_answer_list.append(response_text)
+                failed_list.append(response_text)
+                continue
+            else:
+                final_answer_list.append(parsed_answer)
     else:
         # # get the last 4 lines of the response text
         last_four_lines_list = []
@@ -671,6 +696,33 @@ def check_code(index: int, solution: str, ground_truth_dict: dict[str, str]) -> 
         "status": stat,
         "details": details,
     }
+    
+def check_lean(solution: str, index: int, timeout: int) -> dict:
+    tmp_file_directory = os.path.dirname(os.path.abspath(__file__)).join("lean_eval_dir")
+    tempfile.tempdir = tmp_file_directory
+    tmp_lean_file = tempfile.NamedTemporaryFile(suffix=".lean")
+    with open(tmp_lean_file.name, 'w') as f:
+        f.write(candidate)
+    cmd = f"lake lean {tmp_lean_file.name}"
+    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, cwd = tmp_file_directory, stderr=subprocess.PIPE)
+    result_dict = {}
+    result_dict["index"] = index
+    try:
+        stdout, _ = process.communicate()
+        if stdout == b"":
+            result_dict["success"] = True
+            result_dict["error"] = "None"
+        else:
+            error = stdout.decode()
+            error = re.sub(r"/[^:]+:\d+:\d+: ", "", error)
+            result_dict["success"] = False
+            result_dict["error"] = error
+    except:
+        os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+        result_dict["success"] = False
+        result_dict["error"] = "Unexpected error"
+    return result_dict
+
 
 def compute_accuracy(
     benchmark: Benchmark, ground_truth_list: List[str|dict], final_answer_list: List[str], verbose: bool = False
@@ -758,6 +810,37 @@ def compute_accuracy(
             else:
                 print(f"Result Status: {result_dict['result']} for candidate {final_answer_list[result_dict['task_id']]} for problem {ground_truth_list[result_dict['task_id']]['task_id']}")
 
+        print(f"Accuracy List: {accuracy_list}")
+        return accuracy_list
+    elif benchmark == "MiniF2F":
+        timeout=10.0        
+        old_tmp_dir = tempfile.gettempdir()
+        n_workers = max(1, cpu_count() // 2)
+        with ThreadPoolExecutor(max_workers=n_workers) as executor:
+            futures = []
+            completion_id = Counter()
+            n_samples = 0
+            results = defaultdict(list)
+
+            for task_id, candidate in enumerate(final_answer_list):
+                args = (candidate, task_id, timeout)
+                future = executor.submit(check_lean, *args)
+                futures.append(future)
+                completion_id[task_id] += 1
+                n_samples += 1
+        
+            for future in tqdm(as_completed(futures), total=len(final_answer_list)):
+                try:
+                    result = future.result()
+                    results[result["task_id"]].append(result)
+                except Exception as e:
+                    print(f"An error occurred: {e}")
+        accuracy_list = [False]*len(final_answer_list)
+        for result in results.values():
+            assert len(result) == 1, f"More than one result for task {result[0]['index']} and result {result}."
+            accuracy_list[result[0]['index']] = result[0]['success']
+            if not result[0]['success']:
+                print(f"Result Error: {result[0]['error']} for candidate {final_answer_list[result[0]['index']]}")
         print(f"Accuracy List: {accuracy_list}")
         return accuracy_list
     else:

@@ -1,0 +1,8 @@
+name = "minif2f"
+
+[leanOptions]
+linter.unusedVariables = false
+
+[[require]]
+name = "mathlib"
+scope = "leanprover-community"

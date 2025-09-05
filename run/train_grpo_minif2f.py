@@ -72,7 +72,7 @@ def reward(prompts, completions, answer, **kwargs):
 training_args = GRPOConfig(
     max_prompt_length=1900,
     learning_rate=1e-06,
-    output_dir=f"../results/minif2f_0.5B_grpo_2",
+    output_dir=f"../results/minif2f_0.5B_grpo_3",
     logging_steps=1,
     per_device_train_batch_size=2,
     use_vllm=True,

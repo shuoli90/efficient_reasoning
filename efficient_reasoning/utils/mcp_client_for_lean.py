@@ -67,7 +67,7 @@ import signal
 if __name__ == "__main__":
     # import sys
     # asyncio.run(main())
-    with open("lean_eval_dir/lake_test_2.lean", 'r') as f:
+    with open("lean_eval_dir/lake_test_3.lean", 'r') as f:
     #with open("lean_eval_dir/tmpb_7mg0wn.lean", 'r') as f:
         candidate = f.read()
     tmp_file_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lean_eval_dir")
@@ -77,13 +77,16 @@ if __name__ == "__main__":
     with open(tmp_lean_file.name, 'w') as f:
         f.write(candidate)
     cmd = f"lake lean {tmp_lean_file.name}"
-    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, cwd = tmp_file_directory, stderr=subprocess.PIPE)
+    # process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, cwd = tmp_file_directory, stderr=subprocess.PIPE)
+    process = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, cwd = tmp_file_directory, stderr=subprocess.PIPE, timeout=600)
+    stdout = process.stdout
+    _ = process.stderr
     try:
-        stdout, _ = process.communicate()
+        #stdout, _ = process.communicate()
         print(f"Stdout: {stdout} \n")
         print(f"Stderr: {_} \n")
         error = stdout.decode()
         print(f"Decoded Error: {error} \n")
     except:
-        os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+        #     os.killpg(os.getpgid(process.pid), signal.SIGTERM)
         print("Unexpected error")

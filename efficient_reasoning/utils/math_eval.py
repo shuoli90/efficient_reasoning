@@ -22,6 +22,7 @@ import os
 import tempfile
 from . import code_utils
 import subprocess
+import signal
 
 Benchmark: TypeAlias = Literal["AIME_2024", "MATH-500", "OlympiadBench-674-MATH_TO_EN", "BigCodeBench", "MBPPPlus", "MiniF2F"]
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -707,11 +708,13 @@ def check_lean(solution: str, index: int) -> dict:
     with open(tmp_lean_file.name, 'w') as f:
         f.write(solution)
     cmd = f"lake lean {tmp_lean_file.name}"
-    process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, cwd = tmp_file_directory, stderr=subprocess.PIPE)
     result_dict = {}
     result_dict["index"] = index
     try:
-        stdout, stderr = process.communicate()
+        process = subprocess.run(cmd, shell=True, stdout=subprocess.PIPE, cwd = tmp_file_directory, stderr=subprocess.PIPE, timeout=600)
+        #stdout, stderr = process.communicate()
+        stdout = process.stdout
+        stderr = process.stderr
         if stdout == b"" and stderr == b"":
             result_dict["success"] = True
             result_dict["error"] = "None"
@@ -722,10 +725,10 @@ def check_lean(solution: str, index: int) -> dict:
                 error += "\n" + stderr.decode()
             result_dict["success"] = False
             result_dict["error"] = error
-    except:
-        os.killpg(os.getpgid(process.pid), signal.SIGTERM)
+    except Exception as e:
+        #os.killpg(os.getpgid(process.pid), signal.SIGTERM)
         result_dict["success"] = False
-        result_dict["error"] = "Unexpected error"
+        result_dict["error"] = f"Unexpected error {e}"
     return result_dict
 
 

@@ -21,6 +21,7 @@ from multiprocessing import cpu_count
 import os
 import tempfile
 from . import code_utils
+import subprocess
 
 Benchmark: TypeAlias = Literal["AIME_2024", "MATH-500", "OlympiadBench-674-MATH_TO_EN", "BigCodeBench", "MBPPPlus", "MiniF2F"]
 ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
@@ -620,6 +621,8 @@ def extract_final_answer(response_text_list: List[str], verbose: bool = False, b
             else:
                 final_answer_list.append(parsed_answer)
     elif benchmark == "MiniF2F":
+        final_answer_list = []
+        failed_list = []
         for response_text in response_text_list:
             # This simply checks if there is a code pattern discovered in the response text. This might vary from model to model.
             print(f"Raw model output is: {response_text}")
@@ -697,24 +700,26 @@ def check_code(index: int, solution: str, ground_truth_dict: dict[str, str]) -> 
         "details": details,
     }
     
-def check_lean(solution: str, index: int, timeout: int) -> dict:
-    tmp_file_directory = os.path.dirname(os.path.abspath(__file__)).join("lean_eval_dir")
+def check_lean(solution: str, index: int) -> dict:
+    tmp_file_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lean_eval_dir")
     tempfile.tempdir = tmp_file_directory
     tmp_lean_file = tempfile.NamedTemporaryFile(suffix=".lean")
     with open(tmp_lean_file.name, 'w') as f:
-        f.write(candidate)
+        f.write(solution)
     cmd = f"lake lean {tmp_lean_file.name}"
     process = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, cwd = tmp_file_directory, stderr=subprocess.PIPE)
     result_dict = {}
     result_dict["index"] = index
     try:
-        stdout, _ = process.communicate()
-        if stdout == b"":
+        stdout, stderr = process.communicate()
+        if stdout == b"" and stderr == b"":
             result_dict["success"] = True
             result_dict["error"] = "None"
         else:
             error = stdout.decode()
             error = re.sub(r"/[^:]+:\d+:\d+: ", "", error)
+            if stderr != b"":
+                error += "\n" + stderr.decode()
             result_dict["success"] = False
             result_dict["error"] = error
     except:
@@ -813,7 +818,7 @@ def compute_accuracy(
         print(f"Accuracy List: {accuracy_list}")
         return accuracy_list
     elif benchmark == "MiniF2F":
-        timeout=10.0        
+        #timeout=100.0        
         old_tmp_dir = tempfile.gettempdir()
         n_workers = max(1, cpu_count() // 2)
         with ThreadPoolExecutor(max_workers=n_workers) as executor:
@@ -823,7 +828,9 @@ def compute_accuracy(
             results = defaultdict(list)
 
             for task_id, candidate in enumerate(final_answer_list):
-                args = (candidate, task_id, timeout)
+                ground_truth_dict = ground_truth_list[task_id]
+                proof = f"{ground_truth_dict['header']}\n{ground_truth_dict['formal_statement'].replace(':= sorry', ':= by')}\n{candidate}"
+                args = (proof, task_id)
                 future = executor.submit(check_lean, *args)
                 futures.append(future)
                 completion_id[task_id] += 1
@@ -832,7 +839,7 @@ def compute_accuracy(
             for future in tqdm(as_completed(futures), total=len(final_answer_list)):
                 try:
                     result = future.result()
-                    results[result["task_id"]].append(result)
+                    results[result["index"]].append(result)
                 except Exception as e:
                     print(f"An error occurred: {e}")
         accuracy_list = [False]*len(final_answer_list)
@@ -842,6 +849,7 @@ def compute_accuracy(
             if not result[0]['success']:
                 print(f"Result Error: {result[0]['error']} for candidate {final_answer_list[result[0]['index']]}")
         print(f"Accuracy List: {accuracy_list}")
+        tempfile.tempdir = old_tmp_dir
         return accuracy_list
     else:
         # initialize the scorer from OlympiadBench, it's almost compatible with the AIME_2024 and MATH benchmarks

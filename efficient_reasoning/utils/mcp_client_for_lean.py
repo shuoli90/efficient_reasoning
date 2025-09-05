@@ -67,7 +67,8 @@ import signal
 if __name__ == "__main__":
     # import sys
     # asyncio.run(main())
-    with open("lean_eval_dir/lake_test.lean", 'r') as f:
+    with open("lean_eval_dir/lake_test_2.lean", 'r') as f:
+    #with open("lean_eval_dir/tmpb_7mg0wn.lean", 'r') as f:
         candidate = f.read()
     tmp_file_directory = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lean_eval_dir")
     old_tmp_dir = tempfile.gettempdir()

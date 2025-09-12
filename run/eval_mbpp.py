@@ -89,5 +89,8 @@ if __name__ == "__main__":
     #model_name="../results/mbppplus_0.5B_dapo_3/checkpoint-99"
     #model_name="../results/mbppplus_0.5B_grpo_1/checkpoint-99"
     #model_name="../results/mbppplus_0.5B_grpo_2/checkpoint-99"
-    model_name="../results/mbppplus_0.5B_grpo_3/checkpoint-99"
+    #model_name="../results/mbppplus_0.5B_grpo_3/checkpoint-99"
+    #model_name="../results/mbppplus_0.5B_policy_gradient_1/checkpoint-99"
+    #model_name="../results/mbppplus_0.5B_policy_gradient_2/checkpoint-99"
+    model_name="../results/mbppplus_0.5B_policy_gradient_3/checkpoint-99"
     mbppplus_test_eval(model_name)

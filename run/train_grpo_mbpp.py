@@ -107,10 +107,38 @@ def reward(prompts, completions, answer, **kwargs):
 # )
 
 #DAPO Config
+# training_args = GRPOConfig(
+#     max_prompt_length=1900,
+#     learning_rate=1e-06,
+#     output_dir=f"../results/mbppplus_0.5B_dapo_3",
+#     logging_steps=1,
+#     per_device_train_batch_size=2,
+#     use_vllm=True,
+#     vllm_mode="colocate",
+#     num_generations=4,
+#     scale_rewards=False,
+#     save_strategy="epoch",
+#     max_completion_length=2048,
+#     beta=0.0,
+#     gradient_accumulation_steps=4,
+#     num_train_epochs=3.0,
+#     loss_type="dapo", # dash, grpo
+#     # steps_per_generation=128,
+#     # reward_iw=True,
+#     # iw_clip=2.0,
+#     vllm_gpu_memory_utilization=0.3,
+#     do_eval=True,
+#     eval_strategy="epoch",
+#     eval_on_start=True,
+#     per_device_eval_batch_size=16,
+#     bf16=True,
+#     )
+
+#Policy Gradient Config
 training_args = GRPOConfig(
     max_prompt_length=1900,
     learning_rate=1e-06,
-    output_dir=f"../results/mbppplus_0.5B_dapo_3",
+    output_dir=f"../results/mbppplus_0.5B_policy_gradient_3",
     logging_steps=1,
     per_device_train_batch_size=2,
     use_vllm=True,
@@ -122,7 +150,7 @@ training_args = GRPOConfig(
     beta=0.0,
     gradient_accumulation_steps=4,
     num_train_epochs=3.0,
-    loss_type="dapo", # dash, grpo
+    loss_type="grpo",
     # steps_per_generation=128,
     # reward_iw=True,
     # iw_clip=2.0,
@@ -132,7 +160,7 @@ training_args = GRPOConfig(
     eval_on_start=True,
     per_device_eval_batch_size=16,
     bf16=True,
-    )
+)
     
 trainer = GRPOTrainer(
     model="Qwen/Qwen2.5-0.5B",

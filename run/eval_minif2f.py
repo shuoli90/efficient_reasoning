@@ -56,5 +56,10 @@ def minif2f_test_eval(model_name: str):
         f.write(f"Individual task results: {individual_task_results}\n")
     
 if __name__ == "__main__":
-    model_name="../results/minif2f_0.5B_grpo_3/checkpoint-90"
+    #model_name="../results/minif2f_0.5B_grpo_1/checkpoint-90"
+    #model_name="../results/minif2f_0.5B_grpo_2/checkpoint-90"
+    #model_name="../results/minif2f_0.5B_grpo_3/checkpoint-90"
+    #model_name="../results/minif2f_0.5B_dash_a4_grpo_loss_1/checkpoint-84"
+    #model_name="../results/minif2f_0.5B_dash_a4_grpo_loss_2/checkpoint-84"
+    #model_name="../results/minif2f_0.5B_dash_a4_grpo_loss_3/checkpoint-84"
     minif2f_test_eval(model_name)

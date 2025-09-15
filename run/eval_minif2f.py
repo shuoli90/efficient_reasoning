@@ -50,7 +50,7 @@ def minif2f_test_eval(model_name: str):
     model_sanitized = model_name.replace("/", "_")
     print(f"Pass@1 for {model_name} on {len(ground_truth_list_at_one)} tasks is {sum(results_pass_at_one)/len(ground_truth_list_at_one)}")
     print(f"Pass@8 for {model_name} on {len(list(individual_task_results.keys()))} tasks is {sum(list(individual_task_results.values()))/len(list(individual_task_results.keys()))}")
-    with open(f"baseline_results/{model_sanitized}_mbppplus_results.txt", "w") as f:
+    with open(f"baseline_results/{model_sanitized}_minif2f_results.txt", "w") as f:
         f.write(f"Pass@1 for {model_name} on {len(ground_truth_list_at_one)} tasks is {sum(results_pass_at_one)/len(ground_truth_list_at_one)}\n")
         f.write(f"Pass@8 for {model_name} on {len(list(individual_task_results.keys()))} tasks is {sum(list(individual_task_results.values()))/len(list(individual_task_results.keys()))}\n")
         f.write(f"Individual task results: {individual_task_results}\n")
@@ -62,4 +62,15 @@ if __name__ == "__main__":
     #model_name="../results/minif2f_0.5B_dash_a4_grpo_loss_1/checkpoint-84"
     #model_name="../results/minif2f_0.5B_dash_a4_grpo_loss_2/checkpoint-84"
     #model_name="../results/minif2f_0.5B_dash_a4_grpo_loss_3/checkpoint-84"
+    #model_name="../results/minif2f_0.5B_dash_a8_grpo_loss_1/checkpoint-72"
+    #model_name="../results/minif2f_0.5B_dash_a8_grpo_loss_2/checkpoint-72"
+    #model_name="../results/minif2f_0.5B_dash_a8_grpo_loss_3/checkpoint-72"
+    #model_name ="../results/minif2f_0.5B_dapo_1/checkpoint-90"
+    #model_name ="../results/minif2f_0.5B_dapo_2/checkpoint-90"
+    #model_name ="../results/minif2f_0.5B_dapo_3/checkpoint-90"
+    #model_name ="../results/minif2f_0.5B_policy_gradient_1/checkpoint-90"
+    #model_name ="../results/minif2f_0.5B_policy_gradient_2/checkpoint-90"
+    #model_name ="../results/minif2f_0.5B_policy_gradient_3/checkpoint-90"
+    
+    model_name = "Qwen/Qwen2.5-0.5B"
     minif2f_test_eval(model_name)

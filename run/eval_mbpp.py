@@ -94,5 +94,8 @@ if __name__ == "__main__":
     #model_name="../results/mbppplus_0.5B_policy_gradient_2/checkpoint-99"
     #model_name="../results/mbppplus_0.5B_policy_gradient_3/checkpoint-99"
     
-    model_name = "Qwen/Qwen2.5-0.5B"
+    #model_name = "Qwen/Qwen2.5-0.5B"
+    #model_name = "../results/0.5B_SFT_MBPPPlus-iclr2026_1/checkpoint-108"
+    #model_name = "../results/0.5B_SFT_MBPPPlus-iclr2026_2/checkpoint-108"
+    model_name = "../results/0.5B_SFT_MBPPPlus-iclr2026_3/checkpoint-108"
     mbppplus_test_eval(model_name)

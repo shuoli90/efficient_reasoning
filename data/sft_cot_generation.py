@@ -13,11 +13,17 @@ if __name__ == "__main__":
     parser.add_argument("--gpus", type=int, default = 4) # change
     args = parser.parse_args()
 
-    dataset_path = f"./{args.dataset}/train.jsonl"
+    if args.benchmark == "MiniF2F":
+        dataset_path = f"./{args.dataset}/minif2f_validation.jsonl"
+    else:
+        dataset_path = f"./{args.dataset}/train.jsonl"
     dataset = []
     with open(dataset_path, 'r') as f:
         for line in f:
-            dataset.append(json.loads(line))
+            if args.benchmark == "MBPPPlus":
+                dataset.append(eval(line))
+            else:
+                dataset.append(json.loads(line))
 
     # To continue from a checkpoint
     # dataset = dataset[3870:]
@@ -37,16 +43,16 @@ if __name__ == "__main__":
     # first_n = 5
 
     for entry in dataset[:len(dataset)]:
-        if benchmark == "MATH-500":
+        if args.benchmark == "MATH-500":
             prompt = entry['problem']
             # prompt =  f"Solve the following math problem with step by step solutions. Box your final answer (result only, no extra words) using LaTeX notation, e.g., \\boxed{{1.36}}. You should only box your final answer once at the end of your solution. Nothing else should be boxed.\n\n{problem}"
             # prompts.append(prompt)
-        elif benchmark == "MBPPPlus":
+        elif args.benchmark == "MBPPPlus":
             description = entry["prompt"]
             test_example = entry["test_list"][0]
             prompt = f'"""\n{description}\n{test_example}\n"""\n'
             ground_truth_dicts.append(entry)
-        elif benchmark == "MiniF2F":
+        elif args.benchmark == "MiniF2F":
             description_string = "Complete the proof of the following theorem in Lean4. Only output the proof enclosed in a Markdown code block."
             assert(entry["formal_statement"].endswith(":= sorry"))
             description = entry["formal_statement"].replace(":= sorry", ":= by")
@@ -70,11 +76,11 @@ if __name__ == "__main__":
         print(generated_solutions)
         print(len(generated_solutions))
 
-        if benchmark == "MATH-500":
+        if args.benchmark == "MATH-500":
             correct_answers = [entry['answer'] for entry in dataset[index:index+batch_size] for _ in range(args.response_num)]
             print(len(correct_answers))
         else:
-            correct_answers += [entry for entry in ground_truth_dicts[index:index+batch_size] for _ in range(args.response_num)]
+            correct_answers = [entry for entry in ground_truth_dicts[index:index+batch_size] for _ in range(args.response_num)]
                 
         evaluation = evaluate(args.benchmark, generated_solutions, correct_answers)
         print(evaluation)
@@ -102,8 +108,8 @@ if __name__ == "__main__":
         print(generated_set)
         print(len(generated_set))
 
-        os.makedirs(os.path.dirname(f"./iclr2026_sft/mbppplus/train.jsonl"), exist_ok=True)
-        with open(f"./iclr2026_sft/mbppplus/train.jsonl", "a") as f:  # Change mode from "w" to "a"
+        os.makedirs(os.path.dirname(f"./iclr2026_sft/{args.benchmark}/train.jsonl"), exist_ok=True)
+        with open(f"./iclr2026_sft/{args.benchmark}/train.jsonl", "a") as f:  # Change mode from "w" to "a"
             for entry in generated_set:
                 f.write(json.dumps(entry) + "\n")
 

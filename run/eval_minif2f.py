@@ -73,7 +73,15 @@ if __name__ == "__main__":
     #model_name ="../results/minif2f_0.5B_policy_gradient_3/checkpoint-90"
     
     #model_name = "Qwen/Qwen2.5-0.5B"
+    
     #model_name = "../results/0.5B_SFT_MiniF2F-iclr2026_1/checkpoint-3"
     #model_name = "../results/0.5B_SFT_MiniF2F-iclr2026_2/checkpoint-3"
-    model_name = "../results/0.5B_SFT_MiniF2F-iclr2026_3/checkpoint-3"
+    #model_name = "../results/0.5B_SFT_MiniF2F-iclr2026_3/checkpoint-3"
+    
+    #model_name = "../results/minif2f_0.5B_dash_a16_grpo_loss_1/checkpoint-48"
+    #model_name = "../results/minif2f_0.5B_dash_a16_grpo_loss_2/checkpoint-48"
+    #model_name = "../results/minif2f_0.5B_dash_a16_grpo_loss_3/checkpoint-48"
+    #model_name = "../results/minif2f_0.5B_dash_a2_grpo_loss_1/checkpoint-90"
+    #model_name = "../results/minif2f_0.5B_dash_a2_grpo_loss_2/checkpoint-90"
+    #model_name = "../results/minif2f_0.5B_dash_a2_grpo_loss_3/checkpoint-90"
     minif2f_test_eval(model_name)

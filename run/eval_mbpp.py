@@ -97,5 +97,13 @@ if __name__ == "__main__":
     #model_name = "Qwen/Qwen2.5-0.5B"
     #model_name = "../results/0.5B_SFT_MBPPPlus-iclr2026_1/checkpoint-108"
     #model_name = "../results/0.5B_SFT_MBPPPlus-iclr2026_2/checkpoint-108"
-    model_name = "../results/0.5B_SFT_MBPPPlus-iclr2026_3/checkpoint-108"
+    #model_name = "../results/0.5B_SFT_MBPPPlus-iclr2026_3/checkpoint-108"
+    
+    #model_name = "../results/mbppplus_0.5B_dash_a2_grpo_loss_1/checkpoint-96"
+    #model_name = "../results/mbppplus_0.5B_dash_a2_grpo_loss_2/checkpoint-96"
+    #model_name = "../results/mbppplus_0.5B_dash_a2_grpo_loss_3/checkpoint-96"
+    
+    #model_name = "../results/mbppplus_0.5B_dash_a16_grpo_loss_1/checkpoint-96"
+    #model_name = "../results/mbppplus_0.5B_dash_a16_grpo_loss_2/checkpoint-96"
+    model_name = "../results/mbppplus_0.5B_dash_a16_grpo_loss_3/checkpoint-96"
     mbppplus_test_eval(model_name)

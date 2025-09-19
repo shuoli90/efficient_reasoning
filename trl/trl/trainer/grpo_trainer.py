@@ -1458,7 +1458,7 @@ class GRPOTrainer(Trainer):
             # applies it. Otherwise, it assumes that the chat template uses only vision_start_token_id to indicate images
             # (e.g. Gemma 3) and removes all image_token instances and vision_end_token_id as well, leaving only
             # the vision_start_token_id (e.g. <start_of_image>).
-            if self.image_token is not None:
+            if has_images and self.image_token is not None:
                 escaped_img_token = re.escape(self.image_token)
                 # Search for the image token in the chat template
                 if re.search(escaped_img_token, self.processing_class.chat_template):

@@ -190,7 +190,7 @@ training_args = GRPOConfig(
 )
     
 trainer = GRPOTrainer(
-    model="google/gemma-3-1b-pt",
+    model="Qwen/Qwen2.5-0.5B", #"google/gemma-3-1b-pt",
     reward_funcs=reward,
     args=training_args,
     train_dataset=dataset,

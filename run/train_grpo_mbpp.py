@@ -168,7 +168,7 @@ training_args = GRPOConfig(
     learning_rate=1e-06,
     output_dir=f"../results/mbppplus_0.5B_dash_a8_grpo_loss_false_iw_1",
     logging_steps=1,
-    per_device_train_batch_size=1,
+    per_device_train_batch_size=2,
     use_vllm=True,
     vllm_mode="colocate",
     num_generations=4,
@@ -182,11 +182,11 @@ training_args = GRPOConfig(
     steps_per_generation=32, #16, 32, 8, 64
     reward_iw=False,
     iw_clip=2.0,
-    vllm_gpu_memory_utilization=0.1,
+    vllm_gpu_memory_utilization=0.3,
     do_eval=True,
     eval_strategy="epoch",
     eval_on_start=True,
-    per_device_eval_batch_size=8,
+    per_device_eval_batch_size=16,
     bf16=True,
 )
     

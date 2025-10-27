@@ -162,6 +162,7 @@ def reward(prompts, completions, answer, **kwargs):
 #     bf16=True,
 # )
 
+#RAPID with reward_iw False and A8
 training_args = GRPOConfig(
     max_prompt_length=1900,
     learning_rate=1e-06,
@@ -178,7 +179,7 @@ training_args = GRPOConfig(
     gradient_accumulation_steps=4,
     num_train_epochs=3.0,
     loss_type="grpo",
-    steps_per_generation=16, #16, 32, 8, 64
+    steps_per_generation=32, #16, 32, 8, 64
     reward_iw=False,
     iw_clip=2.0,
     vllm_gpu_memory_utilization=0.1,

@@ -22,3 +22,4 @@ scripts/results
 efficient_reasoning/utils/tmp
 results/
 run/wandb
+run/baseline_results

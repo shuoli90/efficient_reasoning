@@ -105,5 +105,37 @@ if __name__ == "__main__":
     
     #model_name = "../results/mbppplus_0.5B_dash_a16_grpo_loss_1/checkpoint-96"
     #model_name = "../results/mbppplus_0.5B_dash_a16_grpo_loss_2/checkpoint-96"
-    model_name = "../results/mbppplus_0.5B_dash_a16_grpo_loss_3/checkpoint-96"
+    #model_name = "../results/mbppplus_0.5B_dash_a16_grpo_loss_3/checkpoint-96"
+    
+    #model_name = "google/gemma-3-270m"
+    #model_name = "../results/other_models/gemma_270m_SFT_MBPPPlus-iclr2026_1/checkpoint-108"
+    #model_name = "../results/other_models/mbppplus_gemma_270m_dash_a4_grpo_loss_1/checkpoint-192"
+    #model_name = "../results/other_models/mbppplus_gemma_270m_grpo_1/checkpoint-198"
+    #model_name = "../results/other_models/mbppplus_gemma_270m_policy_gradient_1/checkpoint-198"
+    #model_name = "../results/other_models/mbppplus_gemma_270m_dapo_1/checkpoint-198"
+    
+    #model_name = "google/gemma-3-270m"
+    #model_name = "google/gemma-3-270m-it"
+    #model_name = "meta-llama/Llama-3.2-1B"
+    #model_name = "../results/other_models/llama_1b_SFT_MBPPPlus-iclr2026_1/checkpoint-108"
+    #model_name = "../results/other_models/mbppplus_llama_1b_grpo_1/checkpoint-198"
+    #model_name = "../results/other_models/mbppplus_llama_1b_policy_gradient_1/checkpoint-198"
+    #model_name = "../results/other_models/mbppplus_llama_1b_dash_a4_grpo_loss_1/checkpoint-192"
+    #model_name = "../results/other_models/mbppplus_llama_1b_dapo_1/checkpoint-198"
+    
+    #model_name = "google/gemma-3-1b-pt"
+    #model_name = "Qwen/Qwen2.5-1.5B"
+    #model_name = "../results/other_models/qwen2.5_1.5B_SFT_MBPPPlus-iclr2026_1/checkpoint-108"
+    #model_name = "../results/other_models/mbppplus_qwen2.5_1.5B_dash_a4_grpo_loss_1/checkpoint-192"
+    #model_name = "../results/other_models/mbppplus_qwen2.5_1.5B_grpo_1/checkpoint-198"
+    #model_name = "../results/other_models/mbppplus_qwen2.5_1.5B_policy_gradient_1/checkpoint-198"
+    #model_name = "../results/other_models/mbppplus_qwen2.5_1.5B_dapo_1/checkpoint-198"
+    #model_name = "google/gemma-2-2b-it"
+    
+    #model_name = "google/gemma-3-1b-pt"
+    #model_name = "../results/other_models/gemma_1B_SFT_MBPPPlus-iclr2026_1/checkpoint-108"
+    #model_name = "../results/other_models/mbppplus_gemma_1B_dash_a4_grpo_loss_1/checkpoint-192"
+    #model_name = "../results/other_models/mbppplus_gemma_1B_grpo_1/checkpoint-198"
+    #model_name = "../results/other_models/mbppplus_gemma_1B_policy_gradient_1/checkpoint-198"
+    model_name = "../results/other_models/mbppplus_gemma_1B_dapo_1/checkpoint-198"
     mbppplus_test_eval(model_name)

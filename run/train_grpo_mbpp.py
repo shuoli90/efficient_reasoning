@@ -51,32 +51,32 @@ def reward(prompts, completions, answer, **kwargs):
     return evaluate('MBPPPlus', completions, answer)
 
 #DASH A4 Config (for A8 change steps_per_generation to 32, A2 change to 8, A16 change to 64)
-training_args = GRPOConfig(
-    max_prompt_length=1900,
-    learning_rate=1e-06,
-    output_dir=f"../results/other_models/mbppplus_gemma_1B_dash_a4_grpo_loss_1",
-    logging_steps=1,
-    per_device_train_batch_size=1,
-    use_vllm=True,
-    vllm_mode="colocate",
-    num_generations=4,
-    scale_rewards=False,
-    save_strategy="epoch",
-    max_completion_length=2048,
-    beta=0.0,
-    gradient_accumulation_steps=4,
-    num_train_epochs=3.0,
-    loss_type="grpo",
-    steps_per_generation=16, #16, 32, 8, 64
-    reward_iw=True,
-    iw_clip=2.0,
-    vllm_gpu_memory_utilization=0.1,
-    do_eval=True,
-    eval_strategy="epoch",
-    eval_on_start=True,
-    per_device_eval_batch_size=8,
-    bf16=True,
-)
+# training_args = GRPOConfig(
+#     max_prompt_length=1900,
+#     learning_rate=1e-06,
+#     output_dir=f"../results/other_models/mbppplus_gemma_1B_dash_a4_grpo_loss_1",
+#     logging_steps=1,
+#     per_device_train_batch_size=1,
+#     use_vllm=True,
+#     vllm_mode="colocate",
+#     num_generations=4,
+#     scale_rewards=False,
+#     save_strategy="epoch",
+#     max_completion_length=2048,
+#     beta=0.0,
+#     gradient_accumulation_steps=4,
+#     num_train_epochs=3.0,
+#     loss_type="grpo",
+#     steps_per_generation=16, #16, 32, 8, 64
+#     reward_iw=True,
+#     iw_clip=2.0,
+#     vllm_gpu_memory_utilization=0.1,
+#     do_eval=True,
+#     eval_strategy="epoch",
+#     eval_on_start=True,
+#     per_device_eval_batch_size=8,
+#     bf16=True,
+# )
 
 #GRPO Config
 # training_args = GRPOConfig(
@@ -161,6 +161,33 @@ training_args = GRPOConfig(
 #     per_device_eval_batch_size=8,
 #     bf16=True,
 # )
+
+training_args = GRPOConfig(
+    max_prompt_length=1900,
+    learning_rate=1e-06,
+    output_dir=f"../results/mbppplus_0.5B_dash_a8_grpo_loss_false_iw_1",
+    logging_steps=1,
+    per_device_train_batch_size=1,
+    use_vllm=True,
+    vllm_mode="colocate",
+    num_generations=4,
+    scale_rewards=False,
+    save_strategy="epoch",
+    max_completion_length=2048,
+    beta=0.0,
+    gradient_accumulation_steps=4,
+    num_train_epochs=3.0,
+    loss_type="grpo",
+    steps_per_generation=16, #16, 32, 8, 64
+    reward_iw=False,
+    iw_clip=2.0,
+    vllm_gpu_memory_utilization=0.1,
+    do_eval=True,
+    eval_strategy="epoch",
+    eval_on_start=True,
+    per_device_eval_batch_size=8,
+    bf16=True,
+)
     
 trainer = GRPOTrainer(
     model="google/gemma-3-1b-pt",

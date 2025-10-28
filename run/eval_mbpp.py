@@ -137,5 +137,7 @@ if __name__ == "__main__":
     #model_name = "../results/other_models/mbppplus_gemma_1B_dash_a4_grpo_loss_1/checkpoint-192"
     #model_name = "../results/other_models/mbppplus_gemma_1B_grpo_1/checkpoint-198"
     #model_name = "../results/other_models/mbppplus_gemma_1B_policy_gradient_1/checkpoint-198"
-    model_name = "../results/other_models/mbppplus_gemma_1B_dapo_1/checkpoint-198"
+    #model_name = "../results/other_models/mbppplus_gemma_1B_dapo_1/checkpoint-198"
+    
+    model_name = "../results/mbppplus_0.5B_dash_a8_grpo_loss_false_iw_1/checkpoint-192"
     mbppplus_test_eval(model_name)

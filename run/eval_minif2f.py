@@ -80,8 +80,9 @@ if __name__ == "__main__":
     
     #model_name = "../results/minif2f_0.5B_dash_a16_grpo_loss_1/checkpoint-48"
     #model_name = "../results/minif2f_0.5B_dash_a16_grpo_loss_2/checkpoint-48"
-    model_name = "../results/minif2f_0.5B_dash_a16_grpo_loss_3/checkpoint-48"
+    #model_name = "../results/minif2f_0.5B_dash_a16_grpo_loss_3/checkpoint-48"
     #model_name = "../results/minif2f_0.5B_dash_a2_grpo_loss_1/checkpoint-90"
     #model_name = "../results/minif2f_0.5B_dash_a2_grpo_loss_2/checkpoint-90"
     #model_name = "../results/minif2f_0.5B_dash_a2_grpo_loss_3/checkpoint-90"
+    model_name = "../results/minif2f_0.5B_dash_a8_grpo_loss_false_iw_1/checkpoint-72"
     minif2f_test_eval(model_name)

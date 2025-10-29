@@ -188,6 +188,8 @@ training_args = GRPOConfig(
     eval_on_start=True,
     per_device_eval_batch_size=16,
     bf16=True,
+    epsilon=0.0,
+    epsilon_high=0.0
 )
     
 trainer = GRPOTrainer(

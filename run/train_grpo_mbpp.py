@@ -166,7 +166,7 @@ def reward(prompts, completions, answer, **kwargs):
 training_args = GRPOConfig(
     max_prompt_length=1900,
     learning_rate=1e-06,
-    output_dir=f"../results/mbppplus_0.5B_dash_a8_grpo_loss_false_iw_3",
+    output_dir=f"../results/mbppplus_0.5B_dash_a8_grpo_loss_false_iw_epsilon_0_1",
     logging_steps=1,
     per_device_train_batch_size=2,
     use_vllm=True,
